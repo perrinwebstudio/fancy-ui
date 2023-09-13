@@ -6,7 +6,7 @@
 
 ## Development server
 
-Run `nx serve fancyai-web-client` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `nx serve source` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
 ## Understand this workspace
 
