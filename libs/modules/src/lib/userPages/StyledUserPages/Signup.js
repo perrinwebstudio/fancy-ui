@@ -1,11 +1,11 @@
-import React from 'react';
-import IntlMessages from '@crema/helpers/IntlMessages';
-import AppAnimate from '@crema/components/AppAnimate';
-import AppRowContainer from '@crema/components/AppRowContainer';
-import { Checkbox, Col, Form, Input } from 'antd';
-import { useIntl } from 'react-intl';
-import AppPageMeta from '@crema/components/AppPageMeta';
-import { ReactComponent as Logo } from '../../../assets/user/signup.svg';
+import React from "react";
+import IntlMessages from "@crema/helpers/IntlMessages";
+import AppAnimate from "@crema/components/AppAnimate";
+import AppRowContainer from "@crema/components/AppRowContainer";
+import { Typography, Checkbox, Col, Form, Input } from "antd";
+import { useIntl } from "react-intl";
+import AppPageMeta from "@crema/components/AppPageMeta";
+import { ReactComponent as Logo } from "../../../assets/user/signup.svg";
 import {
   StyledUserCardFooter,
   StyledUserCardFooterLink,
@@ -18,14 +18,16 @@ import {
   StyledUserFormBtn,
   StyledUserPages,
   StyledUserStyledImg,
-} from '../index.styled';
+  StyledDiv,
+} from "../index.styled";
+const { Text } = Typography;
 
 const onFinish = (values) => {
-  console.log('Success:', values);
+  console.log("Success:", values);
 };
 
 const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
+  console.log("Failed:", errorInfo);
 };
 
 const Signup = () => {
@@ -33,107 +35,109 @@ const Signup = () => {
 
   return (
     <StyledUserPages>
-      <AppPageMeta title='Signup' />
-      <AppAnimate animation='transition.slideUpIn' delay={200}>
-        <StyledUserContainer key='a'>
+      <AppPageMeta title="Signup" />
+      <AppAnimate animation="transition.slideUpIn" delay={200}>
+        <StyledUserContainer key="a">
           <StyledUserCardLg>
-            <AppRowContainer>
+            <AppRowContainer gutter={32}>
               <Col xs={24} lg={12}>
-                <StyledUserStyledImg className='mln'>
-                  <Logo />
-                </StyledUserStyledImg>
+                <StyledDiv>
+                  <StyledUserStyledImg>
+                    <Logo />
+                  </StyledUserStyledImg>
+                </StyledDiv>
               </Col>
 
               <Col xs={24} lg={12}>
                 <StyledUserCardHeader>
                   <h3>
-                    <IntlMessages id='common.signup' />
+                    <IntlMessages id="common.signup" />
                   </h3>
                 </StyledUserCardHeader>
 
                 <StyledUserForm
-                  name='basic'
+                  name="basic"
                   initialValues={{ remember: true }}
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
                 >
+                  <Text strong>{messages["common.name"]}</Text>
                   <Form.Item
-                    name='name'
-                    className='form-field'
+                    name="name"
+                    className="form-field"
                     rules={[
-                      { required: true, message: 'Please input your Name!' },
+                      { required: true, message: "Please input your Name!" },
                     ]}
                   >
-                    <Input placeholder={messages['common.name']} />
+                    <Input placeholder={messages["common.name"]} />
                   </Form.Item>
 
+                  <Text strong>{messages["common.email"]}</Text>
                   <Form.Item
-                    name='email'
-                    className='form-field'
+                    name="email"
+                    className="form-field"
                     rules={[
-                      { required: true, message: 'Please input your Email!' },
+                      { required: true, message: "Please input your Email!" },
                     ]}
                   >
-                    <Input placeholder={messages['common.email']} />
+                    <Input placeholder={messages["common.email"]} />
                   </Form.Item>
 
+                  <Text strong>{messages["common.password"]}</Text>
                   <Form.Item
-                    name='password'
-                    className='form-field'
+                    name="password"
+                    className="form-field"
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your Password!',
+                        message: "Please input your Password!",
                       },
                     ]}
                   >
-                    <Input
-                      type='password'
-                      placeholder={messages['common.password']}
-                    />
+                    <Input.Password placeholder={messages["common.password"]} />
                   </Form.Item>
 
+                  <Text strong>{messages["common.retypePassword"]}</Text>
                   <Form.Item
-                    name='confirmPassword'
-                    className='form-field'
+                    name="confirmPassword"
+                    className="form-field"
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your Retype Password!',
+                        message: "Please input your Retype Password!",
                       },
                     ]}
                   >
-                    <Input
-                      type='password'
-                      placeholder={messages['common.retypePassword']}
+                    <Input.Password
+                      placeholder={messages["common.retypePassword"]}
                     />
                   </Form.Item>
 
                   <StyledUserFieldActionRow
-                    name='remember'
-                    valuePropName='checked'
+                    name="remember"
+                    valuePropName="checked"
                   >
                     <>
                       <Checkbox>
-                        <IntlMessages id='common.iAgreeTo' />
+                        <IntlMessages id="common.iAgreeTo" />
                       </Checkbox>
-                      <StyledUserFieldActionLink className='user-field-action-link'>
-                        <IntlMessages id='common.termConditions' />
+                      <StyledUserFieldActionLink className="user-field-action-link">
+                        <IntlMessages id="common.termConditions" />
                       </StyledUserFieldActionLink>
                     </>
                   </StyledUserFieldActionRow>
 
-                  <StyledUserFormBtn type='primary' htmlType='submit'>
-                    <IntlMessages id='common.signup' />
+                  <StyledUserFormBtn type="primary" htmlType="submit">
+                    <IntlMessages id="common.signup" />
                   </StyledUserFormBtn>
                 </StyledUserForm>
 
                 <StyledUserCardFooter>
                   <span>
-                    <IntlMessages id='common.alreadyHaveAccount' />
+                    <IntlMessages id="common.alreadyHaveAccount" />
                   </span>
                   <StyledUserCardFooterLink>
-                    <IntlMessages id='common.signInHere' />
+                    <IntlMessages id="common.signInHere" />
                   </StyledUserCardFooterLink>
                 </StyledUserCardFooter>
               </Col>
