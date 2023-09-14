@@ -1,6 +1,6 @@
-import { Button, Card, Form, Layout } from 'antd';
-import styled from 'styled-components';
-import AppScrollbar from '@crema/components/AppScrollbar';
+import { Button, Card, Form, Layout } from "antd";
+import styled from "styled-components";
+import AppScrollbar from "@crema/components/AppScrollbar";
 
 export const StyledAuthWrap = styled.div`
   flex: 1;
@@ -37,16 +37,7 @@ export const StyledAuthMainContent = styled.div`
   padding: 24px;
   display: flex;
   flex-direction: column;
-  width: 100%;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
-    padding: 20px;
-    width: 50%;
-  }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}px) {
-    width: 40%;
-  }
+  width: 100% !important;
 `;
 
 export const StyledAuthCardHeader = styled.div`
@@ -64,7 +55,7 @@ export const StyledAuthCardHeader = styled.div`
     height: 36px;
     margin-right: 10px;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       margin-right: 0;
       margin-left: 10px;
     }

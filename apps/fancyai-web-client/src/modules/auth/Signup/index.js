@@ -1,3 +1,7 @@
-import { SignupFirebase } from '@crema/modules/auth/SignUp';
+import { StyledSignup } from "@crema/modules/userPages";
 
-export default SignupFirebase;
+const SignUp = () => {
+  return <StyledSignup></StyledSignup>;
+};
+
+export default SignUp;

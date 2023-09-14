@@ -1,49 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import {
   StyledAuth,
-  StyledAuthCard,
-  StyledAuthCardHeader,
   StyledAuthMainContent,
-  StyledAuthWelContent,
-  StyledAuthWellAction,
   StyledAuthWrap,
   StyledMainAuthScrollbar,
-} from './AuthWrapper.styled';
-import AppLogo from '@crema/components/AppLogo';
-import AppAnimateGroup from '@crema/components/AppAnimateGroup';
-import AppInfoView from '@crema/components/AppInfoView';
+} from "./AuthWrapper.styled";
+import AppAnimateGroup from "@crema/components/AppAnimateGroup";
+import AppInfoView from "@crema/components/AppInfoView";
 
 const AuthWrapper = ({ children }) => {
   return (
     <StyledAuth>
       <StyledMainAuthScrollbar>
         <AppAnimateGroup
-          type='scale'
+          type="scale"
           animateStyle={{ flex: 1 }}
           delay={0}
-          style={{ height: '100%' }}
+          style={{ height: "100%" }}
           interval={10}
           duration={200}
         >
-          <StyledAuthWrap key={'wrap'}>
-            <StyledAuthCard>
-              <StyledAuthMainContent>
-                <StyledAuthCardHeader>
-                  <AppLogo />
-                </StyledAuthCardHeader>
-                {children}
-              </StyledAuthMainContent>
-              <StyledAuthWellAction>
-                <StyledAuthWelContent>
-                  <h2>Welcome to Crema!</h2>
-                  <p>
-                    Crema is purely based on Ant Design components and follows
-                    Ant Design guidelines.
-                  </p>
-                </StyledAuthWelContent>
-              </StyledAuthWellAction>
-            </StyledAuthCard>
+          <StyledAuthWrap key={"wrap"}>
+            <StyledAuthMainContent>{children}</StyledAuthMainContent>
           </StyledAuthWrap>
           <AppInfoView />
         </AppAnimateGroup>
