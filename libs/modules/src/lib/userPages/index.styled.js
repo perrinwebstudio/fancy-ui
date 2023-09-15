@@ -38,6 +38,7 @@ export const StyledUserCard = styled(Card)`
   width: 100%;
   text-align: center;
   overflow: hidden;
+  background-color: #f1f1f1;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
@@ -141,11 +142,9 @@ export const StyledUserFormBtn = styled(Button)`
 
 export const StyledUserFieldAction = styled(Form.Item)`
   margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
+  display: block;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
-    flex-direction: row;
     align-items: center;
     margin-bottom: 26px;
   }
@@ -161,6 +160,7 @@ export const StyledUserFieldAction = styled(Form.Item)`
   & .ant-form-item-control-input-content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
       flex-direction: row;
