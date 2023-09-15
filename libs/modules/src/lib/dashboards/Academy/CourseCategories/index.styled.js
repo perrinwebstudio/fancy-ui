@@ -1,6 +1,6 @@
-import AppCard from '@crema/components/AppCard';
-import Slider from 'react-slick';
-import styled from 'styled-components';
+import AppCard from "@crema/components/AppCard";
+import Slider from "react-slick";
+import styled from "styled-components";
 
 export const StyledCourseCategoryCard = styled(AppCard)`
   overflow: hidden;
@@ -34,7 +34,7 @@ export const StyledCourceCategorySlider = styled(Slider)`
     &:before {
       width: 100%;
       height: 4px;
-      content: '';
+      content: "";
       font-size: 0;
       background-color: ${({ theme }) => theme.palette.primary.main};
       border-radius: 30px;
@@ -83,7 +83,7 @@ export const StyledCourseCategoryFooter = styled.div`
 `;
 
 export const StyledCourseCategoryBadge = styled.span`
-  padding: 3px 12px;
+  padding: 3px 8px;
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -92,14 +92,14 @@ export const StyledCourseCategoryBadge = styled.span`
   font-size: ${({ theme }) => theme.font.size.sm};
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.xxl}px) {
-    padding: 3px 18px;
+    padding: 3px 8px;
     font-size: ${({ theme }) => theme.font.size.base};
   }
 
   & img {
     margin-right: 5px;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       margin-right: 0;
       margin-left: 5px;
     }
