@@ -1,4 +1,5 @@
 import React from "react";
+
 import IntlMessages from "@crema/helpers/IntlMessages";
 import { useIntl } from "react-intl";
 import AppAnimate from "@crema/components/AppAnimate";
@@ -25,19 +26,31 @@ import {
   StyledUserPages,
   StyledUserSocialLink,
 } from "../index.styled";
+import { useNavigate } from "react-router-dom";
 
 const { Text } = Typography;
 
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
 const Signin = () => {
   const { messages } = useIntl();
+  const navigate = useNavigate();
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const gotoForgetPassword = () => {
+    console.log("forget");
+    navigate("/forget-password");
+  };
+
+  const gotoSignup = () => {
+    console.log("signup");
+    navigate("/signup");
+  };
   return (
     <StyledUserPages>
       <AppPageMeta title="Signin" />
@@ -83,7 +96,10 @@ const Signin = () => {
                   <Checkbox>
                     <IntlMessages id="common.rememberMe" />
                   </Checkbox>
-                  <StyledUserFieldActionLink className="user-field-action-link ml-auto">
+                  <StyledUserFieldActionLink
+                    className="user-field-action-link ml-auto"
+                    onClick={gotoForgetPassword}
+                  >
                     <IntlMessages id="common.forgetPassword" />
                   </StyledUserFieldActionLink>
                 </>
@@ -118,7 +134,7 @@ const Signin = () => {
               <span>
                 <IntlMessages id="common.dontHaveAccount" />
               </span>
-              <StyledUserCardFooterLink>
+              <StyledUserCardFooterLink onClick={gotoSignup}>
                 <IntlMessages id="common.signup" />
               </StyledUserCardFooterLink>
             </StyledUserCardFooter>

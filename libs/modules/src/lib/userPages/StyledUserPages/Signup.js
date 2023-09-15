@@ -20,18 +20,24 @@ import {
   StyledUserStyledImg,
   StyledDiv,
 } from "../index.styled";
+import { useNavigate } from "react-router-dom";
 const { Text } = Typography;
-
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
 
 const Signup = () => {
   const { messages } = useIntl();
+  const navigate = useNavigate();
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const gotoSignin = () => {
+    navigate("/signin");
+  };
 
   return (
     <StyledUserPages>
@@ -136,7 +142,7 @@ const Signup = () => {
                   <span>
                     <IntlMessages id="common.alreadyHaveAccount" />
                   </span>
-                  <StyledUserCardFooterLink>
+                  <StyledUserCardFooterLink onClick={gotoSignin}>
                     <IntlMessages id="common.signInHere" />
                   </StyledUserCardFooterLink>
                 </StyledUserCardFooter>
