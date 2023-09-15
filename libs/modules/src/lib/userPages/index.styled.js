@@ -9,6 +9,11 @@ export const StyledDiv = styled.div`
   height: 100%;
 `;
 
+export const StyledWrapper = styled.div`
+  padding-top: 36px;
+  padding-bottom: 36px;
+`;
+
 export const StyledUserPages = styled.div`
   display: flex;
   flex-direction: column;
