@@ -2,6 +2,12 @@ import { Button, Card, Col, Form } from "antd";
 import { rgba } from "polished";
 import styled from "styled-components";
 
+export const StyledUserCardCenterWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
+
 export const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -12,6 +18,10 @@ export const StyledDiv = styled.div`
 export const StyledWrapper = styled.div`
   padding-top: 36px;
   padding-bottom: 36px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const StyledUserPages = styled.div`
@@ -43,7 +53,6 @@ export const StyledUserCard = styled(Card)`
   width: 100%;
   text-align: center;
   overflow: hidden;
-  background-color: #f1f1f1;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
@@ -135,14 +144,6 @@ export const StyledUserForm = styled(Form)`
 
 export const StyledUserFormBtn = styled(Button)`
   width: 100%;
-  &.ant-btn-primary {
-    background-color: #cecece !important;
-    border-color: #cecece !important;
-    color: black;
-    &:hover {
-      color: black;
-    }
-  }
 `;
 
 export const StyledUserFieldAction = styled(Form.Item)`
@@ -335,6 +336,7 @@ export const StyledUserStyledImg = styled.div`
 
 export const StyledUserStyledForPass = styled.div`
   padding: 32px;
+  width: 100%;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}px) {
     padding: 48px;
@@ -347,7 +349,6 @@ export const StyledUserStyledForPass = styled.div`
 
 export const StyledUserCardLg = styled(StyledUserCard)`
   max-width: 900px;
-  background-color: #f1f1f1;
 `;
 
 export const StyledUserStyledResetImgCol = styled(Col)`

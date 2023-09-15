@@ -66,7 +66,7 @@ export const StyledAuthWellAction = styled.div`
   position: relative;
   padding: 24px;
   display: none;
-  background-color: ${({ theme }) => theme.palette.gray[900]};
+  background-color: ${({ theme }) => theme.palette.background.default};
   color: white;
   font-size: ${({ theme }) => theme.font.size.base};
   width: 100%;
@@ -111,6 +111,7 @@ export const StyledAuth = styled(Layout)`
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+  background-color: ${({ theme }) => theme.palette.background.default};
 
   & .ant-layout-content {
     padding: 20px;

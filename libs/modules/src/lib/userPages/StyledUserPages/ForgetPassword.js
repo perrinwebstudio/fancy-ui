@@ -1,29 +1,29 @@
-import React from 'react';
-import IntlMessages from '@crema/helpers/IntlMessages';
-import AppAnimate from '@crema/components/AppAnimate';
-import { Col, Form, Input } from 'antd';
-import AppRowContainer from '@crema/components/AppRowContainer';
-import { useIntl } from 'react-intl';
-import AppPageMeta from '@crema/components/AppPageMeta';
-import { ReactComponent as Logo } from '../../../assets/user/forgot-password.svg';
+import React from "react";
+import IntlMessages from "@crema/helpers/IntlMessages";
+import AppAnimate from "@crema/components/AppAnimate";
+import { Col, Form, Input } from "antd";
+import AppRowContainer from "@crema/components/AppRowContainer";
+import { useIntl } from "react-intl";
+import AppPageMeta from "@crema/components/AppPageMeta";
+import { ReactComponent as Logo } from "../../../assets/user/forgot-password.svg";
 import {
   StyledUserCardForPass,
   StyledUserCardHeader,
-  StyledUserCardPara,
+  StyledUserCardCenterWrapper,
   StyledUserContainer,
   StyledUserForm,
   StyledUserFormBtn,
   StyledUserPages,
   StyledUserStyledForPass,
   StyledUserStyledImg,
-} from '../index.styled';
+} from "../index.styled";
 
 const onFinish = (values) => {
-  console.log('Success:', values);
+  console.log("Success:", values);
 };
 
 const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
+  console.log("Failed:", errorInfo);
 };
 
 const ForgetPassword = () => {
@@ -31,9 +31,9 @@ const ForgetPassword = () => {
 
   return (
     <StyledUserPages>
-      <AppPageMeta title='Forgot Password' />
-      <AppAnimate animation='transition.slideUpIn' delay={200}>
-        <StyledUserContainer key='a'>
+      <AppPageMeta title="Forgot Password" />
+      <AppAnimate animation="transition.slideUpIn" delay={200}>
+        <StyledUserContainer key="a">
           <StyledUserCardForPass>
             <AppRowContainer>
               <Col xs={24} lg={12}>
@@ -43,47 +43,40 @@ const ForgetPassword = () => {
               </Col>
 
               <Col xs={24} lg={12}>
-                <StyledUserStyledForPass>
-                  <StyledUserCardHeader>
-                    <h3>
-                      <IntlMessages id='common.forgetPassword' />
-                    </h3>
-                  </StyledUserCardHeader>
+                <StyledUserCardCenterWrapper>
+                  <StyledUserStyledForPass>
+                    <StyledUserCardHeader>
+                      <h3>
+                        <IntlMessages id="common.forgetPassword" />
+                      </h3>
+                    </StyledUserCardHeader>
 
-                  <StyledUserCardPara>
-                    <p className='mb-0'>
-                      <IntlMessages id='common.forgetPasswordTextOne' />
-                    </p>
-                    <p className='mb-0'>
-                      <IntlMessages id='common.forgetPasswordTextTwo' />
-                    </p>
-                  </StyledUserCardPara>
-
-                  <StyledUserForm
-                    className='mb-0'
-                    name='basic'
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                  >
-                    <Form.Item
-                      name='email'
-                      className='form-field-lg'
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input your Email Address!',
-                        },
-                      ]}
+                    <StyledUserForm
+                      className="mb-0"
+                      name="basic"
+                      initialValues={{ remember: true }}
+                      onFinish={onFinish}
+                      onFinishFailed={onFinishFailed}
                     >
-                      <Input placeholder={messages['common.emailAddress']} />
-                    </Form.Item>
+                      <Form.Item
+                        name="email"
+                        className="form-field-lg"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Email Address!",
+                          },
+                        ]}
+                      >
+                        <Input placeholder={messages["common.emailAddress"]} />
+                      </Form.Item>
 
-                    <StyledUserFormBtn type='primary' htmlType='submit'>
-                      <IntlMessages id='common.sendNewPassword' />
-                    </StyledUserFormBtn>
-                  </StyledUserForm>
-                </StyledUserStyledForPass>
+                      <StyledUserFormBtn type="primary" htmlType="submit">
+                        <IntlMessages id="common.sendNewPassword" />
+                      </StyledUserFormBtn>
+                    </StyledUserForm>
+                  </StyledUserStyledForPass>
+                </StyledUserCardCenterWrapper>
               </Col>
             </AppRowContainer>
           </StyledUserCardForPass>
