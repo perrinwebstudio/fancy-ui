@@ -1,3 +1,3 @@
-import { SignInFirebase } from '@crema/modules/auth/SignIn';
+import { Signin } from "@crema/modules/userPages";
 
-export default SignInFirebase;
+export default Signin;
