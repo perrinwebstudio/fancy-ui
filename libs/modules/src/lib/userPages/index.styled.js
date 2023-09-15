@@ -2,6 +2,12 @@ import { Button, Card, Col, Form } from "antd";
 import { rgba } from "polished";
 import styled from "styled-components";
 
+export const StyledUserCardCenterWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
+
 export const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -12,6 +18,10 @@ export const StyledDiv = styled.div`
 export const StyledWrapper = styled.div`
   padding-top: 36px;
   padding-bottom: 36px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const StyledUserPages = styled.div`
@@ -326,6 +336,7 @@ export const StyledUserStyledImg = styled.div`
 
 export const StyledUserStyledForPass = styled.div`
   padding: 32px;
+  width: 100%;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}px) {
     padding: 48px;
