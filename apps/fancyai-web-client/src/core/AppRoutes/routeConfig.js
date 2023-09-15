@@ -1,30 +1,29 @@
-import React from 'react';
-import { BiAlignLeft } from 'react-icons/bi';
+import React from "react";
+import { FaPager } from "react-icons/fa";
+import { PiUserListBold } from "react-icons/pi";
+import { IoMdSettings } from "react-icons/io";
 
 const routesConfig = [
   {
-    id: 'app',
-    title: 'Sample',
-    messageId: 'sidebar.sample',
-    type: 'group',
-    children: [
-      {
-        id: 'page-1',
-        title: 'Page 1',
-        messageId: 'sidebar.sample.page1',
-        type: 'item',
-        icon: <BiAlignLeft />,
-        path: '/sample/page-1',
-      },
-      {
-        id: 'page-2',
-        title: 'Page 2',
-        messageId: 'sidebar.sample.page2',
-        type: 'item',
-        icon: <BiAlignLeft />,
-        path: '/sample/page-2',
-      },
-    ],
+    id: "sites",
+    title: "Sites",
+    messageId: "sidebar.sites",
+    path: "/pages/sites",
+    icon: <FaPager />,
+  },
+  {
+    id: "team_members",
+    title: "Team Members",
+    messageId: "sidebar.team_members",
+    path: "/pages/team_members",
+    icon: <PiUserListBold />,
+  },
+  {
+    id: "settings",
+    title: "Settings",
+    messageId: "sidebar.settings",
+    path: "/pages/settings",
+    icon: <IoMdSettings />,
   },
 ];
 export default routesConfig;
