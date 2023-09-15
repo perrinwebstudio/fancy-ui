@@ -38,7 +38,6 @@ export const StyledUserCard = styled(Card)`
   width: 100%;
   text-align: center;
   overflow: hidden;
-  background-color: #f1f1f1;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
@@ -130,14 +129,6 @@ export const StyledUserForm = styled(Form)`
 
 export const StyledUserFormBtn = styled(Button)`
   width: 100%;
-  &.ant-btn-primary {
-    background-color: #cecece !important;
-    border-color: #cecece !important;
-    color: black;
-    &:hover {
-      color: black;
-    }
-  }
 `;
 
 export const StyledUserFieldAction = styled(Form.Item)`
@@ -342,7 +333,6 @@ export const StyledUserStyledForPass = styled.div`
 
 export const StyledUserCardLg = styled(StyledUserCard)`
   max-width: 900px;
-  background-color: #f1f1f1;
 `;
 
 export const StyledUserStyledResetImgCol = styled(Col)`
