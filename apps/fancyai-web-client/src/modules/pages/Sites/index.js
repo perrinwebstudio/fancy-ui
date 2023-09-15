@@ -1,5 +1,5 @@
 import React from "react";
-import { Col } from "antd";
+import { Button, Col, Typography } from "antd";
 
 import AppRowContainer from "@crema/components/AppRowContainer";
 import AppPageMeta from "@crema/components/AppPageMeta";
@@ -11,12 +11,20 @@ import {
 } from "@crema/modules/dashboards/Academy";
 import AppInfoView from "@crema/components/AppInfoView";
 
+import { StyledWrapperBetween } from "./index.styled";
+
+const { Title } = Typography;
+
 const Sites = () => {
   const [{ apiData: academyData }] = useGetDataApi("/dashboard/academy");
 
   return (
     <>
       <AppPageMeta title="Academy Dashboard" />
+      <StyledWrapperBetween>
+        <Title level={3}>Sites</Title>
+        <Button type="primary">Add New Site</Button>
+      </StyledWrapperBetween>
       {academyData ? (
         <AppRowContainer>
           <Col xs={24} sm={12} lg={6}>

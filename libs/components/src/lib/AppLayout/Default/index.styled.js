@@ -304,7 +304,7 @@ export const StyledAppLayout = styled(Layout)`
   }
 
   & .ant-layout {
-    background: none;
+    background: white;
   }
   &.ant-layout-sider-zero-width-trigger {
     display: none;
