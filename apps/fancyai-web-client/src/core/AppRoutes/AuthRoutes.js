@@ -1,35 +1,35 @@
-import React from 'react';
+import React from "react";
 
-const Signin = React.lazy(() => import('../../modules/auth/Signin'));
-const Signup = React.lazy(() => import('../../modules/auth/Signup'));
+const Signin = React.lazy(() => import("../../modules/auth/Signin"));
+const Signup = React.lazy(() => import("../../modules/auth/Signup"));
 const ForgotPassword = React.lazy(() =>
-  import('../../modules/auth/ForgetPassword'),
+  import("../../modules/auth/ForgetPassword")
 );
 const ConfirmSignupAwsCognito = React.lazy(() =>
-  import('../../modules/auth/Signup/ConfirmSignupAwsCognito'),
+  import("../../modules/auth/Signup/ConfirmSignupAwsCognito")
 );
 const ResetPasswordAwsCognito = React.lazy(() =>
-  import('../../modules/auth/ForgetPassword/ResetPasswordAwsCognito'),
+  import("../../modules/auth/ResetPassword")
 );
 export const authRouteConfig = [
   {
-    path: '/signin',
+    path: "/signin",
     element: <Signin />,
   },
   {
-    path: '/signup',
+    path: "/signup",
     element: <Signup />,
   },
   {
-    path: '/forget-password',
+    path: "/forget-password",
     element: <ForgotPassword />,
   },
   {
-    path: '/confirm-signup',
+    path: "/confirm-signup",
     element: <ConfirmSignupAwsCognito />,
   },
   {
-    path: '/reset-password',
+    path: "/reset-password",
     element: <ResetPasswordAwsCognito />,
   },
 ];
