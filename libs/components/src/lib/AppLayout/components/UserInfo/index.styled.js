@@ -15,7 +15,7 @@ export const StyledDropdownList = styled(List)`
 `;
 
 export const StyledCrUserInfo = styled.div`
-  background-color: transparent;
+  background-color: transparent !important;
   padding: 7px 12px;
   height: 56px;
   display: flex;

@@ -34,8 +34,20 @@ import { getUserFromFirebase } from "@crema/helpers";
 export const useAuthUser = () => {
   // const { user, isAuthenticated, isLoading } = useFirebase();
   const user = {
-    photoURL: "",
+    photoURL: "/assets/images/avatar/A11.jpg",
     displayName: "John Alex",
+    company: [{
+        name: "Company name 1",
+        image_url: "/assets/images/avatar/A1.jpg",
+      }, 
+      {
+        name: "Company name 2", 
+        image_url: "/assets/images/avatar/A2.jpg"
+      }, 
+      {
+        name: "Company name 3", 
+        image_url: "/assets/images/avatar/A3.jpg"
+      }]
   };
   const isAuthenticated = true;
   const isLoading = false;
