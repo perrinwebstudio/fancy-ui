@@ -830,5 +830,8 @@
   "sidebar.layout.grid": "Grid",
   "sidebar.layout.layout": "Layout",
   "sidebar.layout.space": "Space",
-  "sidebar.components.layout": "Layout"
+  "sidebar.components.layout": "Layout",
+  "sidebar.sites": "Sites",
+  "sidebar.team_members": "Team Members",
+  "sidebar.settings": "Settings"
 }

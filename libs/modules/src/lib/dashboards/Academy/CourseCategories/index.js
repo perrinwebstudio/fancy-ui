@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import {
   StyledCourceCategorySlider,
   StyledCourseCategoryBadge,
@@ -9,7 +9,10 @@ import {
   StyledCourseCategoryContent,
   StyledCourseCategoryFooter,
   StyledCourseCategoryTitle,
-} from './index.styled';
+} from "./index.styled";
+
+import { Button } from "antd";
+import { IoMdNotifications } from "react-icons/io";
 
 const settings = {
   dots: true,
@@ -20,10 +23,10 @@ const settings = {
 };
 
 const CourseCategories = ({ course }) => {
-  const { images, title, desc, lessons, xp } = course;
+  const { images, title, desc, notifications } = course;
 
   return (
-    <StyledCourseCategoryCard heightFull className='no-card-space'>
+    <StyledCourseCategoryCard heightFull className="no-card-space">
       <StyledCourceCategorySlider {...settings}>
         {images.map((image, index) => (
           <div key={index}>
@@ -36,20 +39,12 @@ const CourseCategories = ({ course }) => {
         <p>{desc}</p>
         <StyledCourseCategoryFooter>
           <StyledCourseCategoryBadge
-            style={{ backgroundColor: '#E7F4FC', color: '#259BE0' }}
+            style={{ backgroundColor: "#E7F4FC", color: "#259BE0" }}
           >
-            <img
-              src={'/assets/images/dashboard/academy/lessons.svg'}
-              alt='lessons'
-            />
-            {lessons} Lessons
+            <IoMdNotifications />
+            {notifications} Items for review
           </StyledCourseCategoryBadge>
-          <StyledCourseCategoryBadge
-            style={{ backgroundColor: '#FFF5EB', color: '#FCB267' }}
-          >
-            <img src={'/assets/images/dashboard/academy/xp.svg'} alt='xp' />{' '}
-            {xp} XP
-          </StyledCourseCategoryBadge>
+          <Button type="primary">Open</Button>
         </StyledCourseCategoryFooter>
       </StyledCourseCategoryContent>
     </StyledCourseCategoryCard>
