@@ -2,6 +2,13 @@ import styled from 'styled-components';
 import { Avatar, List } from 'antd';
 import { darken } from 'polished';
 
+export const StyledDivWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`
+
 export const StyledDropdownList = styled(List)`
   & .ant-list-item {
     padding: 5px 12px;
@@ -63,6 +70,9 @@ export const StyledCrUserInfoContent = styled.span`
   width: calc(100% - 62px);
   margin-left: 16px;
   transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
   [dir='rtl'] & {
     margin-left: 0;

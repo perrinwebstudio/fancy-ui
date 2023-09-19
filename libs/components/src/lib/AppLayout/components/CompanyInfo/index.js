@@ -1,45 +1,65 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import clsx from "clsx";
-import { Dropdown } from "antd";
+import { Dropdown, Image } from "antd";
 import { FaChevronDown } from "react-icons/fa";
 import { useThemeContext } from "@crema/context/ThemeContextProvider";
 import { useAuthUser } from "@crema/hooks/AuthHooks";
 import {
-  StyledCrUserDesignation,
   StyledCrUserInfo,
-  StyledCrUserInfoAvatar,
+  StyledDivWrapper,
   StyledCrUserInfoContent,
   StyledCrUserInfoInner,
   StyledUserArrow,
-  StyledUsername,
   StyledUsernameInfo,
 } from "./index.styled";
 
 const CompanyInfo = () => {
   const { themeMode } = useThemeContext();
   const { user } = useAuthUser();
+  const [currentCompanyId, setCurrentCompanyId] = useState(user.company[0].id || -1);
 
-  const getUserAvatar = () => {
-    if (user.displayName) {
-      return user.displayName.charAt(0).toUpperCase();
-    }
-    if (user.email) {
-      return user.email.charAt(0).toUpperCase();
-    }
-  };
+  const onClick = ({key}) => {
+    setCurrentCompanyId(user.company[key].id)
+  }
 
   const items = useMemo(() => {
+    if (!user.company || !Array.isArray(user.company)) return [];
     let arr = []
-    arr = [...user.company && user.company.map((item, index) => {
+    arr = [...(user.company.map((item, index) => {
       return (
         {
           key: index,
-          label: item.name
+          label: 
+          <StyledDivWrapper>
+            <Image
+              width={40}
+              src={item.image_url}
+              preview={false}
+            />
+            {item.name}
+          </StyledDivWrapper>,
         }
       )
-    })]
+    }))]
     return arr;
-  }, [user])
+  }, [user.company])
+
+  const currentCompany = useMemo(() => {
+    let selected = user.company.filter(itm => itm.id === currentCompanyId)[0];
+    if (selected) {
+      return (
+        <StyledDivWrapper>
+          <Image
+            width={40}
+            src={selected.image_url}
+            preview={false}
+          />
+          {selected.name}
+        </StyledDivWrapper>
+      )
+    }
+    return <></>
+  }, [currentCompanyId])
 
   return (
     <>
@@ -49,38 +69,24 @@ const CompanyInfo = () => {
           })}
         >
           <Dropdown
-            menu={{ items }}
+            menu={{ items, onClick }}
             trigger={["click"]}
             placement="bottomRight"
             overlayStyle={{
               zIndex: 1052,
               minWidth: 150,
             }}
+            arrow
+
           >
             <StyledCrUserInfoInner className="ant-dropdown-link">
-              {user.photoURL ? (
-                <StyledCrUserInfoAvatar src={user.photoURL} />
-              ) : (
-                <StyledCrUserInfoAvatar>
-                  {getUserAvatar()}
-                </StyledCrUserInfoAvatar>
-              )}
               <StyledCrUserInfoContent className="cr-user-info-content">
                 <StyledUsernameInfo>
-                  <StyledUsername
-                    className={clsx("text-truncate", {
-                      light: themeMode === "light",
-                    })}
-                  >
-                    {user.displayName ? user.displayName : "admin user "}
-                  </StyledUsername>
-                  <StyledUserArrow className="cr-user-arrow">
-                    <FaChevronDown />
-                  </StyledUserArrow>
+                  {currentCompany}
                 </StyledUsernameInfo>
-                <StyledCrUserDesignation className="text-truncate cr-user-designation">
-                  System Manager
-                </StyledCrUserDesignation>
+                <StyledUserArrow className="cr-user-arrow">
+                  <FaChevronDown />
+                </StyledUserArrow>
               </StyledCrUserInfoContent>
             </StyledCrUserInfoInner>
           </Dropdown>
