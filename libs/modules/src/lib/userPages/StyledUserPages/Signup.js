@@ -21,6 +21,8 @@ import {
   StyledDiv,
 } from "../index.styled";
 import { useNavigate } from "react-router-dom";
+import axios from "@crema/services/axios";
+
 const { Text } = Typography;
 
 const Signup = () => {
@@ -29,6 +31,16 @@ const Signup = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
+    axios
+      .post("/api/auth/signup", values)
+      .then((result) => {
+        if (result.success) {
+          navigate("/signin");
+        }
+      })
+      .catch((err) => {
+        console.error("onFinishCatch: ", err);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -67,6 +79,20 @@ const Signup = () => {
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
                 >
+                  <Text strong>{messages["common.company_name"]}</Text>
+                  <Form.Item
+                    name="company_name"
+                    className="form-field"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your Company Name!",
+                      },
+                    ]}
+                  >
+                    <Input placeholder={messages["common.company_name"]} />
+                  </Form.Item>
+
                   <Text strong>{messages["common.name"]}</Text>
                   <Form.Item
                     name="name"

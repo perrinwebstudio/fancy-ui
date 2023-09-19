@@ -27,6 +27,8 @@ import {
   StyledUserSocialLink,
 } from "../index.styled";
 import { useNavigate } from "react-router-dom";
+import axios from "@crema/services/axios";
+import { initialUrl } from "@crema/constants/AppConst";
 
 const { Text } = Typography;
 
@@ -36,6 +38,15 @@ const Signin = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
+    axios
+      .post("/api/auth/signin", values)
+      .then((result) => {
+        console.log("onFinishResult: ", result);
+        navigate(initialUrl);
+      })
+      .catch((err) => {
+        console.error("onFinishCatch: ", err);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
