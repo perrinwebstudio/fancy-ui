@@ -22,6 +22,21 @@ export const getUserFromFirebase = (user) => {
       email: user.email,
       photoURL: user.photoURL ? user.photoURL : '/assets/images/avatar/A11.jpg',
       role: authRole.User,
+      company: [{
+        id: 1,
+        name: "Company name 1",
+        image_url: "/assets/images/avatar/A1.jpg",
+      }, 
+      {
+        id: 2,
+        name: "Company name 2", 
+        image_url: "/assets/images/avatar/A2.jpg"
+      }, 
+      {
+        id: 3,
+        name: "Company name 3", 
+        image_url: "/assets/images/avatar/A3.jpg"
+      }]
     };
   return user;
 };

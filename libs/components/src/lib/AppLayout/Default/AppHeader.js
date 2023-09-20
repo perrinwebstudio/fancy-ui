@@ -10,10 +10,11 @@ import {
 } from "./index.styled";
 import { Dropdown } from "antd";
 import { StyledDropdownWrapper } from "../index.styled";
+import UserInfo from '../components/UserInfo';
 
 const items = [
   { key: 2, label: <AppNotifications /> },
-  { key: 3, label: <AppLanguageSwitcher /> },
+  { key: 3, label: <UserInfo hasColor /> },
 ];
 
 const AppHeader = ({ isCollapsed, onToggleSidebar }) => {
@@ -21,8 +22,8 @@ const AppHeader = ({ isCollapsed, onToggleSidebar }) => {
     <StyledAppHeader>
       <h2>Fancy AI</h2>
       <StyledAppHeaderSectionDesk>
-        <AppLanguageSwitcher />
         <AppNotifications />
+        <UserInfo hasColor />
       </StyledAppHeaderSectionDesk>
       <StyledAppHeaderSectionMobile>
         <StyledDropdownWrapper>
