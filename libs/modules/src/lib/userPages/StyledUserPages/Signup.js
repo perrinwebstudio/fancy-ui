@@ -41,7 +41,7 @@ const Signup = () => {
       .post("/api/auth/signup", values)
       .then((result) => {
         if (result.success) {
-          navigate("/signin");
+          navigate("/signup_confirm");
         }
       })
       .catch((err) => {
@@ -179,7 +179,7 @@ const Signup = () => {
                   </StyledUserFieldActionRow>
 
                   <StyledUserFormBtn type="primary" htmlType="submit">
-                    <IntlMessages id="common.signup" />
+                    <IntlMessages id="common.next" />
                   </StyledUserFormBtn>
                 </StyledUserForm>
 
