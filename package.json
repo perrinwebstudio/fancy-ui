@@ -3,8 +3,9 @@
   "version": "4.x.x",
   "license": "MIT",
   "scripts": {
-    "start": "nx exec -- nx exec -- nx exec -- nx serve",
-    "build": "nx exec -- nx exec -- nx build",
+    "start": "nx serve fancyai-web-client",
+    "build:prod": "nx build fancyai-web-client --configuration=production",
+    "build:stage": "nx build fancyai-web-client --configuration=staging",
     "test": "nx exec -- nx test"
   },
   "private": true,

@@ -31,6 +31,20 @@
           "sourceMap": true,
           "vendorChunk": true
         },
+        "staging": {
+          "fileReplacements": [
+            {
+              "replace": "apps/fancyai-web-client/src/environments/environment.js",
+              "with": "apps/fancyai-web-client/src/environments/environment.staging.js"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        },
         "production": {
           "fileReplacements": [
             {
@@ -57,6 +71,9 @@
       "configurations": {
         "development": {
           "buildTarget": "fancyai-web-client:build:development"
+        },
+        "staging": {
+          "buildTarget": "fancyai-web-client:build:staging"
         },
         "production": {
           "buildTarget": "fancyai-web-client:build:production",
