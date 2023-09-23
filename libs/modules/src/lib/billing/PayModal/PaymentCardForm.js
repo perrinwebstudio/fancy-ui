@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, DatePicker, Form, Input, Row, Space, Switch, Typography } from 'antd';
+import CardNumberInput from './CardNumberInput';
 
 const PaymentCardForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
   const [isLoading, setIsLoading] = React.useState(false)
@@ -18,7 +19,7 @@ const PaymentCardForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
 
   return <Form layout='vertical'>
     <Form.Item label="Card Number">
-      <Input placeholder='1234 5678 90101 1121' />
+      <CardNumberInput placeholder='1234 5678 90101 1121' />
     </Form.Item>
 
     <Row gutter={16}>

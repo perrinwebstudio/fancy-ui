@@ -16,7 +16,8 @@ const PayModal = ({ paymentType = 'card', paymentAmount, nextPayment, onClose })
 
   console.log('_paymentType', _paymentType)
 
-  return <StyledPayModal open
+  return <StyledPayModal  open
+    style={{top: '20px'}}
     footer={<></>}
     closable onCancel={() => {
     onClose && onClose();
