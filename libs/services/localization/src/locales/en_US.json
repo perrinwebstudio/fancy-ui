@@ -833,5 +833,6 @@
   "sidebar.components.layout": "Layout",
   "sidebar.sites": "Sites",
   "sidebar.team_members": "Team Members",
-  "sidebar.settings": "Settings"
+  "sidebar.settings": "Settings",
+  "sidebar.billing": "Billing / Plans"
 }

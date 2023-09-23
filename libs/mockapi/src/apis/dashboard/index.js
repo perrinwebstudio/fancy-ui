@@ -7,6 +7,7 @@ import metrics from '../../fakedb/dashboard/metrics';
 import widgets from '../../fakedb/dashboard/widgets';
 import healthCare from '../../fakedb/dashboard/healthCare';
 import academy from '../../fakedb/dashboard/academy';
+import transactionsData from '../../fakedb/billing/transactions';
 
 // Define all mocks of dashboard
 mock.onGet('/dashboard/analytics').reply(200, analytics);
@@ -24,3 +25,5 @@ mock.onGet('/dashboard/academy').reply(200, academy);
 mock.onGet('/dashboard/metrics').reply(200, metrics);
 
 mock.onGet('/dashboard/widgets').reply(200, widgets);
+
+mock.onGet('/transactions').reply(200, transactionsData); 
