@@ -6,7 +6,7 @@ import { RiUserFill } from 'react-icons/ri';
 import VisaIcon from './VisaIcon';
 
 const PaymentMethodCard = ({ paymentType, paymentAmount, nextPayment, onClickChange }) => {
-  return <StyledPaymentMethodCard bordered={false} title="Monthly Payment">
+  return <StyledPaymentMethodCard bordered={false} title="Payment Method">
     <Row gutter={{ xs: 16, sm: 16, md: 32 }} justify="center" align="middle">
       <Col xs={24} sm={24} lg={18}>
         <Card>
