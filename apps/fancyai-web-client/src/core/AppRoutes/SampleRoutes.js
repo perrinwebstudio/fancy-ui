@@ -1,5 +1,6 @@
 import React from "react";
 import { RoutePermittedRole } from "@crema/constants/AppEnums";
+import SiteSetup from "../../modules/pages/SiteSetup";
 
 const Sites = React.lazy(() => import("../../modules/pages/Sites"));
 const TeamMembers = React.lazy(() => import("../../modules/pages/TeamMembers"));
@@ -11,6 +12,11 @@ export const samplePagesConfigs = [
     permittedRole: RoutePermittedRole.User,
     path: "/pages/sites",
     element: <Sites />,
+  },
+  {
+    permittedRole: RoutePermittedRole.User,
+    path: "/pages/sites/add",
+    element: <SiteSetup />,
   },
   {
     permittedRole: RoutePermittedRole.User,

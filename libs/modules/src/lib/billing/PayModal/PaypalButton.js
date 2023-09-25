@@ -16,7 +16,7 @@ const StyledPaypalButton = styled(Button)`
 `
 
 const PaypalButton = ({ prop1 }) => {
-  return <StyledPaypalButton block className='paypal'>
+  return <StyledPaypalButton size='large' block className='paypal'>
     <Space align='center'>
       <BsPaypal /> Paypal
     </Space>

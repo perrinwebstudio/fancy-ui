@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Typography } from "antd";
+import { Col, Typography } from "antd";
 
 import AppRowContainer from "@crema/components/AppRowContainer";
 import AppPageMeta from "@crema/components/AppPageMeta";

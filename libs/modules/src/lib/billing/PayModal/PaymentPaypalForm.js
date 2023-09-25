@@ -19,10 +19,10 @@ const PaymentPaypalForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
 
   return <Form layout='vertical'>
     <Form.Item label="Connect Paypal">
-      <PaypalButton />
+      <div style={{marginTop: '10px'}}><PaypalButton /></div>
     </Form.Item>
     <Form.Item>
-      <Button type='primary' block onClick={() => {
+      <Button size='large' type='primary' block onClick={() => {
         setIsLoading(true)
         setTimeout(() => {
           setIsLoading(false)
