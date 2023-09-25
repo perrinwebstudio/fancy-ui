@@ -12,6 +12,7 @@ import {
 import AppInfoView from "@crema/components/AppInfoView";
 
 import { StyledWrapperBetween } from "./index.styled";
+import { Link } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -23,7 +24,9 @@ const Sites = () => {
       <AppPageMeta title="Academy Dashboard" />
       <StyledWrapperBetween>
         <Title level={3}>Sites</Title>
-        <Button type="primary">Add New Site</Button>
+        <Link to="/pages/sites/add">
+          <Button type="primary">Add New Site</Button>
+        </Link>
       </StyledWrapperBetween>
       {academyData ? (
         <AppRowContainer>

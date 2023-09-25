@@ -12,6 +12,7 @@ import SiteSetupStep5 from "./Step5";
 import SiteSetupStep6 from "./Step6";
 import SiteSetupStep7 from "./Step7";
 import StepFormWrapper from "./StepFormWrapper";
+import { Link } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -32,7 +33,7 @@ const SiteSetup = () => {
         </Col>
         <Col md={16} lg={5}>
           <div style={{textAlign: 'right'}}>
-            <Button ghost type='primary'>Back to sites</Button>
+            <Link to="/pages/sites"><Button ghost type='primary'>Back to sites</Button></Link>
           </div>
         </Col>
       </StyledSiteSetupStepBar>
