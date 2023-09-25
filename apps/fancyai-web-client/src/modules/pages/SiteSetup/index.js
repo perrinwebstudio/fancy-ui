@@ -13,6 +13,7 @@ import SiteSetupStep6 from "./Step6";
 import SiteSetupStep7 from "./Step7";
 import StepFormWrapper from "./StepFormWrapper";
 import { Link } from "react-router-dom";
+import { current } from "@reduxjs/toolkit";
 
 const { Title } = Typography;
 
@@ -20,6 +21,8 @@ const SiteSetup = () => {
   const [form] = Form.useForm();
 
   const sitePlatform = Form.useWatch('site_platform', form)
+
+  const [currentStep, setCurrentStep] = React.useState(0);
 
   return (
     <>
@@ -29,7 +32,13 @@ const SiteSetup = () => {
           <Title level={3}>Add new site</Title>
         </Col>
         <Col md={16} lg={14}>
-          <SiteSetupSteps />
+          <SiteSetupSteps current={currentStep} onClickStep={(step) => {
+            setCurrentStep(step)
+            const element = document.getElementById(`step${step + 1}`)
+            if (element) {
+              element.scrollIntoView({behavior: 'smooth', block: step === 0 ? 'center' : 'start'})
+            }
+          }} />
         </Col>
         <Col md={16} lg={5}>
           <div style={{textAlign: 'right'}}>

@@ -7,7 +7,7 @@ import StepFormWrapper from './StepFormWrapper';
 
 const SiteSetupStep7 = ({ prop1 }) => {
   return <StepFormWrapper>
-    <StyledSiteSetupTitle level={4}>7. Setup Complete</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4}  id='step7'>7. Setup Complete</StyledSiteSetupTitle>
     <div style={{textAlign: 'center'}}>
       <Typography.Title strong center level={5} >
         The answers you provide here will help us align our custom crafted SEO strategy with your business to help improve your organic search traffic and revenue.Please contact us if you have any questions.

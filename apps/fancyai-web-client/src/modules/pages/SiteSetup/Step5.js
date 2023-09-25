@@ -8,7 +8,7 @@ import StyledInstructionWrapper from './StyledInstructionWrapper';
 
 const SiteSetupStep5 = ({ prop1 }) => {
   return <StepFormWrapper>
-    <StyledSiteSetupTitle level={4}>5. Site Connections</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4}  id='step5'>5. Site Connections</StyledSiteSetupTitle>
     <Form.Item label="Connect to Google Search Console">
       <Button type='primary' block size='large'>
         Sign In

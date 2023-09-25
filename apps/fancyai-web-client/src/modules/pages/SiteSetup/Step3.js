@@ -6,7 +6,7 @@ import { Form } from 'antd';
 
 const SiteSetupStep3 = ({ prop1 }) => {
   return <Form.Item>
-    <StyledSiteSetupTitle level={4}>3. Service Plan Selection</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4}  id='step3'>3. Service Plan Selection</StyledSiteSetupTitle>
     <SEOPlanPicker />
   </Form.Item>
 }

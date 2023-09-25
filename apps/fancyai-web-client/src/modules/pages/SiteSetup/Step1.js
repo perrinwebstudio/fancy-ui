@@ -7,7 +7,7 @@ import StepFormWrapper from './StepFormWrapper';
 
 const SiteSetupStep1 = ({ prop1 }) => {
   return <StepFormWrapper>
-    <StyledSiteSetupTitle level={4}>1. Site Information</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4} id='step1'>1. Site Information</StyledSiteSetupTitle>
     
     <Form.Item label="Webiste Name">
       <Input placeholder='Apple' />

@@ -8,7 +8,7 @@ import StepFormWrapper from './StepFormWrapper';
 
 const SiteSetupStep2 = ({ prop1 }) => {
   return <StepFormWrapper>
-    <StyledSiteSetupTitle level={4}>2. Business Information</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4} id='step2'>2. Business Information</StyledSiteSetupTitle>
     
     <Form.Item label="Top Business Competitors (Name and URL)" name={'competitors'}>
       <CompetitorListForm />

@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Steps } from 'antd';
 
-const SiteSetupSteps = ({ current = 1 }) => {
+const SiteSetupSteps = ({ current = 1, onClickStep }) => {
   return <Steps
     // type="navigation"
+    onChange={(step) => {
+      onClickStep(step)
+    }}
     current={current}
     items={[
       {

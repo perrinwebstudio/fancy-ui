@@ -8,7 +8,7 @@ import StepFormWrapper from './StepFormWrapper';
 
 const SiteSetupStep4 = ({ prop1 }) => {
   return <StepFormWrapper>
-    <StyledSiteSetupTitle level={4}>4. Service Specific Information</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4}  id='step4'>4. Service Specific Information</StyledSiteSetupTitle>
     <Form.Item label="Do you serve local or national market?">
       <Input />
     </Form.Item>
