@@ -7,7 +7,7 @@ import TextArea from 'antd/es/input/TextArea';
 import StepFormWrapper from './StepFormWrapper';
 
 const SiteSetupStep4 = ({ prop1 }) => {
-  return <StepFormWrapper>
+  return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4}  id='step4'>4. Service Specific Information</StyledSiteSetupTitle>
     <Form.Item label="Do you serve local or national market?">
       <Input />

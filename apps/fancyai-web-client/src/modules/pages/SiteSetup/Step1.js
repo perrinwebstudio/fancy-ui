@@ -6,7 +6,7 @@ import TextArea from 'antd/es/input/TextArea';
 import StepFormWrapper from './StepFormWrapper';
 
 const SiteSetupStep1 = ({ prop1 }) => {
-  return <StepFormWrapper>
+  return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4} id='step1'>1. Site Information</StyledSiteSetupTitle>
     
     <Form.Item label="Webiste Name">

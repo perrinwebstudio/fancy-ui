@@ -8,7 +8,8 @@ import StyledSEOPlanItemPricing from './StyledSEOPlanItemPricing';
 const SEOPlanItem = ({ plan, planCode, pricingComponent, active, features, buttonLabel, color }) => {
   return <Badge.Ribbon color={color} text={planCode}>
     <Card style={{
-      minWidth: '250px'
+      minWidth: '250px',
+      maxWidth: '250px'
     }}>
       <Space direction='vertical' style={{
         width: '100%'
@@ -26,7 +27,7 @@ const SEOPlanItem = ({ plan, planCode, pricingComponent, active, features, butto
         <Space direction='vertical' style={{marginTop: '15px'}}>
           {
             features.map((feature, index) => <Space>
-              <CheckOutlined /> <Typography.Text key={index}>{feature}</Typography.Text>
+              <CheckOutlined /> <Typography.Text  key={index}>{feature}</Typography.Text>
             </Space>)
           }
         </Space>

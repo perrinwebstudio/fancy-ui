@@ -7,7 +7,7 @@ import CompetitorListForm from './CompetitorListForm';
 import StepFormWrapper from './StepFormWrapper';
 
 const SiteSetupStep2 = ({ prop1 }) => {
-  return <StepFormWrapper>
+  return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4} id='step2'>2. Business Information</StyledSiteSetupTitle>
     
     <Form.Item label="Top Business Competitors (Name and URL)" name={'competitors'}>

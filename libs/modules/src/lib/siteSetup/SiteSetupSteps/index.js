@@ -12,7 +12,7 @@ const SiteSetupSteps = ({ current = 1, onClickStep }) => {
     items={[
       {
         title: '',
-        status: 'finish',
+        status: current === 0 ? 'process' : 'wait',
       },
       {
         title: '',

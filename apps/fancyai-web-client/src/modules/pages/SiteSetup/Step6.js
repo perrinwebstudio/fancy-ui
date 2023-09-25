@@ -7,7 +7,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import StyledInstructionWrapper from './StyledInstructionWrapper';
 
 const SiteSetupStep6 = ({ sitePlatform }) => {
-  return <StepFormWrapper>
+  return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4}  id='step6'>6. App / Plugin Installation</StyledSiteSetupTitle>
     {(!sitePlatform || sitePlatform === 'shopify') && <>
       <Form.Item style={{marginBottom: '10px'}} label="Shopify site URL">

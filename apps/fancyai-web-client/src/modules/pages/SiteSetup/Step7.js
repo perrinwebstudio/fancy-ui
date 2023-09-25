@@ -6,7 +6,7 @@ import Typography from 'antd/es/typography/Typography';
 import StepFormWrapper from './StepFormWrapper';
 
 const SiteSetupStep7 = ({ prop1 }) => {
-  return <StepFormWrapper>
+  return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4}  id='step7'>7. Setup Complete</StyledSiteSetupTitle>
     <div style={{textAlign: 'center'}}>
       <Typography.Title strong center level={5} >
