@@ -11,6 +11,9 @@ const ConfirmSignupAwsCognito = React.lazy(() =>
 const ResetPasswordAwsCognito = React.lazy(() =>
   import("../../modules/auth/ResetPassword")
 );
+const SignupConfirm = React.lazy(() =>
+  import("../../modules/auth/SignupConfirm")
+);
 export const authRouteConfig = [
   {
     path: "/signin",
@@ -31,5 +34,9 @@ export const authRouteConfig = [
   {
     path: "/reset-password",
     element: <ResetPasswordAwsCognito />,
+  },
+  {
+    path: "/signup_confirm",
+    element: <SignupConfirm />,
   },
 ];

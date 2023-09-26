@@ -2,10 +2,11 @@ import React from "react";
 import IntlMessages from "@crema/helpers/IntlMessages";
 import AppAnimate from "@crema/components/AppAnimate";
 import AppRowContainer from "@crema/components/AppRowContainer";
-import { Typography, Checkbox, Col, Form, Input } from "antd";
+import { Checkbox, Col, Form, Input } from "antd";
 import { useIntl } from "react-intl";
 import AppPageMeta from "@crema/components/AppPageMeta";
 import { ReactComponent as Logo } from "../../../assets/user/signup.svg";
+import FloatLabel from "@crema/modules/components/floatLabel";
 import {
   StyledUserCardFooter,
   StyledUserCardFooterLink,
@@ -21,14 +22,31 @@ import {
   StyledDiv,
 } from "../index.styled";
 import { useNavigate } from "react-router-dom";
-const { Text } = Typography;
+import axios from "@crema/services/axios";
 
 const Signup = () => {
   const { messages } = useIntl();
   const navigate = useNavigate();
 
+  const [form] = Form.useForm();
+  const companyName = Form.useWatch("company_name", form);
+  const fullName = Form.useWatch("name", form);
+  const email = Form.useWatch("email", form);
+  const password = Form.useWatch("password", form);
+  const confirmPassword = Form.useWatch("confirmPassword", form);
+
   const onFinish = (values) => {
     console.log("Success:", values);
+    axios
+      .post("/api/auth/signup", values)
+      .then((result) => {
+        if (result.success) {
+          navigate("/signup_confirm");
+        }
+      })
+      .catch((err) => {
+        console.error("onFinishCatch: ", err);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -66,58 +84,85 @@ const Signup = () => {
                   initialValues={{ remember: true }}
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
+                  form={form}
                 >
-                  <Text strong>{messages["common.name"]}</Text>
-                  <Form.Item
-                    name="name"
-                    className="form-field"
-                    rules={[
-                      { required: true, message: "Please input your Name!" },
-                    ]}
+                  <FloatLabel
+                    label={messages["common.company_name"]}
+                    value={companyName}
                   >
-                    <Input placeholder={messages["common.name"]} />
-                  </Form.Item>
+                    <Form.Item
+                      name="company_name"
+                      className="form-field"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your Company Name!",
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </FloatLabel>
 
-                  <Text strong>{messages["common.email"]}</Text>
-                  <Form.Item
-                    name="email"
-                    className="form-field"
-                    rules={[
-                      { required: true, message: "Please input your Email!" },
-                    ]}
-                  >
-                    <Input placeholder={messages["common.email"]} />
-                  </Form.Item>
+                  <FloatLabel label={messages["common.name"]} value={fullName}>
+                    <Form.Item
+                      name="name"
+                      className="form-field"
+                      rules={[
+                        { required: true, message: "Please input your Name!" },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </FloatLabel>
 
-                  <Text strong>{messages["common.password"]}</Text>
-                  <Form.Item
-                    name="password"
-                    className="form-field"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your Password!",
-                      },
-                    ]}
-                  >
-                    <Input.Password placeholder={messages["common.password"]} />
-                  </Form.Item>
+                  <FloatLabel label={messages["common.email"]} value={email}>
+                    <Form.Item
+                      name="email"
+                      className="form-field"
+                      rules={[
+                        { required: true, message: "Please input your Email!" },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </FloatLabel>
 
-                  <Text strong>{messages["common.retypePassword"]}</Text>
-                  <Form.Item
-                    name="confirmPassword"
-                    className="form-field"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your Retype Password!",
-                      },
-                    ]}
+                  <FloatLabel
+                    label={messages["common.password"]}
+                    value={password}
                   >
-                    <Input.Password
-                      placeholder={messages["common.retypePassword"]}
-                    />
-                  </Form.Item>
+                    <Form.Item
+                      name="password"
+                      className="form-field"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your Password!",
+                        },
+                      ]}
+                    >
+                      <Input.Password />
+                    </Form.Item>
+                  </FloatLabel>
+
+                  <FloatLabel
+                    label={messages["common.retypePassword"]}
+                    value={confirmPassword}
+                  >
+                    <Form.Item
+                      name="confirmPassword"
+                      className="form-field"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your Retype Password!",
+                        },
+                      ]}
+                    >
+                      <Input.Password />
+                    </Form.Item>
+                  </FloatLabel>
 
                   <StyledUserFieldActionRow
                     name="remember"
@@ -134,7 +179,7 @@ const Signup = () => {
                   </StyledUserFieldActionRow>
 
                   <StyledUserFormBtn type="primary" htmlType="submit">
-                    <IntlMessages id="common.signup" />
+                    <IntlMessages id="common.next" />
                   </StyledUserFormBtn>
                 </StyledUserForm>
 

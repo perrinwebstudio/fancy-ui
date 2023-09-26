@@ -34,10 +34,10 @@ import { getUserFromFirebase } from "@crema/helpers";
 export const useAuthUser = () => {
   // const { user, isAuthenticated, isLoading } = useFirebase();
   const user = {
-    photoURL: "/assets/images/avatar/A11.jpg",
+    photoURL: "",
     displayName: "John Alex",
   };
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   const isLoading = false;
   return {
     isLoading,

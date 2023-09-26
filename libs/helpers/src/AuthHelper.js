@@ -1,4 +1,4 @@
-import { authRole } from '@crema/constants/AppConst';
+import { authRole } from "@crema/constants/AppConst";
 
 export const getUserFromAuth0 = (user) => {
   if (user)
@@ -18,25 +18,27 @@ export const getUserFromFirebase = (user) => {
     return {
       id: 1,
       uid: user.uid,
-      displayName: user.displayName ? user.displayName : 'Crema User',
-      email: user.email,
-      photoURL: user.photoURL ? user.photoURL : '/assets/images/avatar/A11.jpg',
+      displayName: user.displayName ? user.displayName : "Crema User",
+      email: user.email ? user.email : "johnalex@gmail.com",
+      photoURL: user.photoURL ? user.photoURL : "/assets/images/avatar/A11.jpg",
       role: authRole.User,
-      company: [{
-        id: 1,
-        name: "Company name 1",
-        image_url: "/assets/images/avatar/A1.jpg",
-      }, 
-      {
-        id: 2,
-        name: "Company name 2", 
-        image_url: "/assets/images/avatar/A2.jpg"
-      }, 
-      {
-        id: 3,
-        name: "Company name 3", 
-        image_url: "/assets/images/avatar/A3.jpg"
-      }]
+      company: [
+        {
+          id: 1,
+          name: "Company name 1",
+          image_url: "/assets/images/avatar/A1.jpg",
+        },
+        {
+          id: 2,
+          name: "Company name 2",
+          image_url: "/assets/images/avatar/A2.jpg",
+        },
+        {
+          id: 3,
+          name: "Company name 3",
+          image_url: "/assets/images/avatar/A3.jpg",
+        },
+      ],
     };
   return user;
 };
@@ -45,7 +47,7 @@ export const getUserFromAWS = (user) => {
     return {
       id: 1,
       uid: user.username,
-      displayName: user.attributes.name ? user.attributes.name : 'Crema User',
+      displayName: user.attributes.name ? user.attributes.name : "Crema User",
       email: user.attributes.email,
       photoURL: user.photoURL,
       role: authRole.User,
