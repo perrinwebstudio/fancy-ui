@@ -322,6 +322,9 @@
       "@crema/modules/auth/SignUp": [
         "libs/modules/src/lib/auth/Signup/index.js"
       ],
+      "@crema/modules/components/floatLabel": [
+        "libs/modules/src/lib/components/floatLabel/index.js"
+      ],
       "@crema/modules/components/dataDisplay": [
         "libs/modules/src/lib/components/dataDisplay/index.js"
       ],

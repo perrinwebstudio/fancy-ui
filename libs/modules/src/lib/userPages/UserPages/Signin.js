@@ -3,7 +3,7 @@ import React from "react";
 import IntlMessages from "@crema/helpers/IntlMessages";
 import { useIntl } from "react-intl";
 import AppAnimate from "@crema/components/AppAnimate";
-import { Typography, Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input } from "antd";
 import { BsMicrosoft } from "react-icons/bs";
 import {
   GithubOutlined,
@@ -27,15 +27,29 @@ import {
   StyledUserSocialLink,
 } from "../index.styled";
 import { useNavigate } from "react-router-dom";
-
-const { Text } = Typography;
+import axios from "@crema/services/axios";
+import { initialUrl } from "@crema/constants/AppConst";
+import FloatLabel from "@crema/modules/components/floatLabel";
 
 const Signin = () => {
   const { messages } = useIntl();
   const navigate = useNavigate();
 
+  const [form] = Form.useForm();
+  const email = Form.useWatch("email", form);
+  const password = Form.useWatch("password", form);
+
   const onFinish = (values) => {
     console.log("Success:", values);
+    axios
+      .post("/api/auth/signin", values)
+      .then((result) => {
+        console.log("onFinishResult: ", result);
+        navigate(initialUrl);
+      })
+      .catch((err) => {
+        console.error("onFinishCatch: ", err);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -68,28 +82,31 @@ const Signin = () => {
               initialValues={{ remember: true }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
+              form={form}
             >
-              <Text strong>{messages["common.email"]}</Text>
-              <Form.Item
-                name="email"
-                className="form-field"
-                rules={[
-                  { required: true, message: "Please input your Email!" },
-                ]}
-              >
-                <Input placeholder={messages["common.email"]} />
-              </Form.Item>
+              <FloatLabel label={messages["common.email"]} value={email}>
+                <Form.Item
+                  name="email"
+                  className="form-field"
+                  rules={[
+                    { required: true, message: "Please input your Email!" },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+              </FloatLabel>
 
-              <Text strong>{messages["common.password"]}</Text>
-              <Form.Item
-                name="password"
-                className="form-field"
-                rules={[
-                  { required: true, message: "Please input your Password!" },
-                ]}
-              >
-                <Input.Password placeholder={messages["common.password"]} />
-              </Form.Item>
+              <FloatLabel label={messages["common.password"]} value={password}>
+                <Form.Item
+                  name="password"
+                  className="form-field"
+                  rules={[
+                    { required: true, message: "Please input your Password!" },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+              </FloatLabel>
 
               <StyledUserFieldAction name="remember" valuePropName="checked">
                 <>

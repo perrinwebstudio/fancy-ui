@@ -6,6 +6,7 @@ import AppRowContainer from "@crema/components/AppRowContainer";
 import { useIntl } from "react-intl";
 import AppPageMeta from "@crema/components/AppPageMeta";
 import { ReactComponent as Logo } from "../../../assets/user/forgot-password.svg";
+import FloatLabel from "@crema/modules/components/floatLabel";
 import {
   StyledUserCardForPass,
   StyledUserCardHeader,
@@ -28,6 +29,9 @@ const onFinishFailed = (errorInfo) => {
 
 const ForgetPassword = () => {
   const { messages } = useIntl();
+
+  const [form] = Form.useForm();
+  const email = Form.useWatch("email", form);
 
   return (
     <StyledUserPages>
@@ -57,19 +61,25 @@ const ForgetPassword = () => {
                       initialValues={{ remember: true }}
                       onFinish={onFinish}
                       onFinishFailed={onFinishFailed}
+                      form={form}
                     >
-                      <Form.Item
-                        name="email"
-                        className="form-field-lg"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Please input your Email Address!",
-                          },
-                        ]}
+                      <FloatLabel
+                        label={messages["common.email"]}
+                        value={email}
                       >
-                        <Input placeholder={messages["common.emailAddress"]} />
-                      </Form.Item>
+                        <Form.Item
+                          name="email"
+                          className="form-field-lg"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your Email Address!",
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </FloatLabel>
 
                       <StyledUserFormBtn type="primary" htmlType="submit">
                         <IntlMessages id="common.sendNewPassword" />

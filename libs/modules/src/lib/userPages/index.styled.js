@@ -2,6 +2,16 @@ import { Button, Card, Col, Form } from "antd";
 import { rgba } from "polished";
 import styled from "styled-components";
 
+export const StyledDivDown = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 36px;
+  height: 100%;
+  padding: 36px;
+`;
+
 export const StyledUserCardCenterWrapper = styled.div`
   height: 100%;
   display: flex;
@@ -13,6 +23,16 @@ export const StyledDiv = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+`;
+
+export const StyledDivOnlyContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .ant-typography {
+    margin-bottom: 0;
+  }
 `;
 
 export const StyledWrapper = styled.div`

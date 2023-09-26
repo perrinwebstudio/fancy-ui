@@ -433,6 +433,7 @@
   "common.retweets": "retweets",
   "common.read": "read",
   "common.retypePassword": "Retype Password",
+  "common.retypeNewPassword": "Retype New Password",
   "common.iAgreeTo": "I agree to",
   "common.termConditions": "Terms & Conditions",
   "common.alreadyHaveAccount": "Already have account?",
@@ -834,5 +835,13 @@
   "sidebar.sites": "Sites",
   "sidebar.team_members": "Team Members",
   "sidebar.settings": "Settings",
+  "common.company_name": "Company Name",
+  "userProfile.position_title": "Position Title",
+  "userProfile.email": "Email Address",
+  "userProfile.phone_number": "Phone Number",
+  "userProfile.two_factor": "Two-Factor Authentication",
+  "userProfile.enable_two_factor": "Enable Two-Factor Authentication",
+  "userProfile.multi_factor": "Multi-Factor Authentication",
+  "userProfile.enable_multi_factor": "Enable Multi-Factor Authentication",
   "sidebar.billing": "Billing / Plans"
 }

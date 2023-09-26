@@ -6,6 +6,7 @@ import { useIntl } from "react-intl";
 import AppRowContainer from "@crema/components/AppRowContainer";
 import AppPageMeta from "@crema/components/AppPageMeta";
 import { ReactComponent as Logo } from "../../../assets/user/reset-password.svg";
+import FloatLabel from "@crema/modules/components/floatLabel";
 import {
   StyledUserCardHeader,
   StyledUserCardLg,
@@ -18,8 +19,6 @@ import {
   StyledWrapper,
 } from "../index.styled";
 
-const { Text } = Typography;
-
 const onFinish = (values) => {
   console.log("Success:", values);
 };
@@ -30,6 +29,10 @@ const onFinishFailed = (errorInfo) => {
 
 const ResetPassword = () => {
   const { messages } = useIntl();
+
+  const [form] = Form.useForm();
+  const newPassword = Form.useWatch("newPassword", form);
+  const confirmPassword = Form.useWatch("confirmPassword", form);
 
   return (
     <StyledUserPages>
@@ -58,38 +61,43 @@ const ResetPassword = () => {
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
+                    form={form}
                   >
-                    <Text strong>{messages["common.newPassword"]}</Text>
-                    <Form.Item
-                      name="newPassword"
-                      className="form-field"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your New Password!",
-                        },
-                      ]}
+                    <FloatLabel
+                      label={messages["common.password"]}
+                      value={newPassword}
                     >
-                      <Input.Password
-                        placeholder={messages["common.newPassword"]}
-                      />
-                    </Form.Item>
+                      <Form.Item
+                        name="newPassword"
+                        className="form-field"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your New Password!",
+                          },
+                        ]}
+                      >
+                        <Input.Password />
+                      </Form.Item>
+                    </FloatLabel>
 
-                    <Text strong>{messages["common.retypePassword"]}</Text>
-                    <Form.Item
-                      name="confirmPassword"
-                      className="form-field"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Retype Password!",
-                        },
-                      ]}
+                    <FloatLabel
+                      label={messages["common.retypePassword"]}
+                      value={confirmPassword}
                     >
-                      <Input.Password
-                        placeholder={messages["common.retypePassword"]}
-                      />
-                    </Form.Item>
+                      <Form.Item
+                        name="confirmPassword"
+                        className="form-field"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Retype Password!",
+                          },
+                        ]}
+                      >
+                        <Input.Password />
+                      </Form.Item>
+                    </FloatLabel>
 
                     <StyledUserFormBtn type="primary" htmlType="submit">
                       <IntlMessages id="common.resetMyPassword" />
