@@ -8,9 +8,10 @@ import {
   StyledAppHeaderSectionDesk,
   StyledAppHeaderSectionMobile,
 } from "./index.styled";
-import { Dropdown } from "antd";
+import { Button, Dropdown, Space, Typography } from "antd";
 import { StyledDropdownWrapper } from "../index.styled";
 import UserInfo from '../components/UserInfo';
+import { MenuOutlined } from "@ant-design/icons";
 
 const items = [
   { key: 2, label: <AppNotifications /> },
@@ -20,7 +21,16 @@ const items = [
 const AppHeader = ({ isCollapsed, onToggleSidebar }) => {
   return (
     <StyledAppHeader>
-      <h2>Fancy AI</h2>
+      <Space align="center">
+        <Button
+          style={{padding: '5px'}}
+          type="ghost" onClick={() => {
+          onToggleSidebar(!isCollapsed)
+        }}>
+          <MenuOutlined />
+        </Button>
+        <Typography.Title style={{marginBottom: 0}} level={4}>Fancy AI</Typography.Title>
+      </Space>
       <StyledAppHeaderSectionDesk>
         <AppNotifications />
         <UserInfo hasColor />

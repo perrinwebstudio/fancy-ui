@@ -842,5 +842,6 @@
   "userProfile.two_factor": "Two-Factor Authentication",
   "userProfile.enable_two_factor": "Enable Two-Factor Authentication",
   "userProfile.multi_factor": "Multi-Factor Authentication",
-  "userProfile.enable_multi_factor": "Enable Multi-Factor Authentication"
+  "userProfile.enable_multi_factor": "Enable Multi-Factor Authentication",
+  "sidebar.billing": "Billing / Plans"
 }

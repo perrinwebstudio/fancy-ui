@@ -434,6 +434,8 @@
         "libs/modules/src/lib/extraPages/Pricing/index.js"
       ],
       "@crema/modules/invoice": ["libs/modules/src/lib/invoice/index.js"],
+      "@crema/modules/billing": ["libs/modules/src/lib/billing/index.js"],
+      "@crema/modules/siteSetup": ["libs/modules/src/lib/siteSetup/index.js"],
       "@crema/modules/thirdParty": ["libs/modules/src/lib/thirdParty/index.js"],
       "@crema/modules/userList/Flat": [
         "libs/modules/src/lib/userList/Flat/index.js"

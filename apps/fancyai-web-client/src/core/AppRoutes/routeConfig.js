@@ -1,5 +1,5 @@
 import React from "react";
-import { FaPager } from "react-icons/fa";
+import { FaFileInvoiceDollar, FaPager } from "react-icons/fa";
 import { PiUserListBold } from "react-icons/pi";
 import { IoMdSettings } from "react-icons/io";
 
@@ -17,6 +17,13 @@ const routesConfig = [
     messageId: "sidebar.team_members",
     path: "/pages/team_members",
     icon: <PiUserListBold />,
+  },
+  {
+    id: "billing",
+    title: "Billing / Plans",
+    messageId: "sidebar.billing",
+    path: "/pages/billing",
+    icon: <FaFileInvoiceDollar />,
   },
   {
     id: "settings",

@@ -91,3 +91,27 @@ export const generateRandomUniqueNumber = () => {
     return number;
   }
 };
+
+export const getCardBrand = (cardNumber) => {
+  const numStr = cardNumber.toString();
+  if (!numStr) return 'Invalid number';
+
+  // Removing any spaces or dashes in the card number
+  const sanitizedNum = numStr.replace(/[\s-]/g, '');
+
+  // Checking if the input is a number
+  if (isNaN(sanitizedNum)) return 'Invalid number';
+
+  // Detecting card brand
+  if (/^4[0-9]{12}(?:[0-9]{3})?$/.test(sanitizedNum)) {
+      return 'Visa';
+  } else if (/^5[1-5][0-9]{14}$/.test(sanitizedNum)) {
+      return 'MasterCard';
+  } else if (/^3[47][0-9]{13}$/.test(sanitizedNum)) {
+      return 'American Express';
+  } else if (/^6(?:011|5[0-9]{2})[0-9]{12}$/.test(sanitizedNum)) {
+      return 'Discover';
+  } else {
+      return 'Unknown brand';
+  }
+}
