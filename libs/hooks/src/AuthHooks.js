@@ -37,7 +37,7 @@ export const useAuthUser = () => {
     photoURL: "",
     displayName: "John Alex",
   };
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   const isLoading = false;
   return {
     isLoading,

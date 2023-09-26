@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Row, Button, Col, Input, Typography, Switch } from "antd";
+import { Row, Button, Col, Input, Typography, Switch, Image } from "antd";
 import IntlMessages from "@crema/helpers/IntlMessages";
 import { useIntl } from "react-intl";
 import { VerticalCenterDiv } from "./index.styled";
 import { Divider } from "antd";
-import { AiOutlineGoogle } from "react-icons/ai";
+import AppCard from "@crema/components/AppCard";
 import {
   StyledUserProfileFormTitle,
   StyledUserProfileGroupBtn,
@@ -28,7 +28,7 @@ const TwoFactorAuthentication = () => {
         <IntlMessages id="userProfile.two_factor" />
       </StyledUserProfileFormTitle>
       <Row gutter={12}>
-        <Col xs={24} md={12} lg={6}>
+        <Col xs={24} md={12} lg={8}>
           <FloatLabel
             label={messages["userProfile.phone_number"]}
             value={phoneNumber}
@@ -49,28 +49,11 @@ const TwoFactorAuthentication = () => {
         </Col>
       </Row>
       <Divider style={{ marginTop: 0 }} />
-      <StyledUserProfileFormTitle>
-        <IntlMessages id="userProfile.multi_factor" />
-      </StyledUserProfileFormTitle>
       <Row gutter={12}>
-        <Col xs={24} md={12} lg={6}>
-          <Button
-            type={enableMultiFactor ? "primary" : "default"}
-            style={{
-              width: "100%",
-              height: "40px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "10px",
-            }}
-            disabled={!enableMultiFactor}
-          >
-            <AiOutlineGoogle size={16} />
-            Google Connect
-          </Button>
-        </Col>
-        <Col xs={24} md={12}>
+        <Col xs={24} md={12} lg={8}>
+          <StyledUserProfileFormTitle>
+            <IntlMessages id="userProfile.multi_factor" />
+          </StyledUserProfileFormTitle>
           <VerticalCenterDiv height={40}>
             <Switch
               checked={enableMultiFactor}
@@ -78,6 +61,16 @@ const TwoFactorAuthentication = () => {
             />
             <Text>{messages["userProfile.enable_multi_factor"]}</Text>
           </VerticalCenterDiv>
+        </Col>
+        <Col xs={24} md={12}>
+          <h3>QR Code</h3>
+          <Image
+            src={
+              "/assets/images/qr-" +
+              (enableMultiFactor ? "enabled.png" : "disabled.png")
+            }
+            preview={false}
+          />
         </Col>
       </Row>
       <Row style={{ marginTop: "12px" }}>

@@ -9,6 +9,7 @@ import {
   StyledUserProfileTabs,
 } from "./index.styled";
 import AppAnimate from "@crema/components/AppAnimate";
+import AppCard from "@crema/components/AppCard";
 import {
   ChangePassword,
   PersonalInfo,
