@@ -2,6 +2,7 @@ import React from "react";
 import AppAnimate from "@crema/components/AppAnimate";
 import AppRowContainer from "@crema/components/AppRowContainer";
 import { Col, Typography, Button } from "antd";
+import { Link } from "react-router-dom";
 import AppPageMeta from "@crema/components/AppPageMeta";
 import { ReactComponent as Logo } from "../../../assets/user/signup.svg";
 import { ReactComponent as InMail } from "../../../assets/icon/inmail.svg";
@@ -14,10 +15,16 @@ import {
   StyledDivDown,
   StyledDivOnlyContent,
 } from "../index.styled";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
 const SignupConfirm = () => {
+  const navigate = useNavigate();
+  const goToSignin = () => {
+    navigate("/signin");
+  };
+
   return (
     <StyledUserPages>
       <AppPageMeta title="SignupConfirm" />
@@ -45,12 +52,18 @@ const SignupConfirm = () => {
                       activate your account. If you don't see the email, don't
                       forget to check your spam folder.
                       <br></br>
-                      <Text strong style={{ color: "#0a8fdc" }}>
-                        Welcome aboard!
-                      </Text>
+                      <Link to="/signin">
+                        <Text strong style={{ color: "#0a8fdc" }}>
+                          Welcome aboard!
+                        </Text>
+                      </Link>
                     </Text>
                   </StyledDivOnlyContent>
-                  <Button style={{ width: "100%" }} type="primary">
+                  <Button
+                    style={{ width: "100%" }}
+                    type="primary"
+                    onClick={goToSignin}
+                  >
                     Got It
                   </Button>
                 </StyledDivDown>
