@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment'
 
 export const apiUserBaseQuery = fetchBaseQuery({
   baseUrl: `${environment.apiHost}/`,
+  credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const apiToken = getState().authSlice.apiToken
     const actAsUserId = getState().authSlice.actAsUserId
