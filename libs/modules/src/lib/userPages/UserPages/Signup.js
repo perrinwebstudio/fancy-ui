@@ -57,7 +57,7 @@ const Signup = () => {
               <Form.Item
                 name="name"
                 className="form-field"
-                rules={[{ required: true, message: "Please input your Name!" }]}
+                rules={[{ required: true, message: "Please enter your name" }]}
               >
                 <Input placeholder={messages["common.name"]} />
               </Form.Item>
@@ -66,7 +66,7 @@ const Signup = () => {
                 name="email"
                 className="form-field"
                 rules={[
-                  { required: true, message: "Please input your Email!" },
+                  { required: true, message: "Please enter your email" },
                 ]}
               >
                 <Input placeholder={messages["common.email"]} />
@@ -76,7 +76,7 @@ const Signup = () => {
                 name="password"
                 className="form-field"
                 rules={[
-                  { required: true, message: "Please input your Password!" },
+                  { required: true, message: "Please enter your password" },
                 ]}
               >
                 <Input
@@ -91,7 +91,7 @@ const Signup = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Retype Password!",
+                    message: "Please confirm your password",
                   },
                 ]}
               >
