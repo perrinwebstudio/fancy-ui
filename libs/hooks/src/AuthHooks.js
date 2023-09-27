@@ -26,23 +26,22 @@ export const useAuthMethod = () => {
 //For Firebase Auth
 
 import {
-  useFirebase,
   useFirebaseActions,
 } from "@crema/services/auth/FirebaseAuthProvider";
-import { getUserFromFirebase } from "@crema/helpers";
+import { useSelector } from "react-redux";
 
 export const useAuthUser = () => {
-  // const { user, isAuthenticated, isLoading } = useFirebase();
+  const auth = useSelector((state) => state.authSlice);
   const user = {
     photoURL: "",
     displayName: "John Alex",
   };
-  const isAuthenticated = false;
+  const isAuthenticated = !!auth.currentUser;
   const isLoading = false;
   return {
     isLoading,
     isAuthenticated,
-    user: getUserFromFirebase(user),
+    user: auth.currentUser || null,
   };
 };
 

@@ -2,5 +2,6 @@
 // When building for production, this file is replaced with `environment.prod.ts`.
 export const environment = {
   production: false,
-  testing: 'Testing Env'
+  testing: 'Testing Env',
+  apiHost: 'https://staging-api.getfancy.ai/api',
 };

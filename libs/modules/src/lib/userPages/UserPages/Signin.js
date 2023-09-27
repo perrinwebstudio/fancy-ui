@@ -31,7 +31,10 @@ import axios from "@crema/services/axios";
 import { initialUrl } from "@crema/constants/AppConst";
 import FloatLabel from "@crema/modules/components/floatLabel";
 
-const Signin = () => {
+const Signin = ({
+  loginEmail,
+  isLoggingIn,
+}) => {
   const { messages } = useIntl();
   const navigate = useNavigate();
 
@@ -41,15 +44,13 @@ const Signin = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    axios
-      .post("/api/auth/signin", values)
-      .then((result) => {
-        console.log("onFinishResult: ", result);
-        navigate(initialUrl);
-      })
-      .catch((err) => {
-        console.error("onFinishCatch: ", err);
-      });
+    loginEmail?.(values).unwrap().then((result) => {
+      console.log("onFinishResult: ", result);
+      navigate(initialUrl);
+    })
+    .catch((err) => {
+      console.error("onFinishCatch: ", err);
+    });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -122,7 +123,7 @@ const Signin = () => {
                 </>
               </StyledUserFieldAction>
 
-              <StyledUserFormBtn type="primary" htmlType="submit">
+              <StyledUserFormBtn loading={isLoggingIn} disabled={isLoggingIn} type="primary" htmlType="submit">
                 <IntlMessages id="common.login" />
               </StyledUserFormBtn>
             </StyledUserForm>

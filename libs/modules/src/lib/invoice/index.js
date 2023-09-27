@@ -4,7 +4,6 @@ import InvoicePdf from './InvoicePdf';
 import ClientItem from './Clients/ClientItem';
 import AddClient from './Clients/AddClient';
 import AddInvoice from './AddInvoice';
-import BillingTable from './BillingTable';
 
 export {
   InvoiceSettings,
@@ -13,5 +12,4 @@ export {
   ClientItem,
   AddClient,
   AddInvoice,
-  BillingTable
 };
