@@ -34,10 +34,12 @@ export const useAuthUser = () => {
   const auth = useSelector((state) => state.authSlice);
   const isAuthenticated = !!auth.currentUser;
   const isLoading = false;
+
   return {
     isLoading,
     isAuthenticated,
     user: auth.currentUser || null,
+    apiToken: auth.apiToken || null,
   };
 };
 

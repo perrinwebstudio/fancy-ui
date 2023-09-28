@@ -24,7 +24,7 @@ const Billing = () => {
   return (
     <>
       <AppPageMeta title="Billing" />
-      <Title level={3}>Billing and Payment Method</Title>
+      <Title level={4}>Billing and Payment Method</Title>
       <AppRowContainer>
         <Col xs={24} sm={24} lg={12}>
           <MonthlyPaymentCard />
@@ -36,7 +36,7 @@ const Billing = () => {
         </Col>
       </AppRowContainer>
 
-      <Title level={3}>Payment History</Title>
+      <Title level={4}>Payment History</Title>
       {transactions && transactions.length > 0 ? (
         <AppRowContainer>
           <Col xs={24} sm={24} lg={24}>

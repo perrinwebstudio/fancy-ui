@@ -70,7 +70,7 @@ const SiteSetup = () => {
       <AppPageMeta title="Add new site" />
       <StyledSiteSetupStepBar>
         <Col md={16} lg={5}>
-          <Title level={3}>Add new site</Title>
+          <Title level={4}>Add new site</Title>
         </Col>
         <Col xs={0} sm={0} md={16} lg={14}>
           <SiteSetupSteps checkStepFinish={(step) => {
@@ -86,7 +86,7 @@ const SiteSetup = () => {
         </Col>
       </StyledSiteSetupStepBar>
       <SimpleBarReact style={{ flex: 1, overflowY: 'auto', minHeight: '0px', marginTop: '10px', marginBottom: '10px' }}>
-        <Card className="site-setup-form-wrapper" bordered={false} style={{overflow: 'scroll'}}>
+        <Card className="site-setup-form-wrapper" bordered={false} style={{overflowY: 'auto'}}>
           {form}
         </Card>
       </SimpleBarReact>

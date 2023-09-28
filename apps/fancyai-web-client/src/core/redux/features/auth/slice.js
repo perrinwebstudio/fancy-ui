@@ -35,12 +35,34 @@ export const authSlice = createSlice({
       api.endpoints.getUser.matchFulfilled,
       (state, action) => {
         if (action.payload.data) {
-          state.currentUser = action.payload.data
+          state.currentUser = {
+            ...action.payload.data,
+            company: [{ //testing
+              name: "Company name 1",
+              image_url: "/assets/images/avatar/A1.jpg",
+            }, 
+            {
+              name: "Company name 2", 
+              image_url: "/assets/images/avatar/A2.jpg"
+            }, 
+            {
+              name: "Company name 3", 
+              image_url: "/assets/images/avatar/A3.jpg"
+            }]
+          }
         }
       },
     )
     .addMatcher(
       apiAuth.endpoints.emailLogin.matchFulfilled,
+      (state, action) => {
+        if (action.payload.token) {
+          state.apiToken = action.payload.token
+        }
+      },
+    )
+    .addMatcher(
+      apiAuth.endpoints.verify2FA.matchFulfilled,
       (state, action) => {
         if (action.payload.token) {
           state.apiToken = action.payload.token

@@ -3,6 +3,16 @@ import { transformResponseWithNotification } from '@crema/helpers'
 
 export const apiAuth = api.injectEndpoints({
   endpoints: (build) => ({
+    verify2FA: build.mutation({
+      query: (body) => ({
+        url: 'auth/verify-2fa',
+        method: 'POST',
+        body
+      }),
+      transformResponse: (response) => {
+        return transformResponseWithNotification(response, 'Login successfully')
+      }
+    }),
     emailLogin: build.mutation({
       query: (body) => ({
         url: 'auth/signin',
@@ -23,4 +33,8 @@ export const apiAuth = api.injectEndpoints({
   })
 })
 
-export const { useLoginSocialMutation, useEmailLoginMutation } = apiAuth
+export const { 
+  useLoginSocialMutation,
+  useEmailLoginMutation,
+  useVerify2FAMutation
+} = apiAuth
