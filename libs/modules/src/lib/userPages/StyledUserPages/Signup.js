@@ -97,7 +97,7 @@ const Signup = () => {
                   form={form}
                 >
                   <FloatLabel
-                    label={messages["common.companyName"]}
+                    label={messages["common.company_name"]}
                     value={companyName}
                   >
                     <Form.Item
