@@ -29,7 +29,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [form] = Form.useForm();
-  const companyName = Form.useWatch("company_name", form);
+  const companyName = Form.useWatch("companyName", form);
   const fullName = Form.useWatch("name", form);
   const email = Form.useWatch("email", form);
   const password = Form.useWatch("password", form);
@@ -91,12 +91,12 @@ const Signup = () => {
                     value={companyName}
                   >
                     <Form.Item
-                      name="company_name"
+                      name="companyName"
                       className="form-field"
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Company Name!",
+                          message: "Please enter your company name",
                         },
                       ]}
                     >
@@ -109,7 +109,7 @@ const Signup = () => {
                       name="name"
                       className="form-field"
                       rules={[
-                        { required: true, message: "Please input your Name!" },
+                        { required: true, message: "Please enter your name" },
                       ]}
                     >
                       <Input />
@@ -121,7 +121,7 @@ const Signup = () => {
                       name="email"
                       className="form-field"
                       rules={[
-                        { required: true, message: "Please input your Email!" },
+                        { required: true, message: "Please enter your email address" },
                       ]}
                     >
                       <Input />
@@ -156,7 +156,7 @@ const Signup = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Retype Password!",
+                          message: "Please confirm your password",
                         },
                       ]}
                     >
