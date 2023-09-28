@@ -23,6 +23,8 @@ import {
 } from "../index.styled";
 import { useNavigate } from "react-router-dom";
 import axios from "@crema/services/axios";
+import { Store } from "react-notifications-component";
+import notification from "../../thirdParty/reactNotification/helpers/notification";
 
 const Signup = () => {
   const { messages } = useIntl();
@@ -40,12 +42,20 @@ const Signup = () => {
     axios
       .post("/api/auth/signup", values)
       .then((result) => {
-        if (result.success) {
+        if (result.data.success) {
           navigate("/signup_confirm");
         }
       })
       .catch((err) => {
-        console.error("onFinishCatch: ", err);
+        console.error("onFinishCatch: ", err?.response?.data?.msg);
+        Store.addNotification(
+          Object.assign({}, notification, {
+            type: "danger",
+            title: "Error",
+            message: err?.response?.data?.msg ?? "Server Error",
+            container: "top-right",
+          })
+        );
       });
   };
 
@@ -87,7 +97,7 @@ const Signup = () => {
                   form={form}
                 >
                   <FloatLabel
-                    label={messages["common.company_name"]}
+                    label={messages["common.companyName"]}
                     value={companyName}
                   >
                     <Form.Item
@@ -121,7 +131,10 @@ const Signup = () => {
                       name="email"
                       className="form-field"
                       rules={[
-                        { required: true, message: "Please enter your email address" },
+                        {
+                          required: true,
+                          message: "Please enter your email address",
+                        },
                       ]}
                     >
                       <Input />
