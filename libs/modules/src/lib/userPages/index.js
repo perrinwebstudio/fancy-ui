@@ -9,6 +9,8 @@ import StyledForgetPassword from "./StyledUserPages/ForgetPassword";
 import StyledResetPassword from "./StyledUserPages/ResetPassword";
 import StyledUnlockScreen from "./StyledUserPages/UnlockScreen";
 import StyledSignupConfirm from "./StyledUserPages/SignupConfirm";
+import Verify2FA from "./UserPages/Verify2FA";
+
 
 export {
   Signin,
@@ -22,4 +24,5 @@ export {
   StyledResetPassword,
   StyledUnlockScreen,
   StyledSignupConfirm,
+  Verify2FA
 };

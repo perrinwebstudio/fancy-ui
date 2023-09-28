@@ -1,14 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SEOPlanPicker from './SEOPlanPicker';
 import StyledSiteSetupTitle from './StyledSiteSetupStepTitle';
-import { Form } from 'antd';
+import { Form, theme } from 'antd';
+import { CheckOutlined } from '@ant-design/icons';
 
-const SiteSetupStep3 = ({ prop1 }) => {
-  return <Form.Item className='form-section'>
-    <StyledSiteSetupTitle level={4}  id='step3'>3. Service Plan Selection</StyledSiteSetupTitle>
-    <SEOPlanPicker />
-  </Form.Item>
+const SiteSetupStep3 = ({ validated }) => {
+  const {token} = theme.useToken()
+  return <>
+    <StyledSiteSetupTitle level={4}  id='step3'>{validated && <CheckOutlined
+      style={{marginRight: '10px', color: token.colorSuccess}}
+    />} 3. Service Plan Selection</StyledSiteSetupTitle>
+    <Form.Item name="plan" className='form-section'>
+      <SEOPlanPicker />
+    </Form.Item>
+  </>
 }
 
 export default SiteSetupStep3

@@ -124,6 +124,10 @@ export const StyledUserCardHeader = styled.div`
   }
 `;
 
+export const StyledUserCardSubHeader = styled.div`
+  margin-bottom: 20px;
+`
+
 export const StyledUserCardLogo = styled.div`
   margin-right: 8px;
 

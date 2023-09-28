@@ -1,14 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import SEOPlanPicker from './SEOPlanPicker';
 import StyledSiteSetupTitle from './StyledSiteSetupStepTitle';
 import StepFormWrapper from './StepFormWrapper';
-import { Button, Form, Input, Typography } from 'antd';
+import { Button, Form, Input, Typography, theme } from 'antd';
 import StyledInstructionWrapper from './StyledInstructionWrapper';
+import { CheckOutlined } from '@ant-design/icons';
 
-const SiteSetupStep6 = ({ sitePlatform }) => {
+const SiteSetupStep6 = ({ sitePlatform, validated }) => {
+  const {token} = theme.useToken()
   return <StepFormWrapper className='form-section'>
-    <StyledSiteSetupTitle level={4}  id='step6'>6. App / Plugin Installation</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4}  id='step6'>{validated && <CheckOutlined
+      style={{marginRight: '10px', color: token.colorSuccess}}
+    />} 6. App / Plugin Installation</StyledSiteSetupTitle>
     {(!sitePlatform || sitePlatform === 'shopify') && <>
       <Form.Item style={{marginBottom: '10px'}} label="Shopify site URL">
         <Input />

@@ -1,14 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import SEOPlanPicker from './SEOPlanPicker';
 import StyledSiteSetupTitle from './StyledSiteSetupStepTitle';
-import { Button, Form, Space, Typography } from 'antd';
+import { Button, Form, Space, Typography, theme } from 'antd';
 import StepFormWrapper from './StepFormWrapper';
 import StyledInstructionWrapper from './StyledInstructionWrapper';
+import { CheckOutlined } from '@ant-design/icons';
 
-const SiteSetupStep5 = ({ prop1 }) => {
+const SiteSetupStep5 = ({ validated }) => {
+  const {token} = theme.useToken()
   return <StepFormWrapper className='form-section'>
-    <StyledSiteSetupTitle level={4}  id='step5'>5. Site Connections</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4}  id='step5'>{validated && <CheckOutlined
+      style={{marginRight: '10px', color: token.colorSuccess}}
+    />} 5. Site Connections</StyledSiteSetupTitle>
     <Form.Item label="Connect to Google Search Console">
       <Button type='primary' block size='large'>
         Sign In

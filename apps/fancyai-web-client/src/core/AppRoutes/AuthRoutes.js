@@ -1,4 +1,5 @@
 import React from "react";
+import Verify2FaPage from "../../modules/auth/2FA";
 
 const Signin = React.lazy(() => import("../../modules/auth/Signin"));
 const Signup = React.lazy(() => import("../../modules/auth/Signup"));
@@ -38,5 +39,9 @@ export const authRouteConfig = [
   {
     path: "/signup_confirm",
     element: <SignupConfirm />,
+  },
+  {
+    path: "/verify-2fa",
+    element: <Verify2FaPage />,
   },
 ];

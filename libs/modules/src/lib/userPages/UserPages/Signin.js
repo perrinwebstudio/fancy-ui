@@ -27,8 +27,6 @@ import {
   StyledUserSocialLink,
 } from "../index.styled";
 import { useNavigate } from "react-router-dom";
-import axios from "@crema/services/axios";
-import { initialUrl } from "@crema/constants/AppConst";
 import FloatLabel from "@crema/modules/components/floatLabel";
 
 const Signin = ({
@@ -44,7 +42,7 @@ const Signin = ({
 
   const onFinish = (values) => {
     loginEmail?.(values).unwrap().then((result) => {
-      navigate(initialUrl);
+      navigate('/verify-2fa');
     })
     .catch(() => {});
   };

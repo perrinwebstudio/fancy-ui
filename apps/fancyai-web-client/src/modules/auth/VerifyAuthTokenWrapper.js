@@ -6,8 +6,9 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
 export default function VerifyAuthTokenWrapper({ children }) {
+  const urlPath = window.location.pathname
   const dispatch = useDispatch()
-  const [isInitializing, setIsInitializing] = useState(true)
+  const [isInitializing, setIsInitializing] = useState(urlPath !== '/verify-2fa' && urlPath !== '/signin')
   const [getUser, { isLoading }] = useGetUserMutation()
   const auth = useSelector((state) => state.authSlice)
   const {currentUser, apiToken} = auth
@@ -21,16 +22,17 @@ export default function VerifyAuthTokenWrapper({ children }) {
           .catch(() => {
             dispatch(logout())
             dispatch(resetStateAction())
-            window.location.href = '/signin'
           })
       }
     }
-    init()
-      .then(() => {
-        setIsInitializing(false)
-      })
-      .catch(() => {})
-  }, [dispatch, apiToken, currentUser, getUser])
+    if (urlPath !== '/verify-2fa' && urlPath !== '/signin') {
+      init()
+        .then(() => {
+          setIsInitializing(false)
+        })
+        .catch(() => {})
+    }
+  }, [dispatch, apiToken, currentUser, getUser, urlPath])
 
   if (isLoading || isInitializing) {
     return null
