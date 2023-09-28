@@ -18,9 +18,37 @@ import {
   StyledUserStyledForPass,
   StyledUserStyledImg,
 } from "../index.styled";
+import axios from "@crema/services/axios";
+import { Store } from "react-notifications-component";
+import notification from "../../thirdParty/reactNotification/helpers/notification";
 
 const onFinish = (values) => {
   console.log("Success:", values);
+  axios
+    .post("/api/password/forgot", values)
+    .then((result) => {
+      console.log(result, "result");
+      if (result.data.success) {
+        Store.addNotification(
+          Object.assign({}, notification, {
+            type: "success",
+            title: "Success",
+            message: result.data.msg,
+          })
+        );
+      }
+    })
+    .catch((err) => {
+      console.error("onFinishCatch: ", err.response.data.msg);
+      Store.addNotification(
+        Object.assign({}, notification, {
+          type: "danger",
+          title: "Error",
+          message: err.response.data.msg,
+          container: "top-right",
+        })
+      );
+    });
 };
 
 const onFinishFailed = (errorInfo) => {
