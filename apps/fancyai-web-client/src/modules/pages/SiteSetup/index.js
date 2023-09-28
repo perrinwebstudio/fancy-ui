@@ -10,35 +10,60 @@ import NewSiteForm from "./NewSiteForm";
 
 const { Title } = Typography;
 
+export const validateStep = (step, formData) => {
+  switch (step) {
+    case 0:
+      return formData.name && formData.url && formData.site_platform && formData.website_purpose
+    case 1:
+      return formData.competitors?.length && formData.products && formData.important_products && formData.target_customer && formData.band_voice_description
+    case 2:
+      return formData.plan
+    case 3:
+      return formData.market && formData.target_market && formData.important_keywords && formData.avoid_keywords && formData.kpi && formData.service_notes
+    case 4:
+      return true
+    case 5:
+      return true
+    case 6:
+      return true
+  }
+  return true
+}
+
 const SiteSetup = () => {
   const [currentStep, setCurrentStep] = React.useState(0);
 
-  const checkPosition = () => {
-    const offset = 100;
-    const sections = Array.from(document.querySelectorAll('.form-section'));
-    for (let i = 0; i < sections.length; i++) {
-      const rect = sections[i].getBoundingClientRect();
-      if (rect.top <= offset && rect.top + rect.height > offset) {
-        setCurrentStep(i + 1);
-        break;
-      }
-    }
-  };
-
   useEffect(() => {
-    const mainComponent = document.querySelector('.site-setup-form-wrapper')
-    if (mainComponent) {
-      mainComponent.addEventListener('scroll', checkPosition);
-      return () => {
-        console.log('removed event')
-        mainComponent.removeEventListener('scroll', checkPosition);
-      };
-    }
-  }, []);
+    document.querySelector('.site-setup-form-wrapper')?.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [currentStep])
+
+  const [formRef] = Form.useForm();
+  const [formData, setFormData] = React.useState({})
 
   const form = useMemo(() => {
-    return <NewSiteForm />
-  }, [])
+    return <Form initialValues={{
+        site_platform: 'shopify'
+      }}
+      form={formRef}
+      onFinish={(values) => {
+        console.log(values)
+      }}
+      layout="vertical"
+      onFieldsChange={(changedFields, allFields) => {
+        const _data = {}
+        allFields.forEach(field => {
+          _data[field.name[0]] = field.value
+        })
+        setFormData(_data)
+      }}
+    >
+      <NewSiteForm formData={formData} currentStep={currentStep} onStepChange={(step) => {
+        if (step >= 0 && step <= 6) {
+          setCurrentStep(step)
+        }
+      }} />
+    </Form>
+  }, [currentStep, setFormData, formRef, formData])
 
   return (
     <>
@@ -48,12 +73,10 @@ const SiteSetup = () => {
           <Title level={3}>Add new site</Title>
         </Col>
         <Col xs={0} sm={0} md={16} lg={14}>
-          <SiteSetupSteps current={currentStep} onClickStep={(step) => {
+          <SiteSetupSteps checkStepFinish={(step) => {
+            return validateStep(step, formData)
+          }} current={currentStep} onClickStep={(step) => {
             setCurrentStep(step)
-            const element = document.getElementById(`step${step + 1}`)
-            if (element) {
-              element.scrollIntoView({behavior: 'smooth', block: step === 0 ? 'center' : 'start'})
-            }
           }} />
         </Col>
         <Col md={16} lg={5}>

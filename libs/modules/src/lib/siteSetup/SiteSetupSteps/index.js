@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Steps } from 'antd';
 
-const SiteSetupSteps = ({ current = 1, onClickStep }) => {
+const SiteSetupSteps = ({ current = 1, onClickStep, checkStepFinish }) => {
+  const getStatus = (step) => {
+    return current === step ?  'process' : checkStepFinish?.(step) ? 'finish' : 'wait'
+  }
   return <Steps
     // type="navigation"
     onChange={(step) => {
@@ -12,31 +15,31 @@ const SiteSetupSteps = ({ current = 1, onClickStep }) => {
     items={[
       {
         title: '',
-        status: current === 0 ? 'process' : 'wait',
+        status:  getStatus(0),
       },
       {
         title: '',
-        status: current === 1 ? 'process' : 'wait',
+        status: getStatus(1),
       },
       {
         title: '',
-        status: current === 2 ? 'process' : 'wait',
+        status: getStatus(2),
       },
       {
         title: '',
-        status: current === 3 ? 'process' : 'wait',
+        status: getStatus(3),
       },
       {
         title: '',
-        status: current === 4 ? 'process' : 'wait',
+        status: getStatus(4),
       },
       {
         title: '',
-        status: current === 5 ? 'process' : 'wait',
+        status: getStatus(5),
       },
       {
         title: '',
-        status: current === 6 ? 'process' : 'wait',
+        status: checkStepFinish?.(5) ? 'finish' : current === 6 ? 'process' : 'wait',
       },
     ]}
   />
