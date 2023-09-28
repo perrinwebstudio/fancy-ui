@@ -18,10 +18,10 @@ import {
   StyledUserStyledResetImgCol,
   StyledWrapper,
 } from "../index.styled";
-
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
+import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "@crema/services/axios";
+import { Store } from "react-notifications-component";
+import notification from "../../thirdParty/reactNotification/helpers/notification";
 
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
@@ -33,6 +33,42 @@ const ResetPassword = () => {
   const [form] = Form.useForm();
   const newPassword = Form.useWatch("newPassword", form);
   const confirmPassword = Form.useWatch("confirmPassword", form);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+
+    axios
+      .put("/api/password/reset", {
+        token: searchParams.get("token") ?? "",
+        password: values.newPassword,
+      })
+      .then((result) => {
+        console.log(result, "result");
+        if (result.data.success) {
+          Store.addNotification(
+            Object.assign({}, notification, {
+              type: "success",
+              title: "Success",
+              message: result.data.msg,
+            })
+          );
+          navigate("/signin");
+        }
+      })
+      .catch((err) => {
+        console.error("onFinishCatch: ", err?.response?.data?.msg);
+        Store.addNotification(
+          Object.assign({}, notification, {
+            type: "danger",
+            title: "Error",
+            message: err?.response?.data?.msg ?? "Server Error",
+            container: "top-right",
+          })
+        );
+      });
+  };
 
   return (
     <StyledUserPages>
