@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { apiAuth } from '../../api/apiAuth'
-import { api } from '../../api/api'
+import { apiAuth } from '../../../api/apiAuth'
+import { api } from '../../../api/api'
 
 const initialState = {
   apiToken: undefined,
@@ -42,7 +42,6 @@ export const authSlice = createSlice({
     .addMatcher(
       apiAuth.endpoints.emailLogin.matchFulfilled,
       (state, action) => {
-        console.log('action.payload', action.payload)
         if (action.payload.token) {
           state.apiToken = action.payload.token
           state.currentUser = {

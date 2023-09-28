@@ -32,10 +32,6 @@ import { useSelector } from "react-redux";
 
 export const useAuthUser = () => {
   const auth = useSelector((state) => state.authSlice);
-  const user = {
-    photoURL: "",
-    displayName: "John Alex",
-  };
   const isAuthenticated = !!auth.currentUser;
   const isLoading = false;
   return {

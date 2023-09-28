@@ -43,18 +43,10 @@ const Signin = ({
   const password = Form.useWatch("password", form);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     loginEmail?.(values).unwrap().then((result) => {
-      console.log("onFinishResult: ", result);
       navigate(initialUrl);
     })
-    .catch((err) => {
-      console.error("onFinishCatch: ", err);
-    });
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    .catch(() => {});
   };
 
   const gotoForgetPassword = () => {
@@ -82,7 +74,6 @@ const Signin = ({
               name="basic"
               initialValues={{ remember: true }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               form={form}
             >
               <FloatLabel label={messages["common.email"]} value={email}>

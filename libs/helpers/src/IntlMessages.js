@@ -3,10 +3,10 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import { allowMultiLanguage } from "@crema/constants/AppConst";
 
 const InjectMassage = (props) => {
-  console.log("allowMultip", props);
   if (allowMultiLanguage) {
     return <FormattedMessage {...props} />;
   } else {
+    return props.id.split(".").pop();
     return props.id.split(".").pop();
   }
 };

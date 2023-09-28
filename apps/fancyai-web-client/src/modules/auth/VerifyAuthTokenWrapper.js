@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useGetUserMutation } from '../../core/api/api'
-import { logout } from '../../core/redux/auth/slice'
+import { logout } from '../../core/redux/features/auth/slice'
 import { resetStateAction } from '../../core/redux/resetStateAction'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'

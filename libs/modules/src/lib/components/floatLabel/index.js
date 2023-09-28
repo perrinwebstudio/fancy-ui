@@ -6,8 +6,6 @@ const FloatLabel = (props) => {
   const [focus, setFocus] = useState(false);
   const { children, label, value } = props;
 
-  console.log("focus, label", focus, value);
-
   const labelClass =
     focus || (value && value.length !== 0) ? "label-float" : "";
 

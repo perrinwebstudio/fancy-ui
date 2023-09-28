@@ -1,6 +1,19 @@
 import sanitizeHtml from 'sanitize-html';
 import dayjs from 'dayjs';
 
+export const transformResponseWithNotification = (response, overrideMessage = null) => {
+  const newRsp =  {
+    ...response,
+    showNotification: true,
+  };
+
+  if (overrideMessage && overrideMessage !== '') {
+    newRsp.msg = overrideMessage;
+  }
+
+  return newRsp;
+}
+
 /**
  * Sanitize Content
  * @param content any

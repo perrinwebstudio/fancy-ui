@@ -1,4 +1,5 @@
 import { api } from './api'
+import { transformResponseWithNotification } from '@crema/helpers'
 
 export const apiAuth = api.injectEndpoints({
   endpoints: (build) => ({
@@ -7,7 +8,10 @@ export const apiAuth = api.injectEndpoints({
         url: 'auth/signin',
         method: 'POST',
         body
-      })
+      }),
+      transformResponse: (response) => {
+        return transformResponseWithNotification(response, 'Login successfully')
+      }
     }),
     loginSocial: build.mutation({
       query: (body) => ({
