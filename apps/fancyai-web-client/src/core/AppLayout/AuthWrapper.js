@@ -8,8 +8,6 @@ import {
 } from "./AuthWrapper.styled";
 import AppAnimateGroup from "@crema/components/AppAnimateGroup";
 import AppInfoView from "@crema/components/AppInfoView";
-import { ReactNotifications } from "react-notifications-component";
-import "react-notifications-component/dist/theme.css";
 
 const AuthWrapper = ({ children }) => {
   return (
@@ -24,7 +22,6 @@ const AuthWrapper = ({ children }) => {
           duration={200}
         >
           <StyledAuthWrap key={"wrap"}>
-            <ReactNotifications />
             <StyledAuthMainContent>{children}</StyledAuthMainContent>
           </StyledAuthWrap>
           <AppInfoView />

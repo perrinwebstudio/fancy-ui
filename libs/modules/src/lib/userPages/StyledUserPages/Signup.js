@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import IntlMessages from "@crema/helpers/IntlMessages";
 import AppAnimate from "@crema/components/AppAnimate";
 import AppRowContainer from "@crema/components/AppRowContainer";
@@ -30,6 +30,8 @@ const Signup = () => {
   const { messages } = useIntl();
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [form] = Form.useForm();
   const companyName = Form.useWatch("companyName", form);
   const fullName = Form.useWatch("name", form);
@@ -39,14 +41,17 @@ const Signup = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
+    setIsLoading(true);
     axios
       .post("/api/auth/signup", values)
       .then((result) => {
+        setIsLoading(false);
         if (result.data.success) {
           navigate("/signup_confirm");
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         console.error("onFinishCatch: ", err?.response?.data?.msg);
         Store.addNotification(
           Object.assign({}, notification, {
@@ -191,7 +196,12 @@ const Signup = () => {
                     </>
                   </StyledUserFieldActionRow>
 
-                  <StyledUserFormBtn type="primary" htmlType="submit">
+                  <StyledUserFormBtn
+                    type="primary"
+                    htmlType="submit"
+                    disabled={isLoading}
+                    loading={isLoading}
+                  >
                     <IntlMessages id="common.next" />
                   </StyledUserFormBtn>
                 </StyledUserForm>

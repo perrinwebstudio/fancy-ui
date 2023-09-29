@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
-import { useUrlSearchParams } from 'use-url-search-params';
-import AppContentView from '@crema/components/AppContentView';
-import generateRoutes from '@crema/helpers/RouteGenerator';
-import { Layouts } from '@crema/components/AppLayout';
-import { useAuthUser } from '@crema/hooks/AuthHooks';
+import React, { useEffect } from "react";
+import { useUrlSearchParams } from "use-url-search-params";
+import AppContentView from "@crema/components/AppContentView";
+import generateRoutes from "@crema/helpers/RouteGenerator";
+import { Layouts } from "@crema/components/AppLayout";
+import { useAuthUser } from "@crema/hooks/AuthHooks";
 import {
   useLayoutActionsContext,
   useLayoutContext,
-} from '@crema/context/LayoutContextProvider';
-import { useSidebarActionsContext } from '@crema/context/SidebarContextProvider';
+} from "@crema/context/LayoutContextProvider";
+import { useSidebarActionsContext } from "@crema/context/SidebarContextProvider";
 import {
   anonymousStructure,
   authorizedStructure,
   unAuthorizedStructure,
-} from '../AppRoutes';
-import { useRoutes } from 'react-router-dom';
-import routesConfig from '../AppRoutes/routeConfig';
-import AuthWrapper from './AuthWrapper';
-import { initialUrl } from '@crema/constants';
+} from "../AppRoutes";
+import { useRoutes } from "react-router-dom";
+import routesConfig from "../AppRoutes/routeConfig";
+import AuthWrapper from "./AuthWrapper";
+import { initialUrl } from "@crema/constants";
 
 const AppLayout = () => {
   const { navStyle } = useLayoutContext();

@@ -469,7 +469,8 @@
         "libs/services/localization/src/index.js"
       ],
       "@crema/svg-icons": ["libs/svg-icons/src/index.ts"],
-      "@crema/utility": ["libs/hooks/src/APIHooks.js"]
+      "@crema/utility": ["libs/hooks/src/APIHooks.js"],
+      "@crema/reactNotification/helpers/notification": ["libs/modules/src/lib/thirdParty/reactNotification/helpers/notification.js"],
     }
   },
   "exclude": ["node_modules", "tmp"]
