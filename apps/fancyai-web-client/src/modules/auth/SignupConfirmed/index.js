@@ -25,5 +25,3 @@ const SignupConfirmed = () => {
   return <AppLoader />
 }
 export default SignupConfirmed
-
-///auth/signup/confirm?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOjE2OTU5OTY2MzM4NTUsImVtYWlsIjoidGllbkBmYW5jeWF3ZXNvbWUuY29tIiwiaWQiOiI2NTE2Y2NjN2I0NDJjMDAwMDg5Mzk3MjgiLCJpYXQiOjE2OTU5OTMwMzMsImV4cCI6MTY5NzY4OTkyNjg4OH0.du8hudQ7p2PQJPiUXMiR50Hxl6h_UnGoOj2iY1MhAtQ
