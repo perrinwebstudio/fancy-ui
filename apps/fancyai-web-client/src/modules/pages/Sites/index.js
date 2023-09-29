@@ -31,7 +31,7 @@ const Sites = () => {
     getCompanySites?.({ companyId: user.user.currentCompany })
       .unwrap()
       .then((result) => {
-        if (result.sucess) {
+        if (result.success) {
           setSites(
             result.data.map((e) => {
               return {
