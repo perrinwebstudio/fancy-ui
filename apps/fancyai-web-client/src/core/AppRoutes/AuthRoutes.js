@@ -6,14 +6,14 @@ const Signup = React.lazy(() => import("../../modules/auth/Signup"));
 const ForgotPassword = React.lazy(() =>
   import("../../modules/auth/ForgetPassword")
 );
-const ConfirmSignupAwsCognito = React.lazy(() =>
-  import("../../modules/auth/Signup/ConfirmSignupAwsCognito")
-);
 const ResetPasswordAwsCognito = React.lazy(() =>
   import("../../modules/auth/ResetPassword")
 );
 const SignupConfirm = React.lazy(() =>
   import("../../modules/auth/SignupConfirm")
+);
+const SignupConfirmed = React.lazy(() =>
+  import("../../modules/auth/SignupConfirmed")
 );
 export const authRouteConfig = [
   {
@@ -29,16 +29,16 @@ export const authRouteConfig = [
     element: <ForgotPassword />,
   },
   {
-    path: "/confirm-signup",
-    element: <ConfirmSignupAwsCognito />,
-  },
-  {
     path: "/reset-password",
     element: <ResetPasswordAwsCognito />,
   },
   {
     path: "/signup_confirm",
     element: <SignupConfirm />,
+  },
+  {
+    path: "/auth/signup/confirm",
+    element: <SignupConfirmed />,
   },
   {
     path: "/verify-2fa",
