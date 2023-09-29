@@ -17,6 +17,8 @@ import {
 import { useRoutes } from "react-router-dom";
 import routesConfig from "../AppRoutes/routeConfig";
 import AuthWrapper from "./AuthWrapper";
+import { ReactNotifications } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 
 const AppLayout = () => {
   const { navStyle } = useLayoutContext();
@@ -49,6 +51,7 @@ const AppLayout = () => {
 
   return (
     <>
+      <ReactNotifications />
       {isAuthenticated ? (
         <AppLayout routes={routes} routesConfig={routesConfig} />
       ) : (
