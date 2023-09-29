@@ -7,6 +7,7 @@ import StyledSiteSetupStepBar from "./StyledSiteSetupStepBar";
 import { Link } from "react-router-dom";
 import SimpleBarReact from "simplebar-react";
 import NewSiteForm from "./NewSiteForm";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
@@ -81,11 +82,11 @@ const SiteSetup = () => {
         </Col>
         <Col md={16} lg={5}>
           <div style={{textAlign: 'right'}}>
-            <Link to="/pages/sites"><Button ghost type='primary'>Back to sites</Button></Link>
+            <Link to="/pages/sites"><Button icon={<ArrowLeftOutlined />} type='link'>Back to sites</Button></Link>
           </div>
         </Col>
       </StyledSiteSetupStepBar>
-      <SimpleBarReact style={{ flex: 1, overflowY: 'auto', minHeight: '0px', marginTop: '10px', marginBottom: '10px' }}>
+      <SimpleBarReact style={{ flex: 1, overflowY: 'auto', minHeight: '0px', marginTop: '20px', marginBottom: '10px' }}>
         <Card className="site-setup-form-wrapper" bordered={false} style={{overflowY: 'auto'}}>
           {form}
         </Card>
