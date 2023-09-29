@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import AppContextProvider from '@crema/context/AppContextProvider';
 import AppThemeProvider from '@crema/context/AppThemeProvider';
 import AppLocaleProvider from '@crema/context/AppLocaleProvider';
-import AppAuthProvider from './core/AppAuthProvider';
+import AuthProvider from './core/AuthProvider';
 import AuthRoutes from '@crema/components/AuthRoutes';
 import AppLayout from './core/AppLayout';
 import '@crema/mockapi';
@@ -25,13 +25,13 @@ const App = () => (
               <AppThemeProvider>
                 <AppLocaleProvider>
                   <BrowserRouter>
-                    <AppAuthProvider>
+                    <AuthProvider>
                       <AuthRoutes>
                         <GlobalStyles />
                         <Normalize />
                         <AppLayout />
                       </AuthRoutes>
-                    </AppAuthProvider>
+                    </AuthProvider>
                   </BrowserRouter>
                 </AppLocaleProvider>
               </AppThemeProvider>

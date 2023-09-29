@@ -223,6 +223,9 @@
       ],
       "@crema/constants/defaultConfig": ["libs/constants/src/defaultConfig.js"],
       "@crema/context": ["libs/context/src/index.ts"],
+      "@crema/context/AppAuthProvider": [
+        "libs/context/src/AppAuthProvider/index.js"
+      ],
       "@crema/context/AppContextProvider": [
         "libs/context/src/AppContextProvider/index.js"
       ],

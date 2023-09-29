@@ -1,33 +1,3 @@
-// ForJWT Auth
-/*import { getUserFromJwtAuth } from '@crema/helpers';
-import {
-  useJWTAuth,
-  useJWTAuthActions,
-} from "@crema/services/auth/JWTAuthProvider";
-
-export const useAuthUser = () => {
-  const { user, isAuthenticated, isLoading } = useJWTAuth();
-  return {
-    isLoading,
-    isAuthenticated,
-    user: getUserFromJwtAuth(user),
-  };
-};
-
-export const useAuthMethod = () => {
-  const { signInUser, signUpUser, logout } = useJWTAuthActions();
-
-  return {
-    signInUser,
-    logout,
-    signUpUser,
-  };
-};*/
-//For Firebase Auth
-
-import {
-  useFirebaseActions,
-} from "@crema/services/auth/FirebaseAuthProvider";
 import { useSelector } from "react-redux";
 
 export const useAuthUser = () => {
@@ -43,21 +13,6 @@ export const useAuthUser = () => {
   };
 };
 
-export const useAuthMethod = () => {
-  const {
-    logInWithEmailAndPassword,
-    registerUserWithEmailAndPassword,
-    logInWithPopup,
-    logout,
-  } = useFirebaseActions();
-
-  return {
-    logInWithEmailAndPassword,
-    registerUserWithEmailAndPassword,
-    logInWithPopup,
-    logout,
-  };
-};
 /*
 // For AWS Auth
 import {getUserFromAWS} from '@crema/helpers';
