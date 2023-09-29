@@ -4,6 +4,7 @@ import { logout } from '../../core/redux/features/auth/slice'
 import { resetStateAction } from '../../core/redux/resetStateAction'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
+import AppLoader from '@crema/components/AppLoader'
 
 export default function VerifyAuthTokenWrapper({ children }) {
   const urlPath = window.location.pathname
@@ -24,18 +25,20 @@ export default function VerifyAuthTokenWrapper({ children }) {
             dispatch(resetStateAction())
           })
       }
+      setIsInitializing(false)
     }
-    if (urlPath !== '/verify-2fa' && urlPath !== '/signin') {
-      init()
-        .then(() => {
-          setIsInitializing(false)
-        })
-        .catch(() => {})
-    }
-  }, [dispatch, apiToken, currentUser, getUser, urlPath])
+    init()
+    // if (urlPath !== '/verify-2fa' && urlPath !== '/signin') {
+    //   init()
+    //     .then(() => {
+    //       setIsInitializing(false)
+    //     })
+    //     .catch(() => {})
+    // }
+  }, [])
 
   if (isLoading || isInitializing) {
-    return null
+    return <AppLoader />
   }
 
   return <>{children}</>

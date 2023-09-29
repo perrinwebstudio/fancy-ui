@@ -17,14 +17,15 @@ import {
   StyledUsername,
   StyledUsernameInfo,
 } from "./index.styled";
+import { useAppAuth } from '@crema/context/AppAuthProvider'
 
 const UserInfo = ({ hasColor }) => {
   const { themeMode } = useThemeContext();
-  const { logout } = useAuthMethod();
   const { user } = useAuthUser();
   const navigate = useNavigate();
   const { sidebarColorSet } = useSidebarContext();
   const { allowSidebarBgImage } = useSidebarContext();
+  const { onLogout } = useAppAuth()
 
   const getUserAvatar = () => {
     if (user.displayName) {
@@ -42,7 +43,10 @@ const UserInfo = ({ hasColor }) => {
     },
     {
       key: 2,
-      label: <div onClick={() => logout()}>Logout</div>,
+      label: <div onClick={() => {
+        console.log('logout')
+        onLogout()
+      }}>Logout</div>,
     },
   ];
 
