@@ -1,5 +1,4 @@
 import React from 'react';
-import { useInfoViewActionsContext } from '@crema/context/InfoViewContextProvider';
 import AppAuthProvider from '@crema/context/AppAuthProvider';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/features/auth/slice';

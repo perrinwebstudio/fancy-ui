@@ -86,6 +86,30 @@ export const authSlice = createSlice({
       },
     )
     .addMatcher(
+      apiAuth.endpoints.verifySignup.matchFulfilled,
+      (state, action) => {
+        if (action.payload.token) {
+          state.apiToken = action.payload.token
+          state.currentUser = {
+            ...action.payload.user,
+            company: [{ //testing
+              name: "Company name 1",
+              image_url: "/assets/images/avatar/A1.jpg",
+            }, 
+            {
+              name: "Company name 2", 
+              image_url: "/assets/images/avatar/A2.jpg"
+            }, 
+            {
+              name: "Company name 3", 
+              image_url: "/assets/images/avatar/A3.jpg"
+            }]
+      
+          }
+        }
+      },
+    )
+    .addMatcher(
       apiAuth.endpoints.loginSocial.matchFulfilled,
       (state, action) => {
         if (action.payload.data.token) {
