@@ -26,11 +26,9 @@ import axios from "@crema/services/axios";
 import { Store } from "react-notifications-component";
 import notification from "../../thirdParty/reactNotification/helpers/notification";
 
-const Signup = () => {
+const Signup = ({ userSignup, isLoggingIn }) => {
   const { messages } = useIntl();
   const navigate = useNavigate();
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const [form] = Form.useForm();
   const companyName = Form.useWatch("companyName", form);
@@ -41,27 +39,14 @@ const Signup = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    setIsLoading(true);
-    axios
-      .post("/api/auth/signup", values)
+    userSignup?.(values)
+      .unwrap()
       .then((result) => {
-        setIsLoading(false);
-        if (result.data.success) {
+        if (result.success) {
           navigate("/signup_confirm");
         }
       })
-      .catch((err) => {
-        setIsLoading(false);
-        console.error("onFinishCatch: ", err?.response?.data?.msg);
-        Store.addNotification(
-          Object.assign({}, notification, {
-            type: "danger",
-            title: "Error",
-            message: err?.response?.data?.msg ?? "Server Error",
-            container: "top-right",
-          })
-        );
-      });
+      .catch(() => {});
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -199,8 +184,8 @@ const Signup = () => {
                   <StyledUserFormBtn
                     type="primary"
                     htmlType="submit"
-                    disabled={isLoading}
-                    loading={isLoading}
+                    disabled={isLoggingIn}
+                    loading={isLoggingIn}
                   >
                     <IntlMessages id="common.next" />
                   </StyledUserFormBtn>
