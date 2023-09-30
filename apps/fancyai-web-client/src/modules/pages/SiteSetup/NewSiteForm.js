@@ -43,7 +43,7 @@ const NewSiteForm = ({ formData, currentStep = 0, onPrevStep, onNextStep, isLoad
           onClick={() => {
             onPrevStep()
           }}
-          style={{marginTop: '20px'}}
+          style={{marginTop: '20px', maxWidth: '200px'}}
           block
           >Previous</Button>}
         {currentStep < 6 && <Button
