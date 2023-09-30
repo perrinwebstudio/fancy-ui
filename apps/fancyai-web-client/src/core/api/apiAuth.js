@@ -42,6 +42,30 @@ export const apiAuth = api.injectEndpoints({
         );
       },
     }),
+
+    userSignup: build.mutation({
+      query: (body) => ({
+        url: "auth/signup",
+        method: "POST",
+        body,
+      }),
+      transformResponse: (response) => {
+        return transformResponseWithNotification(
+          response,
+          "Signup successfully"
+        );
+      },
+    }),
+    forgotPassword: build.mutation({
+      query: (body) => ({
+        url: "auth/password/forgot",
+        method: "POST",
+        body,
+      }),
+      transformResponse: (response) => {
+        return transformResponseWithNotification(response, response.msg);
+      },
+    }),
     loginSocial: build.mutation({
       query: (body) => ({
         url: "auth/social/signin",
@@ -64,4 +88,6 @@ export const {
   useVerify2FAMutation,
   useVerifySignupMutation,
   useGetCompanySitesMutation,
+  useUserSignupMutation,
+  useForgotPasswordMutation,
 } = apiAuth;
