@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import { Dropdown, Image } from "antd";
 import { FaChevronDown } from "react-icons/fa";
@@ -12,16 +12,23 @@ import {
   StyledUserArrow,
   StyledUsernameInfo,
 } from "./index.styled";
+import { useAppAuth } from "@crema/context/AppAuthProvider";
 
 const CompanyInfo = () => {
   const { themeMode } = useThemeContext();
   const { user } = useAuthUser();
-  const [currentCompanyId, setCurrentCompanyId] = useState(
-    user.user.currentCompany || -1
-  );
+  const { selectedCompanyId, setSelectedCompanyId } = useAppAuth();
+
+  console.log(selectedCompanyId);
+
+  useEffect(() => {
+    if (selectedCompanyId < 0) {
+      setSelectedCompanyId(user.companies?.[0]?.id ?? -1);
+    }
+  }, [user.companies]);
 
   const onClick = ({ key }) => {
-    setCurrentCompanyId(user.company[key].id);
+    setSelectedCompanyId(user.company[key].id);
   };
 
   const items = useMemo(() => {
@@ -29,7 +36,7 @@ const CompanyInfo = () => {
     let arr = [];
     arr = [
       ...user.companies
-        .filter((e) => e.id !== user.user.currentCompany)
+        .filter((e) => e.id !== selectedCompanyId)
         .map((item, index) => {
           return {
             key: index,
@@ -42,13 +49,13 @@ const CompanyInfo = () => {
 
   const currentCompany = useMemo(() => {
     let selected = user.companies.filter(
-      (itm) => itm.id === currentCompanyId
+      (itm) => itm.id === selectedCompanyId
     )[0];
     if (selected) {
       return <StyledDivWrapper>{selected.name}</StyledDivWrapper>;
     }
     return <></>;
-  }, [currentCompanyId]);
+  }, [selectedCompanyId]);
 
   return (
     <>

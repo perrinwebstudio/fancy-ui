@@ -13,22 +13,19 @@ import AppInfoView from "@crema/components/AppInfoView";
 import { StyledWrapperBetween } from "./index.styled";
 import { Link } from "react-router-dom";
 
-import axios from "@crema/services/axios";
-import { Store } from "react-notifications-component";
-import notification from "@crema/reactNotification/helpers/notification";
-import { useAuthUser } from "@crema/hooks/AuthHooks";
 import { useGetCompanySitesMutation } from "apps/fancyai-web-client/src/core/api/apiAuth";
 import AppLoader from "@crema/components/AppLoader";
+import { useAppAuth } from "@crema/context/AppAuthProvider";
 
 const { Title } = Typography;
 
 const Sites = () => {
-  const { user } = useAuthUser();
   const [sites, setSites] = useState([]);
   const [getCompanySites, { isLoading }] = useGetCompanySitesMutation();
+  const { selectedCompanyId } = useAppAuth();
 
   useEffect(() => {
-    getCompanySites?.({ companyId: user.user.currentCompany })
+    getCompanySites?.({ companyId: selectedCompanyId })
       .unwrap()
       .then((result) => {
         if (result.success) {
@@ -51,7 +48,7 @@ const Sites = () => {
         }
       })
       .catch(() => {});
-  }, [user.user.currentCompany]);
+  }, [selectedCompanyId]);
 
   return (
     <>
