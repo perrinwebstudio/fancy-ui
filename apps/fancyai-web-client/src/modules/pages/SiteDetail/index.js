@@ -54,7 +54,6 @@ const SiteDetail = () => {
       
       <SiteDetailMainMenu />
 
-      
       <StyledSiteDetailBodyWrapper>
         {body}
       </StyledSiteDetailBodyWrapper>

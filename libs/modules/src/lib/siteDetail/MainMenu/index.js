@@ -3,13 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { SITE_DETAIL_MENU_CONFIG } from '@crema/constants';
 import { Radio, Space } from 'antd';
 import useSiteDetail from '../useSiteDetail';
+import StyledMainMenu from './StyledMainMenu';
 
 const SiteDetailMainMenu = ({ prop1 }) => {
   const { id, mainMenu } = useSiteDetail()
   const navigate = useNavigate()
 
   return <>
-    <Space direction="vertical" align="center" justify="center" >
+    <StyledMainMenu direction="vertical" align="center" justify="center" >
       <Radio.Group onChange={(e) => {
         navigate(`/pages/sites/${id}/${e.target.value}`)
       }} size="middle" buttonStyle="solid" value={mainMenu}>
@@ -19,7 +20,7 @@ const SiteDetailMainMenu = ({ prop1 }) => {
           })
         }
       </Radio.Group>
-    </Space>
+    </StyledMainMenu>
   </>
 }
 

@@ -4,13 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { SITE_DETAIL_MENU_CONFIG } from '@crema/constants';
 import { Radio, Space } from 'antd';
 import useSiteDetail from '../useSiteDetail';
+import StyledSubMenuHorizontal from './StyledSubMenuHorizontal';
 
 const SiteDetailSubMenuHorizontal = ({ prop1 }) => {
   const navigate = useNavigate()
   const { id, mainMenu, subMenu } = useSiteDetail()
 
   return <>
-    {SITE_DETAIL_MENU_CONFIG[mainMenu]?.subMenu && <Space style={{width: '100%'}} direction="vertical" align="center" justify="center" >
+    {SITE_DETAIL_MENU_CONFIG[mainMenu]?.subMenu && <StyledSubMenuHorizontal direction="vertical" align="center" justify="center" >
       <Radio.Group onChange={(e) => {
         navigate(`/pages/sites/${id}/${mainMenu}/${e.target.value}`)
       }} size="small" buttonStyle="solid" value={subMenu}>
@@ -20,7 +21,7 @@ const SiteDetailSubMenuHorizontal = ({ prop1 }) => {
           })
         }
       </Radio.Group>
-    </Space>}
+    </StyledSubMenuHorizontal>}
   </>
 }
 

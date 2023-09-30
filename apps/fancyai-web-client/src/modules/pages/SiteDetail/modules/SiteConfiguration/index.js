@@ -11,10 +11,12 @@ const SiteConfiguration = ({ prop1 }) => {
 
   return <>
     <SiteDetailSubMenuHorizontal />
-    {subMenu === 'general' && <SiteGeneral />}
-    {subMenu === 'billing' && <SiteBilling />}
-    {subMenu === 'connections' && <SiteConnections />}
-    {subMenu === 'members' && <SiteMembers />}
+    <div style={{marginTop: '20px'}}>
+      {subMenu === 'general' && <SiteGeneral />}
+      {subMenu === 'billing' && <SiteBilling />}
+      {subMenu === 'connections' && <SiteConnections />}
+      {subMenu === 'members' && <SiteMembers />}
+    </div>
   </>
 }
 

@@ -16,11 +16,11 @@ const SiteSetupStep6 = ({ sitePlatform, validated }) => {
         <Input />
       </Form.Item>
       <Form.Item>
-        <Button type='primary' block size='large'>Install App</Button>
+        <Button type='primary' block>Install App</Button>
       </Form.Item>
     </>}
     {(!sitePlatform || sitePlatform === 'wordpress') && <Form.Item style={{marginBottom: '10px'}} label="Wordpress site">
-      <Button type='primary' block size='large'>Download Plugin</Button>
+      <Button type='primary' block>Download Plugin</Button>
       <StyledInstructionWrapper direction='vertical'>
         <Typography.Text strong type='secondary'>Instructions</Typography.Text>
         <Typography.Text type='secondary'>

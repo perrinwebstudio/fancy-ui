@@ -174,6 +174,10 @@ export const GlobalStyles = createGlobalStyle`
     border-color: ${({ theme }) => theme.palette.gray[300]} !important;
   }
 
+  .ant-btn.limited-min-width {
+    min-width: 200px !important;
+  }
+
   .text-lowercase {
     text-transform: lowercase;
   }

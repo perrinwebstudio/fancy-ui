@@ -81,6 +81,9 @@ export const defaultTheme = {
         main: process.env.NX_PRIMARY_COLOR,
         contrastText: '#fff',
       },
+      primaryDark: {
+        main: "#004D83"
+      },
       secondary: {
         main: process.env.NX_SECONDARY_COLOR,
       },

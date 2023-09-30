@@ -6,7 +6,7 @@ import CompetitorListForm from './CompetitorListForm';
 import StepFormWrapper from './StepFormWrapper';
 import { CheckOutlined } from '@ant-design/icons';
 
-const SiteSetupStep2 = ({ validated }) => {
+const SiteSetupStep2 = ({ validated, showNumber }) => {
   const {token} = theme.useToken()
   const validateProps = {
     hasFeedback: true,
@@ -16,7 +16,7 @@ const SiteSetupStep2 = ({ validated }) => {
   return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4} id='step2'>{validated && <CheckOutlined
       style={{marginRight: '10px', color: token.colorSuccess}}
-    />} 2. Business Information</StyledSiteSetupTitle>
+    />} {showNumber && <span>2.</span>} Business Information</StyledSiteSetupTitle>
     <Form.Item name='competitors' label="Top Business Competitors (Name and URL)">
       <CompetitorListForm validated={validated} />
     </Form.Item>
