@@ -1,17 +1,25 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 export const AppAuthContext = createContext();
 
 export const useAppAuth = () => useContext(AppAuthContext);
 
-const AppAuthProvider = ({children, onLogout}) => {
+const AppAuthProvider = ({ children, onLogout }) => {
   const value = useMemo(() => {
     return {
       onLogout,
-    }
-  }, [onLogout])
+    };
+  }, [onLogout]);
 
-  return <AppAuthContext.Provider value={value}>{children}</AppAuthContext.Provider>;
-}
+  const [selectedCompanyId, setSelectedCompanyId] = useState(-1);
+
+  return (
+    <AppAuthContext.Provider
+      value={{ ...value, selectedCompanyId, setSelectedCompanyId }}
+    >
+      {children}
+    </AppAuthContext.Provider>
+  );
+};
 
 export default AppAuthProvider;
