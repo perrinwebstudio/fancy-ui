@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Anchor, Button, Card, Col, Form, Row, Typography } from "antd";
 import AppPageMeta from "@crema/components/AppPageMeta";
 import AppInfoView from "@crema/components/AppInfoView";
@@ -8,13 +8,15 @@ import { Link } from "react-router-dom";
 import SimpleBarReact from "simplebar-react";
 import NewSiteForm from "./NewSiteForm";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useStoreCompanySiteMutation } from "apps/fancyai-web-client/src/core/api/apiSite";
+import { useAppAuth } from "@crema/context/AppAuthProvider";
 
 const { Title } = Typography;
 
 export const validateStep = (step, formData) => {
   switch (step) {
     case 0:
-      return formData.name && formData.url && formData.site_platform && formData.website_purpose
+      return formData.name && formData.url && formData.platform && formData.website_purpose
     case 1:
       return formData.competitors?.length && formData.products && formData.important_products && formData.target_customer && formData.band_voice_description
     case 2:
@@ -22,16 +24,18 @@ export const validateStep = (step, formData) => {
     case 3:
       return formData.market && formData.target_market && formData.important_keywords && formData.avoid_keywords && formData.kpi && formData.service_notes
     case 4:
-      return true
+      return false
     case 5:
-      return true
+      return false
     case 6:
-      return true
+      return false
   }
   return true
 }
 
 const SiteSetup = () => {
+  const [store, { isLoading }] = useStoreCompanySiteMutation()
+  const { selectedCompanyId } = useAppAuth()
   const [currentStep, setCurrentStep] = React.useState(0);
 
   useEffect(() => {
@@ -39,11 +43,31 @@ const SiteSetup = () => {
   }, [currentStep])
 
   const [formRef] = Form.useForm();
-  const [formData, setFormData] = React.useState({})
+  const [formData, setFormData] = React.useState({
+    platform: 'shopify'
+  })
+
+  const onNextStep = useCallback(async (step) => {
+    if (currentStep === 0 && !formData.id) {
+      await store({
+        companyId: selectedCompanyId,
+        site: formData
+      }).unwrap().then((rsp) => {
+        setFormData({
+          ...formData,
+          id: rsp._id
+        })
+        setCurrentStep(currentStep + 1)
+      })
+    } else {
+      // update company here
+      setCurrentStep(currentStep + 1)
+    }
+  }, [currentStep, setCurrentStep, store, selectedCompanyId, formData])
 
   const form = useMemo(() => {
     return <Form initialValues={{
-        site_platform: 'shopify'
+        platform: 'shopify'
       }}
       form={formRef}
       onFinish={(values) => {
@@ -58,13 +82,16 @@ const SiteSetup = () => {
         setFormData(_data)
       }}
     >
-      <NewSiteForm formData={formData} currentStep={currentStep} onStepChange={(step) => {
-        if (step >= 0 && step <= 6) {
-          setCurrentStep(step)
-        }
-      }} />
+      <NewSiteForm isLoading={isLoading} formData={formData} currentStep={currentStep}
+        onNextStep={onNextStep}
+        onPrevStep={() => {
+          if (currentStep > 0) {
+            setCurrentStep(currentStep - 1)
+          }
+        }}
+      />
     </Form>
-  }, [currentStep, setFormData, formRef, formData])
+  }, [currentStep, setFormData, formRef, formData, isLoading])
 
   return (
     <>

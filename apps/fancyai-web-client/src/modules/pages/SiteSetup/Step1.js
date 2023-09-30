@@ -25,7 +25,7 @@ const SiteSetupStep1 = ({ validated }) => {
     <Form.Item required name="url" label="Webiste URL" {...validateProps}>
       <Input placeholder='apple.com' suffix={<span />} />
     </Form.Item>
-    <Form.Item required name="site_platform" label="Site Platform" {...validateProps}>
+    <Form.Item required name="platform" label="Site Platform" {...validateProps}>
       <Select placeholder='Shopify' suffix={<span />}>
         <Select.Option value='shopify'>Shopify</Select.Option>
         <Select.Option value='wordpress'>WordPress</Select.Option>
@@ -33,7 +33,7 @@ const SiteSetupStep1 = ({ validated }) => {
       </Select>
     </Form.Item>
     <Form.Item required name="website_purpose" label="Short description of website and website's purpose" {...validateProps}>
-      <TextArea rows={6} suffix={<span>xx</span>} />
+      <TextArea rows={6} />
     </Form.Item>
   </StepFormWrapper>
 }
