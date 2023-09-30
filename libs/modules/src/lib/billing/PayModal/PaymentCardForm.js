@@ -69,7 +69,7 @@ const PaymentCardForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
     </Form.Item>
 
     <Form.Item>
-      <Button size='large' type='primary' block onClick={() => {
+      <Button type='primary' block onClick={() => {
         setIsLoading(true)
         setTimeout(() => {
           setIsLoading(false)
@@ -78,7 +78,7 @@ const PaymentCardForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
       }}>Pay USD 349.00</Button>
     </Form.Item>
     <Form.Item>
-      <Button size='large' type='ghost' block onClick={() => {
+      <Button type='ghost' block onClick={() => {
         onCancel && onCancel()
       }}>Cancel</Button>
     </Form.Item>

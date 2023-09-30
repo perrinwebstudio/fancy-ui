@@ -165,7 +165,7 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: ${({ theme }) => theme.font.weight.bold} !important;
   }
 
-  .ant-btn, .ant-input, .ant-input-affix-wrapper, .ant-select-selector {
+  .ant-picker, .ant-btn, .ant-input, .ant-input-affix-wrapper, .ant-select-selector {
     border-radius: 0px !important;
   }
 
