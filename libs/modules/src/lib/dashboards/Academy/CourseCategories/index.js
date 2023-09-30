@@ -13,6 +13,7 @@ import {
 
 import { Button } from "antd";
 import { IoMdNotifications } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const settings = {
   dots: true,
@@ -23,7 +24,7 @@ const settings = {
 };
 
 const CourseCategories = ({ course }) => {
-  const { images, title, desc, notifications } = course;
+  const { images, title, desc, notifications, id } = course;
 
   return (
     <StyledCourseCategoryCard heightFull className="no-card-space">
@@ -44,7 +45,9 @@ const CourseCategories = ({ course }) => {
             <IoMdNotifications />
             {notifications} Items for review
           </StyledCourseCategoryBadge>
-          <Button type="primary">Open</Button>
+          <Link to={`/pages/sites/${id}/site_configuration`}>
+            <Button type="primary">Open</Button>
+          </Link>
         </StyledCourseCategoryFooter>
       </StyledCourseCategoryContent>
     </StyledCourseCategoryCard>
