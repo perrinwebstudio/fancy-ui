@@ -28,35 +28,41 @@ const renderForm = (currentStep, formStep, props) => {
   </div>
 }
 
-const NewSiteForm = ({ formData, currentStep = 0, onStepChange }) => {
+const NewSiteForm = ({ formData, currentStep = 0, onPrevStep, onNextStep, isLoading }) => {  
   return <>
     {renderForm(currentStep, 0, { validated: validateStep(0, formData) })}
     {renderForm(currentStep, 1, { validated: validateStep(1, formData)})}
     {renderForm(currentStep, 2, { validated: validateStep(2, formData)})}
     {renderForm(currentStep, 3, { validated: validateStep(3, formData)})}
     {renderForm(currentStep, 4, { validated: validateStep(4, formData)})}
-    {renderForm(currentStep, 5, { validated: validateStep(5, formData), sitePlatform: formData.site_platform})}
+    {renderForm(currentStep, 5, { validated: validateStep(5, formData), sitePlatform: formData.platform})}
     {renderForm(currentStep, 6, {})}
     <StepFormWrapper >
-      <div style={{display: 'flex', justifyContent: 'space-between', gap: '10px'}}>
+      <div style={{display: 'flex', justifyContent: 'center', gap: '10px'}}>
         {currentStep > 0 && <Button
           onClick={() => {
-            onStepChange(currentStep - 1)
+            onPrevStep()
           }}
           style={{marginTop: '20px'}}
           block
-          size="large">Previous</Button>}
+          >Previous</Button>}
         {currentStep < 6 && <Button
-          disabled={!validateStep(currentStep, formData)}
+          loading={isLoading}
+          disabled={!validateStep(currentStep, formData) || isLoading}
           onClick={() => {
-            onStepChange(currentStep + 1)
+            onNextStep()
           }}
-          style={{marginTop: '20px'}} type="primary" block size="large">Next</Button>}
+          style={{marginTop: '20px', maxWidth: '200px'}} type="primary" block >Next</Button>}
       </div>
     </StepFormWrapper>
 
     <StepFormWrapper>
-      {currentStep === 6 && <Button htmlType='submit' style={{marginTop: '20px'}} type="primary" block size="large">Confirm</Button>}
+      {currentStep === 6 && <Button
+        loading={isLoading}
+        disabled={isLoading}
+        htmlType='submit'
+        style={{marginTop: '20px'}}
+        type="primary" block>Confirm</Button>}
     </StepFormWrapper>
   </>
 }

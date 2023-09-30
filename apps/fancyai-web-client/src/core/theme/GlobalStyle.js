@@ -161,6 +161,19 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.palette.text.primary} !important;
   }
 
+  .ant-form-item-label {
+    font-weight: ${({ theme }) => theme.font.weight.bold} !important;
+  }
+
+  .ant-btn, .ant-input, .ant-input-affix-wrapper, .ant-select-selector {
+    border-radius: 0px !important;
+  }
+
+  .ant-btn:disabled, .ant-btn[disabled], .ant-btn.disabled {
+    background-color: ${({ theme }) => theme.palette.gray[300]} !important;
+    border-color: ${({ theme }) => theme.palette.gray[300]} !important;
+  }
+
   .text-lowercase {
     text-transform: lowercase;
   }

@@ -12,7 +12,7 @@ const SiteSetupStep5 = ({ validated }) => {
       style={{marginRight: '10px', color: token.colorSuccess}}
     />} 5. Site Connections</StyledSiteSetupTitle>
     <Form.Item label="Connect to Google Search Console">
-      <Button type='primary' block size='large'>
+      <Button type='primary' block>
         Sign In
       </Button>
     </Form.Item>
@@ -27,7 +27,7 @@ const SiteSetupStep5 = ({ validated }) => {
     </StyledInstructionWrapper>
 
     <Form.Item label="Connect to Google Analytics">
-      <Button type='primary' block size='large'>
+      <Button type='primary' block>
         Sign In
       </Button>
     </Form.Item>
