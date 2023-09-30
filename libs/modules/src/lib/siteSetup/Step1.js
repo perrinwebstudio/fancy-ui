@@ -11,7 +11,6 @@ const SiteSetupStep1 = ({ validated }) => {
   const validateProps = {
     hasFeedback: true,
     validateStatus: validated ? 'success' : '',
-    required: true
   }
 
   return <StepFormWrapper className='form-section'>

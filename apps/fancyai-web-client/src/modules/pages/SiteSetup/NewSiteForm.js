@@ -1,24 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import SiteSetupStep1 from "./Step1";
-import SiteSetupStep2 from "./Step2";
-import SiteSetupStep3 from "./Step3";
-import SiteSetupStep4 from "./Step4";
-import SiteSetupStep5 from "./Step5";
-import SiteSetupStep6 from "./Step6";
-import SiteSetupStep7 from "./Step7";
-import StepFormWrapper from "./StepFormWrapper";
+
 import { Button, Form, notification } from "antd";
 import { validateStep } from '.';
+import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, StepFormWrapper } from '@crema/modules/siteSetup';
 
 const MAP_STEP_TO_FORM = {
-  0: SiteSetupStep1,
-  1: SiteSetupStep2,
-  2: SiteSetupStep3,
-  3: SiteSetupStep4,
-  4: SiteSetupStep5,
-  5: SiteSetupStep6,
-  6: SiteSetupStep7
+  0: Step1,
+  1: Step2,
+  2: Step3,
+  3: Step4,
+  4: Step5,
+  5: Step6,
+  6: Step7
 }
 
 const renderForm = (currentStep, formStep, props) => {

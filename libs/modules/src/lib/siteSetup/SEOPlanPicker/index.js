@@ -1,6 +1,6 @@
 import React from 'react';
 import { SEOPlanItem } from '@crema/modules/billing'
-import { Space, Typography, theme } from 'antd';
+import { Typography } from 'antd';
 
 export const SEO_PLANS = [
   {

@@ -8,6 +8,12 @@ export const apiSite = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getSite: build.query({
+      query: ({ siteId }) => ({
+        url: `site/access/${siteId}`,
+        method: "GET",
+      }),
+    }),
     storeCompanySite: build.mutation({
       query: ({ companyId, site }) => ({
         url: `site/${companyId}`,
@@ -21,4 +27,5 @@ export const apiSite = api.injectEndpoints({
 export const {
   useGetCompanySitesQuery,
   useStoreCompanySiteMutation,
+  useGetSiteQuery,
 } = apiSite;
