@@ -16,28 +16,20 @@ import { useAppAuth } from "@crema/context/AppAuthProvider";
 
 const CompanyInfo = () => {
   const { themeMode } = useThemeContext();
-  const { user } = useAuthUser();
+  const { companies } = useAuthUser();
   const { selectedCompanyId, setSelectedCompanyId } = useAppAuth();
 
-  console.log(selectedCompanyId);
-
-  useEffect(() => {
-    if (selectedCompanyId < 0) {
-      setSelectedCompanyId(user.companies?.[0]?.id ?? -1);
-    }
-  }, [user.companies]);
-
   const onClick = ({ key }) => {
-    setSelectedCompanyId(user.company[key].id);
+    setSelectedCompanyId(companies[key].id);
   };
 
   const items = useMemo(() => {
-    if (!user.companies || !Array.isArray(user.companies)) return [];
+    if (!companies || !Array.isArray(companies)) return [];
     let arr = [];
     arr = [
-      ...user.companies
-        .filter((e) => e.id !== selectedCompanyId)
-        .map((item, index) => {
+      ...companies
+        ?.filter((e) => e.id !== selectedCompanyId)
+        ?.map((item, index) => {
           return {
             key: index,
             label: <StyledDivWrapper>{item.name}</StyledDivWrapper>,
@@ -45,10 +37,10 @@ const CompanyInfo = () => {
         }),
     ];
     return arr;
-  }, [user.companies]);
+  }, [companies]);
 
   const currentCompany = useMemo(() => {
-    let selected = user.companies.filter(
+    let selected = companies?.filter(
       (itm) => itm.id === selectedCompanyId
     )[0];
     if (selected) {

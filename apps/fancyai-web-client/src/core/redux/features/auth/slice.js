@@ -8,7 +8,8 @@ const initialState = {
   apiToken: undefined,
   currentUser: undefined,
   actAsUserId: undefined,
-  authInit: false
+  authInit: false,
+  companies: [],
 }
 
 export const authSlice = createSlice({
@@ -36,20 +37,9 @@ export const authSlice = createSlice({
       (state, action) => {
         if (action.payload.data) {
           state.currentUser = {
-            ...action.payload.data,
-            company: [{ //testing
-              name: "Company name 1",
-              image_url: "/assets/images/avatar/A1.jpg",
-            }, 
-            {
-              name: "Company name 2", 
-              image_url: "/assets/images/avatar/A2.jpg"
-            }, 
-            {
-              name: "Company name 3", 
-              image_url: "/assets/images/avatar/A3.jpg"
-            }]
+            ...action.payload.data.user,
           }
+          state.companies = action.payload.data.companies
         }
       },
     )
@@ -68,19 +58,6 @@ export const authSlice = createSlice({
           state.apiToken = action.payload.token
           state.currentUser = {
             ...action.payload.user,
-            company: [{ //testing
-              name: "Company name 1",
-              image_url: "/assets/images/avatar/A1.jpg",
-            }, 
-            {
-              name: "Company name 2", 
-              image_url: "/assets/images/avatar/A2.jpg"
-            }, 
-            {
-              name: "Company name 3", 
-              image_url: "/assets/images/avatar/A3.jpg"
-            }]
-      
           }
         }
       },
@@ -92,19 +69,6 @@ export const authSlice = createSlice({
           state.apiToken = action.payload.token
           state.currentUser = {
             ...action.payload.user,
-            company: [{ //testing
-              name: "Company name 1",
-              image_url: "/assets/images/avatar/A1.jpg",
-            }, 
-            {
-              name: "Company name 2", 
-              image_url: "/assets/images/avatar/A2.jpg"
-            }, 
-            {
-              name: "Company name 3", 
-              image_url: "/assets/images/avatar/A3.jpg"
-            }]
-      
           }
         }
       },

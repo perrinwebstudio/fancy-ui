@@ -9,6 +9,7 @@ export const useAuthUser = () => {
     isLoading,
     isAuthenticated,
     user: auth.currentUser || null,
+    companies: auth.companies || [],
     apiToken: auth.apiToken || null,
   };
 };

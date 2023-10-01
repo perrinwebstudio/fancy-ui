@@ -43,8 +43,6 @@ const Signin = ({
 
   const {apiToken} = useAuthUser();
 
-  console.log('apiToken', apiToken);
-
   const goToSignin = () => {
     navigate("/signin");
   };
@@ -56,7 +54,6 @@ const Signin = ({
   // })
 
   const onFinish = (values) => {
-    console.log('values', values)
     verify2FA?.({
       code: values.code,
       token: apiToken
