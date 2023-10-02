@@ -1,13 +1,14 @@
-import styled from 'styled-components';
-import { Avatar, List } from 'antd';
-import { darken } from 'polished';
+import styled from "styled-components";
+import { Avatar, List } from "antd";
+import { darken } from "polished";
 
 export const StyledDivWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 10px;
-`
+  font-weight: 600;
+`;
 
 export const StyledDropdownList = styled(List)`
   & .ant-list-item {
@@ -74,7 +75,7 @@ export const StyledCrUserInfoContent = styled.span`
   justify-content: space-between;
   width: 100%;
 
-  [dir='rtl'] & {
+  [dir="rtl"] & {
     margin-left: 0;
     margin-right: 16px;
   }
@@ -83,7 +84,8 @@ export const StyledCrUserInfoContent = styled.span`
 export const StyledUsernameInfo = styled.span`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
+  font-weight: 600;
 `;
 
 export const StyledUsername = styled.h3`
@@ -104,7 +106,7 @@ export const StyledUserArrow = styled.span`
   align-items: center;
   justify-content: center;
 
-  [dir='rtl'] & {
+  [dir="rtl"] & {
     margin-left: 0;
     margin-right: 12px;
   }

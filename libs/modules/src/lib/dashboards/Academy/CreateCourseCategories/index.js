@@ -15,10 +15,19 @@ const CreateCourseCategories = () => {
     <StyledCourseCategoryCard heightFull className="no-card-space">
       <StyledCenterWrapper>
         <StyledCourseCategoryContent>
-          <FaPager size={46} color="#9A9A9A"></FaPager>
+          <FaPager size={46} color="#626d80"></FaPager>
           <Text strong>+ Add new site</Text>
-          <Text>Short description</Text>
-          <Link to="/pages/sites/add"><Button type="primary">Add new site</Button></Link>
+          <Text style={{ color: "#626D80", fontWeight: 400 }}>
+            Short description
+          </Text>
+          <Link to="/pages/sites/add">
+            <Button
+              type="primary"
+              style={{ padding: "12px 24px", height: "40px" }}
+            >
+              Add new site
+            </Button>
+          </Link>
         </StyledCourseCategoryContent>
       </StyledCenterWrapper>
     </StyledCourseCategoryCard>

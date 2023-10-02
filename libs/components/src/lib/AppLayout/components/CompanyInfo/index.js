@@ -13,6 +13,7 @@ import {
   StyledUsernameInfo,
 } from "./index.styled";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
+import { CheckOutlined } from "@ant-design/icons";
 
 const CompanyInfo = () => {
   const { themeMode } = useThemeContext();
@@ -20,31 +21,85 @@ const CompanyInfo = () => {
   const { selectedCompanyId, setSelectedCompanyId } = useAppAuth();
 
   const onClick = ({ key }) => {
-    setSelectedCompanyId(companies[key].id);
+    if (companies?.[key]?.id && companies?.[key]?.id !== selectedCompanyId) {
+      setSelectedCompanyId(companies[key].id);
+    }
   };
 
   const items = useMemo(() => {
     if (!companies || !Array.isArray(companies)) return [];
     let arr = [];
     arr = [
-      ...companies
-        ?.filter((e) => e.id !== selectedCompanyId)
-        ?.map((item, index) => {
-          return {
-            key: index,
-            label: <StyledDivWrapper>{item.name}</StyledDivWrapper>,
-          };
-        }),
+      ...companies?.map((item, index) => {
+        return {
+          key: index,
+          label: (
+            <StyledDivWrapper>
+              <Image
+                width={40}
+                src={
+                  item.image_url ??
+                  "/assets/images/company_placeholder_logo.jpg"
+                }
+                style={{
+                  border:
+                    selectedCompanyId === item.id
+                      ? "1px solid #28BC37"
+                      : "1px solid #CDCDCD",
+                  borderRadius: "50%",
+                }}
+                preview={false}
+              />
+              {item.name}
+              <CheckOutlined
+                style={{
+                  color: "#28BC37",
+                  marginLeft: "auto",
+                  marginRight: "4px",
+                }}
+              />
+            </StyledDivWrapper>
+          ),
+        };
+      }),
     ];
+    arr.push({
+      key: companies.length,
+      label: (
+        <StyledDivWrapper>
+          <Image
+            width={40}
+            src="/assets/images/add_company.png"
+            style={{
+              border: "1px solid #CDCDCD",
+              borderRadius: "50%",
+              padding: "10px",
+            }}
+            preview={false}
+          />
+          Create New Company
+        </StyledDivWrapper>
+      ),
+    });
     return arr;
   }, [companies]);
 
   const currentCompany = useMemo(() => {
-    let selected = companies?.filter(
-      (itm) => itm.id === selectedCompanyId
-    )[0];
+    let selected = companies?.filter((itm) => itm.id === selectedCompanyId)[0];
     if (selected) {
-      return <StyledDivWrapper>{selected.name}</StyledDivWrapper>;
+      return (
+        <StyledDivWrapper>
+          <Image
+            width={40}
+            src={
+              selected.image_url ??
+              "/assets/images/company_placeholder_logo.jpg"
+            }
+            preview={false}
+          />
+          {selected.name}
+        </StyledDivWrapper>
+      );
     }
     return <></>;
   }, [selectedCompanyId]);
@@ -58,11 +113,11 @@ const CompanyInfo = () => {
       >
         <Dropdown
           menu={{ items, onClick }}
-          trigger={Boolean(items.length) ? ["click"] : []}
+          trigger={["click"]}
           placement="bottomRight"
           overlayStyle={{
             zIndex: 1052,
-            minWidth: 150,
+            minWidth: 200,
           }}
           arrow
         >
@@ -70,7 +125,7 @@ const CompanyInfo = () => {
             <StyledCrUserInfoContent className="cr-user-info-content">
               <StyledUsernameInfo>{currentCompany}</StyledUsernameInfo>
               <StyledUserArrow className="cr-user-arrow">
-                {Boolean(items.length) && <FaChevronDown />}
+                <FaChevronDown />
               </StyledUserArrow>
             </StyledCrUserInfoContent>
           </StyledCrUserInfoInner>

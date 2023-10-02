@@ -1,6 +1,6 @@
-import { Menu } from 'antd';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { Menu } from "antd";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 export const StyledVerticalNav = styled(Menu)`
   padding-top: 8px;
@@ -27,7 +27,7 @@ export const StyledVerticalNav = styled(Menu)`
     flex-direction: column;
     justify-content: center;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       padding-left: 12px;
       padding-right: 31px;
     }
@@ -41,7 +41,7 @@ export const StyledVerticalNav = styled(Menu)`
     padding-right: 12px;
     transition: all 0.3s ease;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       padding-left: 12px !important;
       padding-right: 30px !important;
     }
@@ -53,9 +53,10 @@ export const StyledVerticalNav = styled(Menu)`
   & .ant-menu-submenu-title .anticon + span {
     margin-left: 16px;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       margin-left: 0;
       margin-right: 16px;
+      font-weight: 600;
     }
   }
 
@@ -65,7 +66,7 @@ export const StyledVerticalNav = styled(Menu)`
     display: flex;
     align-items: center;
     background-color: inherit;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   & .ant-menu-submenu .ant-menu-submenu-title .ant-menu-submenu-arrow {
@@ -83,7 +84,7 @@ export const StyledVerticalNav = styled(Menu)`
     > .ant-menu-submenu-title {
     padding-left: 68px !important;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       padding-left: 16px !important;
       padding-right: 68px !important;
     }
@@ -150,7 +151,7 @@ export const StyledVerticalNav = styled(Menu)`
       margin-left: 8px;
       margin-right: 8px;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         padding-left: 12px !important;
         padding-right: 12px !important;
       }
@@ -253,7 +254,7 @@ export const StyledVerticalNav = styled(Menu)`
       border-top-right-radius: 30px;
       border-bottom-right-radius: 30px;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         margin-right: 0;
         margin-left: 16px;
         border-radius: 30px 0 0 30px;
@@ -316,7 +317,7 @@ export const StyledVerticalNav = styled(Menu)`
       }
 
       & .ant-menu-item-icon {
-        [dir='rtl'] & {
+        [dir="rtl"] & {
           margin-right: 0;
         }
       }
@@ -405,7 +406,7 @@ export const StyledVerticalNav = styled(Menu)`
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
 
-        [dir='rtl'] & {
+        [dir="rtl"] & {
           margin-left: 0;
           border-radius: 0;
         }
@@ -469,7 +470,7 @@ export const StyledVerticalNav = styled(Menu)`
         margin-left: 8px;
         margin-right: 8px;
 
-        [dir='rtl'] & {
+        [dir="rtl"] & {
           padding-left: 12px !important;
           padding-right: 12px !important;
         }
@@ -523,7 +524,7 @@ export const StyledVerticalNav = styled(Menu)`
       border-radius: 30px 0 0 30px;
       padding-left: 14px !important;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         margin-right: 16px;
         margin-left: 0;
         border-radius: 0 30px 30px 0;
@@ -539,7 +540,7 @@ export const StyledVerticalNav = styled(Menu)`
       > .ant-menu-submenu-title {
       padding-left: 50px !important;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         padding-left: 16px !important;
         padding-right: 50px !important;
       }
@@ -568,7 +569,7 @@ export const StyledVerticalNav = styled(Menu)`
         margin-left: 8px;
         margin-right: 8px;
 
-        [dir='rtl'] & {
+        [dir="rtl"] & {
           padding-left: 12px !important;
           padding-right: 12px !important;
         }
@@ -622,7 +623,7 @@ export const StyledVerticalNav = styled(Menu)`
       border-radius: 4px;
       padding-left: 22px !important;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         padding-left: 12px !important;
         padding-right: 22px !important;
         margin-right: 8px;
@@ -637,7 +638,7 @@ export const StyledVerticalNav = styled(Menu)`
       > .ant-menu-submenu-title {
       padding-left: 60px !important;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         padding-left: 12px !important;
         padding-right: 60px !important;
       }
@@ -666,7 +667,7 @@ export const StyledVerticalNav = styled(Menu)`
         margin-left: 8px;
         margin-right: 8px;
 
-        [dir='rtl'] & {
+        [dir="rtl"] & {
           padding-left: 12px !important;
           padding-right: 12px !important;
         }
@@ -722,7 +723,7 @@ export const StyledVerticalNav = styled(Menu)`
       position: relative;
       overflow: inherit;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         margin-right: 8px;
         margin-left: 0;
         border-radius: 0 30px 30px 0;
@@ -730,7 +731,7 @@ export const StyledVerticalNav = styled(Menu)`
 
       &:before,
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         right: 0;
         z-index: 1;
