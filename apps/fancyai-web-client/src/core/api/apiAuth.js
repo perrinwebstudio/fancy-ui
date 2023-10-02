@@ -58,7 +58,7 @@ export const apiAuth = api.injectEndpoints({
     }),
     forgotPassword: build.mutation({
       query: (body) => ({
-        url: "auth/password/forgot",
+        url: "password/forgot",
         method: "POST",
         body,
       }),
