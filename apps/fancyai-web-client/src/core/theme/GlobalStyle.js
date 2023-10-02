@@ -102,7 +102,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: ${({ theme }) => theme.palette.primary.main} !important;
+    color: #004d83 !important;
   }
 
   .ant-btn-primary {

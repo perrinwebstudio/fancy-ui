@@ -7,9 +7,10 @@ import IntlMessages from "@crema/helpers/IntlMessages";
 import {
   StyledUserProfileContainer,
   StyledUserProfileTabs,
+  StyledUserProfileTitle,
 } from "./index.styled";
 import AppAnimate from "@crema/components/AppAnimate";
-import AppCard from "@crema/components/AppCard";
+import { Typography } from "antd";
 import {
   ChangePassword,
   PersonalInfo,
@@ -58,6 +59,7 @@ const items = [
 const UserProfile = () => {
   return (
     <StyledUserProfileContainer>
+      <StyledUserProfileTitle>My Profile</StyledUserProfileTitle>
       <AppAnimate animation="transition.slideUpIn" delay={200}>
         <StyledUserProfileTabs
           key="1"

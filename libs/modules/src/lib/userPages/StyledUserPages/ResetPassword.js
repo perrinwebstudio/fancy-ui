@@ -19,9 +19,6 @@ import {
   StyledWrapper,
 } from "../index.styled";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from "@crema/services/axios";
-import { Store } from "react-notifications-component";
-import notification from "../../thirdParty/reactNotification/helpers/notification";
 
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
