@@ -6,6 +6,7 @@ import Step4 from './Step4';
 import Step5 from './Step5';
 import Step6 from './Step6';
 import Step7 from './Step7';
+import Step8 from './Step8';
 import CompetitorListForm from './CompetitorListForm';
 import SEOPlanPicker from './SEOPlanPicker';
 import StepFormWrapper from './StepFormWrapper';
@@ -19,6 +20,7 @@ export {
   Step5,
   Step6,
   Step7,
+  Step8,
   CompetitorListForm,
   SEOPlanPicker,
   StepFormWrapper

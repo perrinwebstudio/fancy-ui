@@ -1,11 +1,51 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Col, DatePicker, Form, Input, Row, Space, Switch, Typography } from 'antd';
-import CardNumberInput from './CardNumberInput';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import { Button, Form, Input } from 'antd';
+import StripeForm from './StripeForm';
+import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
-const PaymentCardForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
+const PaymentCardForm = forwardRef(({ onLoadingChange, onSuccessChange, onCancel }, ref) => {
+  useImperativeHandle(ref, () => ({
+    submit: () => {
+      console.log('submit!!')
+    }
+  }));
+  
   const [isLoading, setIsLoading] = React.useState(false)
   const [isSuccess, setIsSuccess] = React.useState(false)
+
+  const stripe = useStripe()
+  const elements = useElements()
+
+  const handleStripFormSubmit = async (e) =>{
+    const {error, paymentMethod} = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardCvcElement, CardExpiryElement, CardNumberElement)
+    })
+
+    if(!error){
+      try {
+        const {id} = paymentMethod
+        return id
+      } catch (error) {
+        console.log("Error", error)
+      }
+    }else {
+      console.log(error.message)
+    }
+  }
+
+  const handleSubmit = async (values) => {
+    setIsLoading(true)
+    const id = await handleStripFormSubmit()
+    console.log('id', id)
+    console.log('values', values)
+    setTimeout(() => {
+      setIsLoading(false)
+      setIsSuccess(true)
+    }, 2000)
+  }
+
+  const [form] = Form.useForm()
 
   React.useEffect(() => {
     console.log('isLoading', isLoading)
@@ -17,33 +57,8 @@ const PaymentCardForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
     onSuccessChange && onSuccessChange(isSuccess)
   }, [isSuccess])
 
-  return <Form layout='vertical'>
-    <Form.Item label="Card Number">
-      <CardNumberInput placeholder='1234 5678 90101 1121' />
-    </Form.Item>
-
-    <Row gutter={16}>
-      <Col md={12}>
-        <Form.Item label="Expiration Date">
-          <DatePicker format='MM/YY'
-            placeholder='MM/YY' style={{width: '100%'}} picker="month" />
-        </Form.Item>
-      </Col>
-      <Col md={12}>
-        <Form.Item label="CVV">
-          <Input maxLength={3} placeholder='***' />
-        </Form.Item>
-      </Col>
-    </Row>
-
-    <Form.Item>
-      <Space align='center' justify='middle'>
-        <Form.Item style={{marginBottom: 0}}>
-          <Switch size='small' />
-        </Form.Item>
-        <Typography.Text  type='secondary'>Save this card</Typography.Text>
-      </Space>
-    </Form.Item>
+  return <Form onFinish={handleSubmit} form={form} layout='vertical' >
+    <StripeForm />
 
     <Form.Item label="Card Holder Name">
       <Input placeholder='Card Holder Name' />
@@ -69,13 +84,7 @@ const PaymentCardForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
     </Form.Item>
 
     <Form.Item>
-      <Button type='primary' block onClick={() => {
-        setIsLoading(true)
-        setTimeout(() => {
-          setIsLoading(false)
-          setIsSuccess(true)
-        }, 2000)
-      }}>Pay USD 349.00</Button>
+      <Button type='primary' block htmlType='submit'>Pay USD 349.00</Button>
     </Form.Item>
     <Form.Item>
       <Button type='ghost' block onClick={() => {
@@ -83,14 +92,6 @@ const PaymentCardForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
       }}>Cancel</Button>
     </Form.Item>
   </Form>
-}
-
-PaymentCardForm.defaultProps = {
-  prop1: ''
-};
-
-PaymentCardForm.propTypes = {
-  prop1: PropTypes.string
-};
+})
 
 export default PaymentCardForm

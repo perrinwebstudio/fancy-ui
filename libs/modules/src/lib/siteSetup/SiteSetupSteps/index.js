@@ -21,10 +21,15 @@ const StepIcon = ({status}) => {
   return icon
 }
 
-const SiteSetupSteps = ({ current = 1, onClickStep, checkStepFinish }) => {
+const SiteSetupSteps = ({ current = 1, onClickStep, checkStepFinish, skippableSteps }) => {
   const getStatus = (step) => {
     if (step === 6) {
-      return checkStepFinish?.(5) ? 'finish' : current === 6 ? 'process' : 'wait'
+      if (current === 7) {
+        return 'finish'
+      }
+    }
+    if (skippableSteps.includes(step) && current > step) {
+      return 'finish'
     }
     return current === step ?  'process' : checkStepFinish?.(step) ? 'finish' : 'wait'
   }
@@ -39,9 +44,10 @@ const SiteSetupSteps = ({ current = 1, onClickStep, checkStepFinish }) => {
 
   return <Steps
     size="small"
-    // type="navigation"
     onChange={(step) => {
-      onClickStep(step)
+      if (getStatus(step) !== 'wait') {
+        onClickStep(step)
+      }
     }}
     current={current}
     items={[

@@ -6,35 +6,18 @@ import {SiteSetupSteps} from "@crema/modules/siteSetup";
 import StyledSiteSetupStepBar from "./StyledSiteSetupStepBar";
 import { Link } from "react-router-dom";
 import SimpleBarReact from "simplebar-react";
-import NewSiteForm from "./NewSiteForm";
+import NewSiteForm, { CAN_SKIP_STEPS, validateStep } from "./NewSiteForm";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { useStoreCompanySiteMutation } from "apps/fancyai-web-client/src/core/api/apiSite";
+import { useStoreCompanySiteMutation, useUpdateSiteMutation } from "apps/fancyai-web-client/src/core/api/apiSite";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
+import StyledSpaceOnCompleted from "./StyledSpaceOnCompleted";
 
 const { Title } = Typography;
 
-export const validateStep = (step, formData) => {
-  switch (step) {
-    case 0:
-      return formData.name && formData.url && formData.platform && formData.website_purpose
-    case 1:
-      return formData.competitors?.length && formData.products && formData.important_products && formData.target_customer && formData.band_voice_description
-    case 2:
-      return formData.plan
-    case 3:
-      return formData.market && formData.target_market && formData.important_keywords && formData.avoid_keywords && formData.kpi && formData.service_notes
-    case 4:
-      return false
-    case 5:
-      return false
-    case 6:
-      return false
-  }
-  return true
-}
-
 const SiteSetup = () => {
   const [store, { isLoading }] = useStoreCompanySiteMutation()
+  const [update, { isLoading: isUpdating }] = useUpdateSiteMutation()
+
   const { selectedCompanyId } = useAppAuth()
   const [currentStep, setCurrentStep] = React.useState(0);
 
@@ -46,24 +29,30 @@ const SiteSetup = () => {
   const [formData, setFormData] = React.useState({
     platform: 'shopify'
   })
+  const [id, setId] = React.useState(null)
+
+  console.log('formData', formData)
 
   const onNextStep = useCallback(async (step) => {
-    if (currentStep === 0 && !formData.id) {
+    if (currentStep === 0 && !id) {
       await store({
         companyId: selectedCompanyId,
         site: formData
       }).unwrap().then((rsp) => {
-        setFormData({
-          ...formData,
-          id: rsp._id
-        })
+        setId(rsp.data._id)
         setCurrentStep(currentStep + 1)
       })
-    } else {
+    } else if (id) {
       // update company here
+      // await update({
+      //   siteId: id,
+      //   site: formData
+      // }).unwrap().then((rsp) => {
+      //   setCurrentStep(currentStep + 1)
+      // })
       setCurrentStep(currentStep + 1)
     }
-  }, [currentStep, setCurrentStep, store, selectedCompanyId, formData])
+  }, [currentStep, setCurrentStep, store, selectedCompanyId, formData, id])
 
   const form = useMemo(() => {
     return <Form initialValues={{
@@ -101,11 +90,16 @@ const SiteSetup = () => {
           <Title level={4}>Add new site</Title>
         </Col>
         <Col xs={0} sm={0} md={16} lg={14}>
-          <SiteSetupSteps checkStepFinish={(step) => {
-            return validateStep(step, formData)
-          }} current={currentStep} onClickStep={(step) => {
-            setCurrentStep(step)
-          }} />
+          <SiteSetupSteps
+            checkStepFinish={(step) => {
+              return validateStep(step, formData)
+            }}
+            current={currentStep}
+            onClickStep={(step) => {
+              setCurrentStep(step)
+            }}
+            skippableSteps={CAN_SKIP_STEPS}
+          />
         </Col>
         <Col md={16} lg={5}>
           <div style={{textAlign: 'right'}}>

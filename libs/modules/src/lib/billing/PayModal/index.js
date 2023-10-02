@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'antd/es/modal/Modal';
 import Typography from 'antd/es/typography/Typography';
@@ -6,6 +6,7 @@ import { Radio, Form, Spin, Button } from 'antd';
 import PaymentCardForm from './PaymentCardForm';
 import PaymentPaypalForm from './PaymentPaypalForm';
 import StyledPayModal from './index.styled';
+import StripeFormWrapper from './StripeForm/StripeFormWrapper';
 
 const PayModal = ({ paymentType = 'card', paymentAmount, nextPayment, onClose }) => {
   const [form] = Form.useForm()
@@ -14,7 +15,7 @@ const PayModal = ({ paymentType = 'card', paymentAmount, nextPayment, onClose })
   const [isLoading, setIsLoading] = React.useState(false)
   const [isSuccess, setIsSuccess] = React.useState(false)
 
-  console.log('_paymentType', _paymentType)
+  const cardFormRef = useRef()
 
   return <StyledPayModal  open
     style={{top: '20px'}}
@@ -34,17 +35,20 @@ const PayModal = ({ paymentType = 'card', paymentAmount, nextPayment, onClose })
       </Form.Item>
     </Form>
     {
-      _paymentType === 'card' && <PaymentCardForm
-        onSuccessChange={(value) => {
-          setIsSuccess(value)
-        }}
-        onLoadingChange={(value) => {
-          setIsLoading(value)
-        }}
-        onCancel={() => {
-          onClose && onClose()
-        }}
-      />
+      _paymentType === 'card' && <StripeFormWrapper>
+        <PaymentCardForm
+          ref={cardFormRef}
+          onSuccessChange={(value) => {
+            setIsSuccess(value)
+          }}
+          onLoadingChange={(value) => {
+            setIsLoading(value)
+          }}
+          onCancel={() => {
+            onClose && onClose()
+          }}
+        />
+      </StripeFormWrapper>
     }
     {
       _paymentType === 'paypal' && <PaymentPaypalForm

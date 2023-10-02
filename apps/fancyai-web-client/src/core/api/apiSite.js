@@ -20,7 +20,16 @@ export const apiSite = api.injectEndpoints({
         method: "POST",
         body: site,
       })
-    })
+    }),
+    updateSite: build.mutation({
+      query: ({ siteId, site }) => ({
+        url: `site/${siteId}`,
+        method: "PATCH",
+        body: {
+          "updates": site
+        },
+      })
+    }),
   }),
 });
 
@@ -28,4 +37,5 @@ export const {
   useGetCompanySitesQuery,
   useStoreCompanySiteMutation,
   useGetSiteQuery,
+  useUpdateSiteMutation,
 } = apiSite;
