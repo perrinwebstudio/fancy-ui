@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { rgba, darken } from 'polished';
+import { createGlobalStyle } from "styled-components";
+import { rgba, darken } from "polished";
 
 export const GlobalStyles = createGlobalStyle`
   html,
@@ -225,8 +225,8 @@ export const GlobalStyles = createGlobalStyle`
     box-shadow: none;
 
     &:hover, &:focus {
-      background-color: ${({ theme }) => theme.palette.tooltipBg + '04'};
-      border-color: ${({ theme }) => theme.palette.tooltipBg + '04'};
+      background-color: ${({ theme }) => theme.palette.tooltipBg + "04"};
+      border-color: ${({ theme }) => theme.palette.tooltipBg + "04"};
       color: ${({ theme }) => theme.palette.text.primary};
     }
 
@@ -513,7 +513,6 @@ export const GlobalStyles = createGlobalStyle`
   .ant-picker-cell-in-view,
   .ant-input-affix-wrapper,
   .ant-select-dropdown,
-  .ant-dropdown-menu-title-content,
   .ant-select-item-option-content,
   .ant-drawer-content,
   .ant-dropdown-menu,
