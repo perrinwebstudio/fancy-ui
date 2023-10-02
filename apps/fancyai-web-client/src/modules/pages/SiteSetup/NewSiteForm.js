@@ -3,21 +3,29 @@ import React from 'react';
 import { Button, Form, notification } from "antd";
 import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8, StepFormWrapper } from '@crema/modules/siteSetup';
 import StyledSpaceOnCompleted from './StyledSpaceOnCompleted';
+import { useNavigate } from 'react-router-dom';
 
-export const validateStep = (step, formData) => {
+export const validateStep = (step, formData, downloadedWpPlugin = false, installedShopifyApp = false) => {
   switch (step) {
     case 0:
-      return formData.name && formData.url && formData.platform && formData.website_purpose
+      return formData.name && formData.url && formData.platform && formData.description
     case 1:
-      return formData.competitors?.length && formData.products && formData.important_products && formData.target_customer && formData.band_voice_description
+      return formData.competitors?.length && formData.productsAndServices && formData.focusProducts && formData.targetCustomer && formData.brandVoiceDescription
     case 2:
-      return formData.plan
+      return formData.billingPlan
     case 3:
-      return formData.market && formData.target_market && formData.important_keywords && formData.avoid_keywords && formData.kpi && formData.service_notes
+      return formData.marketType && formData.marketRegion && formData.importantKeywords && formData.avoidKeywords && formData.kpi && formData.additionalNotes
     case 4:
       return false
     case 5:
-      return false
+      if (formData.platform === 'shopify') {
+        if (!!formData.shopifySiteUrl && formData.shopifySiteUrl !== '' && installedShopifyApp) return true
+        return false
+      }
+      if (formData.platform === 'wordpress') {
+        return downloadedWpPlugin
+      }
+      return true
     case 6:
       return false
   }
@@ -35,7 +43,7 @@ const MAP_STEP_TO_FORM = {
   7: Step8
 }
 
-export const CAN_SKIP_STEPS = [4, 5]
+export const CAN_SKIP_STEPS = [4]
 const FINISH_STEPS = [6, 7]
 
 const renderForm = (currentStep, formStep, props) => {
@@ -48,7 +56,17 @@ const renderForm = (currentStep, formStep, props) => {
   </div>
 }
 
-const NewSiteForm = ({ formData, currentStep = 0, onPrevStep, onNextStep, isLoading }) => {  
+const NewSiteForm = ({ formData,
+    currentStep = 0,
+    onPrevStep,
+    onNextStep,
+    isLoading,
+    downloadedWpPlugin,
+    setDownloadedWpPlugin,
+    installedShopifyApp,
+    setInstalledShopifyApp
+  }) => {
+  const navigate = useNavigate()
   return <>
     {FINISH_STEPS.includes(currentStep) && <StyledSpaceOnCompleted />}
     {renderForm(currentStep, 0, { validated: validateStep(0, formData) })}
@@ -56,7 +74,15 @@ const NewSiteForm = ({ formData, currentStep = 0, onPrevStep, onNextStep, isLoad
     {renderForm(currentStep, 2, { validated: validateStep(2, formData)})}
     {renderForm(currentStep, 3, { validated: validateStep(3, formData)})}
     {renderForm(currentStep, 4, { validated: validateStep(4, formData)})}
-    {renderForm(currentStep, 5, { validated: validateStep(5, formData), sitePlatform: formData.platform})}
+    {renderForm(currentStep, 5, { 
+        validated: validateStep(5, formData, downloadedWpPlugin, installedShopifyApp),
+        sitePlatform: formData.platform,
+        downloadedWpPlugin,
+        setDownloadedWpPlugin,
+        installedShopifyApp,
+        setInstalledShopifyApp
+      }
+    )}
     {renderForm(currentStep, 6, {})}
     {renderForm(currentStep, 7, {})}
     <StepFormWrapper >
@@ -70,7 +96,7 @@ const NewSiteForm = ({ formData, currentStep = 0, onPrevStep, onNextStep, isLoad
           >Previous</Button>}
         {currentStep < 6 && <Button
           loading={isLoading}
-          disabled={!CAN_SKIP_STEPS.includes(currentStep) && (!validateStep(currentStep, formData) || isLoading)}
+          disabled={!CAN_SKIP_STEPS.includes(currentStep) && (!validateStep(currentStep, formData, downloadedWpPlugin, installedShopifyApp) || isLoading)}
           onClick={() => {
             onNextStep()
           }}
@@ -86,7 +112,7 @@ const NewSiteForm = ({ formData, currentStep = 0, onPrevStep, onNextStep, isLoad
           type="primary" block>Confirm</Button>}
         {currentStep === 7 && <Button
           onClick={() => {
-            onNextStep()
+            navigate('/pages/sites')
           }}
           loading={isLoading}
           disabled={isLoading}

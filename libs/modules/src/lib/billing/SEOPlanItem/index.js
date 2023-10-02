@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Badge, Button, Card, Space, Typography, theme } from 'antd';
+import { Badge, Button, Card, Space, Tag, Typography, theme } from 'antd';
 import StyledSEOPlanItemTitle from './StyledSEOPlanItemTitle';
 import { CheckOutlined } from '@ant-design/icons';
 import StyledSEOPlanItemPricing from './StyledSEOPlanItemPricing';
+import {StyledActivePlan, StyledActivePlanWrapper} from './StyledActivePlan';
+import CircleIcon from './CircleIcon';
 
-const SEOPlanItem = ({ onClick, plan, planCode, pricingComponent, active, features, buttonLabel, color }) => {
+const SEOPlanItem = ({ viewMode, onClick, plan, planCode, pricingComponent, active, features, buttonLabel, color }) => {
   const {token} = theme.useToken()
   
   return <Badge.Ribbon color={color} text={planCode}>
@@ -20,7 +22,8 @@ const SEOPlanItem = ({ onClick, plan, planCode, pricingComponent, active, featur
       }}>
         <StyledSEOPlanItemTitle style={{ marginBottom: '0px' }} level={3}>{plan}</StyledSEOPlanItemTitle>
         <StyledSEOPlanItemPricing level={5}>{pricingComponent}</StyledSEOPlanItemPricing>
-        <Button
+        {(!viewMode || !(active && viewMode)) && <Button
+          disabled={viewMode}
           onClick={() => onClick?.(planCode)}
           block
           success
@@ -31,8 +34,11 @@ const SEOPlanItem = ({ onClick, plan, planCode, pricingComponent, active, featur
             width: '100%',
             borderColor: active ? token.colorPrimary : undefined,
           }}>
-          {active && <CheckOutlined style={{ color: token.colorSuccess }} /> }{buttonLabel}
-        </Button>
+          {active && <CheckOutlined style={{ color: token.colorSuccess }} /> }{active ? 'Selected' : buttonLabel}
+        </Button>}
+        {
+          active && viewMode && <StyledActivePlanWrapper><StyledActivePlan><CircleIcon /> Active</StyledActivePlan></StyledActivePlanWrapper>
+        }
         <Space direction='vertical' style={{marginTop: '15px'}}>
           {
             features.map((feature, index) => <Space>

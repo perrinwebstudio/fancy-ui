@@ -30,8 +30,8 @@ const SiteSetup = () => {
     platform: 'shopify'
   })
   const [id, setId] = React.useState(null)
-
-  console.log('formData', formData)
+  const [downloadedWpPlugin, setDownloadedWpPlugin] = React.useState(false)
+  const [installedShopifyApp, setInstalledShopifyApp] = React.useState(false)
 
   const onNextStep = useCallback(async (step) => {
     if (currentStep === 0 && !id) {
@@ -44,13 +44,13 @@ const SiteSetup = () => {
       })
     } else if (id) {
       // update company here
-      // await update({
-      //   siteId: id,
-      //   site: formData
-      // }).unwrap().then((rsp) => {
-      //   setCurrentStep(currentStep + 1)
-      // })
-      setCurrentStep(currentStep + 1)
+      await update({
+        siteId: id,
+        site: formData
+      }).unwrap().then((rsp) => {
+        setCurrentStep(currentStep + 1)
+      })
+      // setCurrentStep(currentStep + 1)
     }
   }, [currentStep, setCurrentStep, store, selectedCompanyId, formData, id])
 
@@ -71,7 +71,14 @@ const SiteSetup = () => {
         setFormData(_data)
       }}
     >
-      <NewSiteForm isLoading={isLoading} formData={formData} currentStep={currentStep}
+      <NewSiteForm
+        downloadedWpPlugin={downloadedWpPlugin}
+        setDownloadedWpPlugin={setDownloadedWpPlugin}
+        installedShopifyApp={installedShopifyApp}
+        setInstalledShopifyApp={setInstalledShopifyApp}
+        isLoading={isLoading || isUpdating}
+        formData={formData}
+        currentStep={currentStep}
         onNextStep={onNextStep}
         onPrevStep={() => {
           if (currentStep > 0) {
@@ -80,7 +87,7 @@ const SiteSetup = () => {
         }}
       />
     </Form>
-  }, [currentStep, setFormData, formRef, formData, isLoading])
+  }, [currentStep, setFormData, formRef, formData, isLoading, isUpdating, downloadedWpPlugin, installedShopifyApp, setDownloadedWpPlugin, setInstalledShopifyApp, onNextStep])
 
   return (
     <>
@@ -92,7 +99,7 @@ const SiteSetup = () => {
         <Col xs={0} sm={0} md={16} lg={14}>
           <SiteSetupSteps
             checkStepFinish={(step) => {
-              return validateStep(step, formData)
+              return validateStep(step, formData, downloadedWpPlugin, installedShopifyApp)
             }}
             current={currentStep}
             onClickStep={(step) => {
