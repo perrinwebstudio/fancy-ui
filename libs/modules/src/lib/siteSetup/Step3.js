@@ -10,7 +10,7 @@ const SiteSetupStep3 = ({ validated }) => {
     <StyledSiteSetupTitle level={4}  id='step3'>{validated && <CheckOutlined
       style={{marginRight: '10px', color: token.colorSuccess}}
     />} 3. Service Plan Selection</StyledSiteSetupTitle>
-    <Form.Item name="plan" className='form-section'>
+    <Form.Item name="billingPlan" className='form-section'>
       <SEOPlanPicker />
     </Form.Item>
   </>

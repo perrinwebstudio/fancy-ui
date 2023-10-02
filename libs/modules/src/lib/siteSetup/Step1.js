@@ -31,7 +31,7 @@ const SiteSetupStep1 = ({ validated, showNumber }) => {
         <Select.Option value='other'>Other</Select.Option>
       </Select>
     </Form.Item>
-    <Form.Item name="website_purpose" label="Short description of website and website's purpose" {...validateProps}>
+    <Form.Item name="description" label="Short description of website and website's purpose" {...validateProps}>
       <TextArea rows={6} />
     </Form.Item>
   </StepFormWrapper>

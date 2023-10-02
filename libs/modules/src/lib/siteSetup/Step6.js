@@ -5,22 +5,28 @@ import { Button, Form, Input, Typography, theme } from 'antd';
 import StyledInstructionWrapper from './StyledInstructionWrapper';
 import { CheckOutlined } from '@ant-design/icons';
 
-const SiteSetupStep6 = ({ sitePlatform, validated }) => {
+const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setInstalledShopifyApp }) => {
   const {token} = theme.useToken()
   return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4}  id='step6'>{validated && <CheckOutlined
       style={{marginRight: '10px', color: token.colorSuccess}}
     />} 6. App / Plugin Installation</StyledSiteSetupTitle>
     {(!sitePlatform || sitePlatform === 'shopify') && <>
-      <Form.Item style={{marginBottom: '10px'}} label="Shopify site URL">
+      <Form.Item name="shopifySiteUrl" style={{marginBottom: '10px'}} label="Shopify site URL">
         <Input />
       </Form.Item>
       <Form.Item>
-        <Button type='primary' block>Install App</Button>
+        <Button disabled={false} onClick={() => {
+          setInstalledShopifyApp?.(true)
+          window.open('https://google.com?q=shopify-plugin', "_blank", "noreferrer");
+        }} type='primary' block>Install App</Button>
       </Form.Item>
     </>}
     {(!sitePlatform || sitePlatform === 'wordpress') && <Form.Item style={{marginBottom: '10px'}} label="Wordpress site">
-      <Button type='primary' block>Download Plugin</Button>
+      <Button disabled={false} type='primary' block onClick={() => {
+        setDownloadedWpPlugin?.(true)
+        window.open('https://fancy-ai-data.s3.us-east-2.amazonaws.com/public/testwp.zip', "_blank", "noreferrer");
+      }}>Download Plugin</Button>
       <StyledInstructionWrapper direction='vertical'>
         <Typography.Text strong type='secondary'>Instructions</Typography.Text>
         <Typography.Text type='secondary'>

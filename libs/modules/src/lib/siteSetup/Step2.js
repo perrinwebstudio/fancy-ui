@@ -20,16 +20,16 @@ const SiteSetupStep2 = ({ validated, showNumber }) => {
     <Form.Item name='competitors' label="Top Business Competitors (Name and URL)">
       <CompetitorListForm validated={validated} />
     </Form.Item>
-    <Form.Item name="products" label="Short list of product and services" {...validateProps}>
+    <Form.Item name="productsAndServices" label="Short list of product and services" {...validateProps}>
       <TextArea rows={3} />
     </Form.Item>
-    <Form.Item name="important_products" label="Important products/services" {...validateProps}>
+    <Form.Item name="focusProducts" label="Important products/services" {...validateProps}>
       <TextArea rows={3} />
     </Form.Item>
-    <Form.Item name="target_customer" label="Target Market / Target Customer"  {...validateProps}>
+    <Form.Item name="targetCustomer" label="Target Market / Target Customer"  {...validateProps}>
       <Input />
     </Form.Item>
-    <Form.Item name="band_voice_description" label="Band Voice Description"  {...validateProps}>
+    <Form.Item name="brandVoiceDescription" label="Band Voice Description"  {...validateProps}>
       <TextArea rows={3} />
     </Form.Item>
   </StepFormWrapper>

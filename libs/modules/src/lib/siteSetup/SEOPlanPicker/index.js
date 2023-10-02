@@ -71,7 +71,7 @@ export const SEO_PLANS = [
   }
 ]
 
-const SEOPlanPicker = ({ onChange, value }) => {
+const SEOPlanPicker = ({ onChange, value, viewMode, buttonLabel }) => {
   return <div style={{
     display: 'flex',
     flexDirection: 'row',
@@ -82,8 +82,10 @@ const SEOPlanPicker = ({ onChange, value }) => {
     {
       SEO_PLANS.map((plan) => {
         return <SEOPlanItem
+          viewMode={viewMode}
           key={plan.planCode}
           {...plan}
+          buttonLabel={buttonLabel || plan.buttonLabel}
           active={value === plan.planCode}
           onClick={onChange}
         />
