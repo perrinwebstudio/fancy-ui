@@ -1,6 +1,6 @@
-import { Form, Tabs } from 'antd';
-import { rgba } from 'polished';
-import styled from 'styled-components';
+import { Form, Tabs, Typography } from "antd";
+import { rgba } from "polished";
+import styled from "styled-components";
 
 export const StyledUserProfileForm = styled(Form)`
   position: relative;
@@ -19,7 +19,7 @@ export const StyledUserProfileGroupBtn = styled(Form.Item)`
     & + .ant-btn {
       margin-left: 12px;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         margin-left: 0;
         margin-right: 12px;
       }
@@ -53,7 +53,7 @@ export const StyledNotificationListItem = styled.div`
   & .label {
     margin-left: 15px;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       margin-left: 0;
       margin-right: 15px;
     }
@@ -65,6 +65,12 @@ export const StyledUserProfileContainer = styled.div`
   flex-direction: column;
   flex: 1;
   margin-bottom: 20px;
+`;
+
+export const StyledUserProfileTitle = styled(Typography)`
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 24px;
 `;
 
 export const StyledUserProfileTabs = styled(Tabs)`
@@ -111,7 +117,7 @@ export const StyledUserProfileTabs = styled(Tabs)`
         color: ${({ theme }) => theme.palette.primary.main};
       }
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         margin-right: 0 !important;
         margin-left: 20px !important;
         border-radius: 30px 0 0 30px;
@@ -123,14 +129,13 @@ export const StyledUserProfileTabs = styled(Tabs)`
     }
 
     & .ant-tabs-tab-active {
-      color: ${({ theme }) => theme.palette.primary.main};
-      background-color: ${({ theme }) => rgba(theme.palette.primary.main, 0.1)};
+      color: #004d83;
+      background-color: ${({ theme }) => rgba("#004D83", 0.1)};
 
       &:hover,
       &:focus {
-        color: ${({ theme }) => theme.palette.primary.main};
-        background-color: ${({ theme }) =>
-          rgba(theme.palette.primary.main, 0.1)};
+        color: #004d83;
+        background-color: ${({ theme }) => rgba("#004D83", 0.1)};
       }
     }
 
@@ -147,7 +152,7 @@ export const StyledUserProfileTabs = styled(Tabs)`
       font-size: ${({ theme }) => theme.font.size.lg};
       margin-right: 16px;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         margin-right: 0;
         margin-left: 16px;
       }
@@ -157,7 +162,7 @@ export const StyledUserProfileTabs = styled(Tabs)`
   & .ant-tabs-content-holder {
     padding-top: 20px;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       order: 2;
     }
 
@@ -165,7 +170,7 @@ export const StyledUserProfileTabs = styled(Tabs)`
       padding-left: 20px;
       padding-top: 0;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         padding-left: 0;
         padding-right: 20px;
       }
@@ -174,7 +179,7 @@ export const StyledUserProfileTabs = styled(Tabs)`
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.xl}px) {
       padding-left: 32px;
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         padding-left: 0;
         padding-right: 32px;
       }

@@ -20,17 +20,10 @@ const routesConfig = [
   },
   {
     id: "billing",
-    title: "Billing / Plans",
+    title: "Billing",
     messageId: "sidebar.billing",
     path: "/pages/billing",
     icon: <FaFileInvoiceDollar />,
-  },
-  {
-    id: "settings",
-    title: "Settings",
-    messageId: "sidebar.settings",
-    path: "/pages/settings",
-    icon: <IoMdSettings />,
   },
 ];
 export default routesConfig;
