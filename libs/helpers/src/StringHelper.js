@@ -48,3 +48,7 @@ export const formatCurrency = (value, currencyFormat, decimalDigits) => {
     maximumFractionDigits: decimalDigits,
   }).format(value);
 };
+
+export const convertNumberToCommaSeparated = (value) => {
+  return new Intl.NumberFormat('en-IN').format(value);
+}

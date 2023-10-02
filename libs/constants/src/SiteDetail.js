@@ -25,8 +25,49 @@ export const SITE_DETAIL_MENU_CONFIG = {
   "strategy_plan": {
     key: "strategy_plan",
     text: 'Strategy Plan',
-    defaultSubMenu: null,
-    subMenu: null
+    defaultSubMenu: 'how_it_work',
+    subMenu: {
+      "how_it_work": {
+        key: "how_it_work",
+        text: 'How It Works',
+        icon: 'how-it-work',
+      },
+      "keyword_short_term": {
+        key: "keyword_short_term",
+        text: 'Keywords (Short-Term)',
+        icon: 'keyword'
+      },
+      "keyword_long_term": {
+        key: "keyword_long_term",
+        text: 'Keywords (Long-Term)',
+        icon: 'keyword'
+      },
+      "keyword_research": {
+        key: "keyword_research",
+        text: 'Keyword Research',
+        icon: 'research'
+      },
+      "content_updates": {
+        key: "content_updates",
+        text: 'Content Updates',
+        icon: 'content',
+      },
+      "new_content": {
+        key: "new_content",
+        text: 'New Content',
+        icon: 'content'
+      },
+      "site_optimizations": {
+        key: "site_optimizations",
+        text: 'Site Optimizations',
+        icon: 'optimize'
+      },
+      "backlinking": {
+        key: "backlinking",
+        text: 'Backlinking',
+        icon: 'backlink'
+      },
+    }
   },
   "review_center": {
     key: "review_center",

@@ -22,6 +22,10 @@ import {
   StyledListItemText,
 } from './index.styled';
 import { MdOutlineCancel, MdOutlinePayment } from 'react-icons/md';
+import { ClusterOutlined, NodeIndexOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons';
+import KeywordIcon from './KeywordIcon';
+import MapSearchIcon from './MapSearchIcon';
+import ContentIcon from './ContentIcon';
 
 const getIconByName = (iconName) => {
   switch (iconName) {
@@ -55,6 +59,18 @@ const getIconByName = (iconName) => {
       return <FiInfo />;
     case 'clone':
       return <FiRefreshCw />;
+    case 'how-it-work':
+      return <QuestionCircleOutlined />
+    case 'keyword':
+      return <KeywordIcon />
+    case 'research':
+      return <MapSearchIcon />
+    case 'content':
+      return <ContentIcon />
+    case 'optimize':
+      return <ClusterOutlined />
+    case 'backlink':
+      return <NodeIndexOutlined />
   }
 };
 

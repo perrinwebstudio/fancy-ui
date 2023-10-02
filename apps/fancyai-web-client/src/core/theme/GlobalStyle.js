@@ -166,7 +166,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .ant-picker, .ant-btn, .ant-input, .ant-input-affix-wrapper, .ant-select-selector {
-    border-radius: 0px !important;
+    border-radius: 0px;
   }
 
   .ant-btn:disabled, .ant-btn[disabled], .ant-btn.disabled {

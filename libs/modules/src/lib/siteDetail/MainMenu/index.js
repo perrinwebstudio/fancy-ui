@@ -12,7 +12,8 @@ const SiteDetailMainMenu = ({ prop1 }) => {
   return <>
     <StyledMainMenu direction="vertical" align="center" justify="center" >
       <Radio.Group onChange={(e) => {
-        navigate(`/pages/sites/${id}/${e.target.value}`)
+        const defaultSubMenu = SITE_DETAIL_MENU_CONFIG[e.target.value]?.defaultSubMenu
+        navigate(`/pages/sites/${id}/${e.target.value}/${defaultSubMenu || ''}`)
       }} size="middle" buttonStyle="solid" value={mainMenu}>
         {
           Object.values(SITE_DETAIL_MENU_CONFIG).map((item) => {

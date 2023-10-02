@@ -19,7 +19,7 @@ export const StyledActivePlan = styled.div`
 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 5px;
 
   & svg {

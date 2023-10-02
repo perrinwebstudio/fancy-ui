@@ -7,7 +7,7 @@ export const StyledListItem = styled.div`
   margin-bottom: 1px;
 
   & a {
-    color: ${({ theme }) => theme.palette.text.primary};
+    color: ${({theme}) => theme.palette.gray[700]};
     display: flex;
     align-items: center;
     padding: 8.5px 16px;
@@ -22,7 +22,7 @@ export const StyledListItem = styled.div`
     &:hover,
     &:focus,
     &.active {
-      color: ${({ theme }) => theme.palette.primary.main};
+      color: ${({ theme }) => theme.palette.primary.main} !important;
       background-color: ${({ theme }) => rgba(theme.palette.primary.main, 0.1)};
     }
 

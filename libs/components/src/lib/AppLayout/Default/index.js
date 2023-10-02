@@ -22,20 +22,20 @@ const { useBreakpoint } = Grid;
 const Default = ({ routesConfig, routes }) => {
   const width = useBreakpoint();
   const { pathname } = useLocation();
-  const [isCollapsed, setCollapsed] = useState(false);
+  const [isCollapsed, setCollapsed] = useState(true);
   const { footer, footerType } = useLayoutContext();
 
   const onToggleSidebar = () => {
     setCollapsed(!isCollapsed);
   };
 
-  useEffect(() => {
-    if (isCollapsed) setCollapsed(!isCollapsed);
-  }, [pathname]);
+  // useEffect(() => {
+  //   if (isCollapsed) setCollapsed(!isCollapsed);
+  // }, [pathname]);
 
   useEffect(() => {
     if (!isEmpty(width)) {
-      if (width.xl) {
+      if (width.xxl) {
         setCollapsed(false);
       } else {
         setCollapsed(true);

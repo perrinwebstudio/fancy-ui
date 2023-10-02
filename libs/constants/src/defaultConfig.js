@@ -88,8 +88,11 @@ export const defaultTheme = {
         main: process.env.NX_SECONDARY_COLOR,
       },
       success: {
-        main: "#52c41a", //'#11C15B',
-        light: "#D9F5E5",
+        main: '#52c41a', //'#11C15B',
+        light: '#D9F5E5',
+        501: '#5AE168',
+        401: '#AFF2B5',
+        301: '#E8FFEA',
       },
       warning: {
         main: "#FF5252",

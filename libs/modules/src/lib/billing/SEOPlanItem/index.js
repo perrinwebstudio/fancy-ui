@@ -37,7 +37,7 @@ const SEOPlanItem = ({ viewMode, onClick, plan, planCode, pricingComponent, acti
           {active && <CheckOutlined style={{ color: token.colorSuccess }} /> }{active ? 'Selected' : buttonLabel}
         </Button>}
         {
-          active && viewMode && <StyledActivePlanWrapper><StyledActivePlan><CircleIcon /> Active</StyledActivePlan></StyledActivePlanWrapper>
+          active && viewMode && <StyledActivePlanWrapper><StyledActivePlan><CircleIcon /> <div>Active</div></StyledActivePlan></StyledActivePlanWrapper>
         }
         <Space direction='vertical' style={{marginTop: '15px'}}>
           {
