@@ -38,7 +38,10 @@ const ResetPassword = ({ resetPassword, isLoading }) => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    resetPassword?.(values)
+    resetPassword?.({
+      ...values,
+      token: searchParams.get("token") ?? "",
+    })
       .unwrap()
       .then((result) => {
         navigate("/signin");
