@@ -96,10 +96,10 @@ const ResetPassword = ({ resetPassword, isLoading }) => {
                           },
                           {
                             pattern: new RegExp(
-                              "^(?=.*[A-Z])(?=.*[!@#$&*])(?!.*[ ]).*$"
+                              "(?=.*[A-Z|!@#$&*])(?!.*[ ]).*$"
                             ),
                             message:
-                              "Password must contain at least one lowercase letter, uppercase letter, number, and special character",
+                              "Password must contain at least one uppercase letter or special character",
                           },
                         ]}
                       >
