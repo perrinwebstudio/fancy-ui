@@ -27,7 +27,7 @@ const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 
-const ResetPassword = () => {
+const ResetPassword = ({ resetPassword, isLoading }) => {
   const { messages } = useIntl();
 
   const [form] = Form.useForm();
@@ -38,36 +38,12 @@ const ResetPassword = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-
-    axios
-      .put("/api/password/reset", {
-        token: searchParams.get("token") ?? "",
-        password: values.newPassword,
-      })
+    resetPassword?.(values)
+      .unwrap()
       .then((result) => {
-        console.log(result, "result");
-        if (result.data.success) {
-          Store.addNotification(
-            Object.assign({}, notification, {
-              type: "success",
-              title: "Success",
-              message: result.data.msg,
-            })
-          );
-          navigate("/signin");
-        }
+        navigate("/signin");
       })
-      .catch((err) => {
-        console.error("onFinishCatch: ", err?.response?.data?.msg);
-        Store.addNotification(
-          Object.assign({}, notification, {
-            type: "danger",
-            title: "Error",
-            message: err?.response?.data?.msg ?? "Server Error",
-            container: "top-right",
-          })
-        );
-      });
+      .catch(() => {});
   };
 
   return (
@@ -111,6 +87,17 @@ const ResetPassword = () => {
                             required: true,
                             message: "Please input your New Password!",
                           },
+                          {
+                            min: 8,
+                            message: "Password must have a minimum length of 8",
+                          },
+                          {
+                            pattern: new RegExp(
+                              "^(?=.*[A-Z])(?=.*[!@#$&*])(?!.*[ ]).*$"
+                            ),
+                            message:
+                              "Password must contain at least one lowercase letter, uppercase letter, number, and special character",
+                          },
                         ]}
                       >
                         <Input.Password />
@@ -129,13 +116,30 @@ const ResetPassword = () => {
                             required: true,
                             message: "Please input your Retype Password!",
                           },
+                          () => ({
+                            validator(_, value) {
+                              if (!value || newPassword === value) {
+                                return Promise.resolve();
+                              }
+                              return Promise.reject(
+                                new Error(
+                                  "The new password that you entered do not match!"
+                                )
+                              );
+                            },
+                          }),
                         ]}
                       >
                         <Input.Password />
                       </Form.Item>
                     </FloatLabel>
 
-                    <StyledUserFormBtn type="primary" htmlType="submit">
+                    <StyledUserFormBtn
+                      type="primary"
+                      htmlType="submit"
+                      loading={isLoading}
+                      disabled={isLoading}
+                    >
                       <IntlMessages id="common.resetMyPassword" />
                     </StyledUserFormBtn>
                   </StyledUserForm>

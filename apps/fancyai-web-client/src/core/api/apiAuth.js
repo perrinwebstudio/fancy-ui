@@ -66,6 +66,16 @@ export const apiAuth = api.injectEndpoints({
         return transformResponseWithNotification(response, response.msg);
       },
     }),
+    resetPassword: build.mutation({
+      query: (body) => ({
+        url: "password/reset",
+        method: "PUT",
+        body,
+      }),
+      transformResponse: (response) => {
+        return transformResponseWithNotification(response, response.msg);
+      },
+    }),
     loginSocial: build.mutation({
       query: (body) => ({
         url: "auth/social/signin",
@@ -90,4 +100,5 @@ export const {
   useGetCompanySitesMutation,
   useUserSignupMutation,
   useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = apiAuth;
