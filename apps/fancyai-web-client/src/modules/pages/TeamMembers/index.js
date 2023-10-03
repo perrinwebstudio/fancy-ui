@@ -1,11 +1,120 @@
-import React from "react";
-import { environment } from "../../../environments/environment";
+import { useEffect, useState } from "react";
+import { Space, Table, Tag, Card, Row, Typography, Button } from "antd";
+import InviteMemberModal from "./InviteMemberModal";
+import { useAppAuth } from "@crema/context/AppAuthProvider";
+import { useFetchTeamMembersMutation } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
+import UserInfo from "libs/components/src/lib/AppLayout/components/UserInfo";
+import { StyledEditButton } from "./index.styled";
+import AppLoader from "@crema/components/AppLoader";
+import EditMemberModal from "./EditMemberModal";
 
 const TeamMembers = () => {
+  const [isShowInviteModal, setIsShowInviteModal] = useState(false);
+  const [isShowEditModal, setIsShowEditModal] = useState(false);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [editMemberId, setEditMemberId] = useState(null);
+
+  const { selectedCompanyId } = useAppAuth();
+  const [fetchTeamMembers, { isLoading }] = useFetchTeamMembersMutation();
+
+  const columns = [
+    {
+      title: "User Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text, record) => (
+        <Row>
+          <UserInfo hasColor hideDropDown />
+        </Row>
+      ),
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <StyledEditButton
+            type="primary"
+            onClick={() => handleOpenEditModal(record.id)}
+          >
+            Edit
+          </StyledEditButton>
+          <StyledEditButton danger>Delete</StyledEditButton>
+        </Space>
+      ),
+    },
+  ];
+
+  const handleCloseInviteModal = () => {
+    setIsShowInviteModal(false);
+  };
+
+  const handleCloseEditModal = () => {
+    setIsShowEditModal(false);
+  };
+
+  const handleOpenEditModal = (memberId) => {
+    setEditMemberId(memberId);
+    setIsShowEditModal(true);
+  };
+
+  const getTeamMembers = () => {
+    fetchTeamMembers?.({ companyId: selectedCompanyId })
+      .unwrap()
+      .then((result) => {
+        setTeamMembers(result?.data ?? []);
+      });
+  };
+
+  useEffect(() => {
+    getTeamMembers();
+  }, []);
+
   return (
     <>
-      <h2>Sample page 2 {environment.testing}</h2>
-      <p>You can kick start your app</p>
+      <Card
+        style={{
+          boxShadow: "0 8px 12px 0 rgba(29,32,43,.07)",
+          marginTop: "16px",
+        }}
+      >
+        <Row justify="space-between" style={{ alignItems: "center" }}>
+          <Typography
+            style={{ fontSize: "24px", fontWeight: 600, padding: "8px 0" }}
+          >
+            Team Members
+          </Typography>
+          <Button type="primary" onClick={() => setIsShowInviteModal(true)}>
+            Invite Team Member
+          </Button>
+        </Row>
+        <Space direction="vertical" style={{ width: "100%" }}>
+          {isLoading ? (
+            <AppLoader />
+          ) : (
+            <Table columns={columns} dataSource={teamMembers} />
+          )}
+        </Space>
+        <InviteMemberModal
+          isShowModal={isShowInviteModal}
+          handleCloseModal={handleCloseInviteModal}
+        />
+        <EditMemberModal
+          member={teamMembers.filter((e) => e.id === editMemberId)?.[0]}
+          isShowModal={isShowEditModal}
+          handleCloseModal={handleCloseEditModal}
+        />
+      </Card>
     </>
   );
 };

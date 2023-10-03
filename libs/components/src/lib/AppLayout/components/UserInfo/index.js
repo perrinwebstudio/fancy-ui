@@ -17,15 +17,15 @@ import {
   StyledUsername,
   StyledUsernameInfo,
 } from "./index.styled";
-import { useAppAuth } from '@crema/context/AppAuthProvider'
+import { useAppAuth } from "@crema/context/AppAuthProvider";
 
-const UserInfo = ({ hasColor }) => {
+const UserInfo = ({ hasColor, hideDropDown }) => {
   const { themeMode } = useThemeContext();
   const { user } = useAuthUser();
   const navigate = useNavigate();
   const { sidebarColorSet } = useSidebarContext();
   const { allowSidebarBgImage } = useSidebarContext();
-  const { onLogout } = useAppAuth()
+  const { onLogout } = useAppAuth();
 
   const getUserAvatar = () => {
     if (user.displayName) {
@@ -43,10 +43,16 @@ const UserInfo = ({ hasColor }) => {
     },
     {
       key: 2,
-      label: <div onClick={() => {
-        console.log('logout')
-        onLogout()
-      }}>Logout</div>,
+      label: (
+        <div
+          onClick={() => {
+            console.log("logout");
+            onLogout();
+          }}
+        >
+          Logout
+        </div>
+      ),
     },
   ];
 
@@ -66,7 +72,7 @@ const UserInfo = ({ hasColor }) => {
         >
           <Dropdown
             menu={{ items }}
-            trigger={["click"]}
+            trigger={!hideDropDown ? ["click"] : []}
             placement="bottomRight"
             overlayStyle={{
               zIndex: 1052,
@@ -81,7 +87,11 @@ const UserInfo = ({ hasColor }) => {
                   {getUserAvatar()}
                 </StyledCrUserInfoAvatar>
               )}
-              <StyledCrUserInfoContent className="cr-user-info-content">
+              <StyledCrUserInfoContent
+                className={`cr-user-info-content ${
+                  hideDropDown && "full-width"
+                }`}
+              >
                 <StyledUsernameInfo>
                   <StyledUsername
                     className={clsx("text-truncate", {
@@ -90,9 +100,11 @@ const UserInfo = ({ hasColor }) => {
                   >
                     {user.displayName ? user.displayName : "admin user "}
                   </StyledUsername>
-                  <StyledUserArrow className="cr-user-arrow">
-                    <FaChevronDown />
-                  </StyledUserArrow>
+                  {!hideDropDown && (
+                    <StyledUserArrow className="cr-user-arrow">
+                      <FaChevronDown />
+                    </StyledUserArrow>
+                  )}
                 </StyledUsernameInfo>
               </StyledCrUserInfoContent>
             </StyledCrUserInfoInner>
