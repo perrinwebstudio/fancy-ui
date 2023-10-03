@@ -1,17 +1,12 @@
 import { defaultTheme } from '@crema/constants/defaultConfig';
 import { Tag } from 'antd';
 import React, { useMemo } from 'react';
-import { StyledKeywordRankTag, StyledRankTag } from './modules/shared.styled';
+import { StyledKeywordRankTag, StyledRankTag } from './shared.styled';
+import { getRankColor } from '@crema/constants';
 
 const TagColorByRank = ({ text, rank, isKeyword }) => {
   const color = useMemo(() => {
-    if (text.rank > 3) {
-      return defaultTheme.theme.palette.success[501]
-    }
-    if (text.rank > 10) {
-      return defaultTheme.theme.palette.success[401]
-    }
-    return defaultTheme.theme.palette.success[301]
+    return getRankColor(rank)
   }, [rank])
 
   if (!isKeyword) {

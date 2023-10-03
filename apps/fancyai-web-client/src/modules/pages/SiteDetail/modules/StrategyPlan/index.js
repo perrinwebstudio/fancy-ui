@@ -6,6 +6,7 @@ import HowItWork from './modules/HowItWork';
 import ShortTermKeywords from './modules/ShortTermKeywords';
 import LongTermKeywords from './modules/LongTermKeywords';
 import KeywordResearch from './modules/KeywordResearch';
+import ContentUpdates from './modules/ContentUpdates';
 
 const SiteStrategyPlan = ({ prop1 }) => {
   const {id, subMenu} = useSiteDetail()
@@ -28,6 +29,9 @@ const SiteStrategyPlan = ({ prop1 }) => {
           }
           {
             subMenu === 'keyword_research' && <KeywordResearch />
+          }
+          {
+            subMenu === 'content_updates' && <ContentUpdates />
           }
         </Card>
       </Col>

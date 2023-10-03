@@ -36,3 +36,20 @@ export const StyledUrlHolder = styled.div`
           line-clamp: 2; 
   -webkit-box-orient: vertical;
 `
+
+export const StyledOneLineText = styled.div`
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  overflow: hidden;
+`
+
+export const StyledTwoLineText = styled.div`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 150px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+          line-clamp: 2; 
+  -webkit-box-orient: vertical;
+`

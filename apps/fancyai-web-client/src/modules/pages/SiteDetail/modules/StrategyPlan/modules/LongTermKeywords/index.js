@@ -3,7 +3,7 @@ import Title from 'antd/es/typography/Title';
 import React from 'react';
 import TagColorByRank from '../../TagColorByRank';
 import { convertNumberToCommaSeparated, formatCurrency } from '@crema/helpers';
-import { StyledUrlHolder } from '../shared.styled';
+import { StyledUrlHolder } from '../../shared.styled';
 
 const columns = [
   {

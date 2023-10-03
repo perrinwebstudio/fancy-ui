@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ConnectGoogleForServices } from '@crema/modules/google';
 import { GoogleLogin } from '@react-oauth/google'
+import { Button } from 'antd';
 
 const TestPage = ({ prop1 }) => {
   return <>
@@ -20,7 +21,13 @@ const TestPage = ({ prop1 }) => {
         state_cookie_domain="getfancy.ai"
         useOneTap
       />
-      <div style={{marginTop: '20px'}}><ConnectGoogleForServices /></div>
+      <div style={{marginTop: '20px'}}><ConnectGoogleForServices
+        label={'Connect Google'}
+        onSuccess={(response) => {
+          console.log('super response', response)
+        }}
+        Element={(props) => <Button danger {...props} />}
+      /></div>
     </div>
   </>
 }

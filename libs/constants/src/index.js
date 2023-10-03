@@ -3,3 +3,4 @@ export * from './AppEnums';
 export * from './AppConst';
 export * from './ColorSets';
 export * from './SiteDetail'
+export * from './Content'
