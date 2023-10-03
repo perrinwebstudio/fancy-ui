@@ -3,18 +3,22 @@ import { Row, Button, Col, Form, Input, Typography } from "antd";
 import AppRowContainer from "@crema/components/AppRowContainer";
 import IntlMessages from "@crema/helpers/IntlMessages";
 import { useAuthUser } from "@crema/hooks/AuthHooks";
+import { useDropzone } from "react-dropzone";
 import { useIntl } from "react-intl";
 import {
   StyledInfoUpload,
   StyledInfoUploadAvatar,
   StyledInfoUploadContent,
   StyledInputWrapper,
+  StyledInfoUploadBtnView,
 } from "./index.styled";
 import {
   StyledUserProfileGroupBtn,
   StyledUserProfileFormTitle,
 } from "../index.styled";
 import FloatLabel from "@crema/modules/components/floatLabel";
+import { useUpdateUserSettingMutation } from "apps/fancyai-web-client/src/core/api/apiUserSetting";
+import { useGetUserMutation } from "apps/fancyai-web-client/src/core/api/api";
 
 const { Text } = Typography;
 
@@ -23,17 +27,46 @@ const PersonalInfo = () => {
   const { messages } = useIntl();
 
   const [form] = Form.useForm();
-  const fullName = Form.useWatch("fullName", form);
-  const positionTitle = Form.useWatch("positionTitle", form);
+  const name = Form.useWatch("name", form);
+  const jobTitle = Form.useWatch("jobTitle", form);
   const email = Form.useWatch("email", form);
 
   const [userImage, setUserImage] = useState(
-    user.photoURL ? user.photoURL : "/assets/images/placeholder.jpg"
+    user.photoURL ? user.photoURL : "/assets/images/user_avatar_placeholder.jpg"
   );
+
+  const [updateUserSetting, { isLoading }] = useUpdateUserSettingMutation();
+  const [getUser] = useGetUserMutation();
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/png": [".png"],
+      "image/jpeg": [".jpg", ".jpeg"],
+    },
+    onDrop: (acceptedFiles) => {
+      setUserImage(URL.createObjectURL(acceptedFiles[0]));
+    },
+  });
+
+  const onReset = () => {
+    setUserImage("/assets/images/user_avatar_placeholder.jpg");
+  };
 
   const onFinish = (values) => {
     console.log("Finish:", values);
+    updateUserSetting?.(values)
+      .unwrap()
+      .then((result) => {
+        getUser()
+          .unwrap()
+          .catch(() => {
+            dispatch(logout());
+            dispatch(resetStateAction());
+          });
+      });
   };
+
+  console.log(user);
 
   return (
     <>
@@ -46,29 +79,26 @@ const PersonalInfo = () => {
           ...user,
           userImage: user.photoURL
             ? user.photoURL
-            : "/assets/images/placeholder.jpg",
+            : "/assets/images/user_avatar_placeholder.jpg",
         }}
         form={form}
       >
         <Row>
-          <Col xs={24} md={24} lg={12}>
+          <Col xs={24} md={24} lg={18}>
             <StyledInfoUpload>
               <StyledInfoUploadAvatar src={userImage} />
 
               <StyledInfoUploadContent>
-                <Text strong>{user.displayName}</Text>
+                <Text strong>{user.name}</Text>
                 <br></br>
                 <Text>{user.email}</Text>
               </StyledInfoUploadContent>
             </StyledInfoUpload>
             <AppRowContainer gutter={16}>
               <Col xs={24} md={12}>
-                <FloatLabel
-                  label={messages["common.fullName"]}
-                  value={fullName}
-                >
+                <FloatLabel label={messages["common.name"]} value={name}>
                   <Form.Item
-                    name="fullName"
+                    name="name"
                     rules={[
                       {
                         required: true,
@@ -82,11 +112,11 @@ const PersonalInfo = () => {
               </Col>
               <Col xs={24} md={12}>
                 <FloatLabel
-                  label={messages["userProfile.position_title"]}
-                  value={positionTitle}
+                  label={messages["userProfile.job_title"]}
+                  value={jobTitle}
                 >
                   <Form.Item
-                    name="positionTitle"
+                    name="jobTitle"
                     rules={[
                       {
                         required: true,
@@ -115,7 +145,16 @@ const PersonalInfo = () => {
               </Col>
               <Col xs={24} md={12}>
                 <StyledInputWrapper>
-                  <Button type="primary">Profile Image Upload</Button>
+                  <StyledInfoUploadContent>
+                    <StyledInfoUploadBtnView>
+                      <div {...getRootProps({ className: "dropzone" })}>
+                        <input {...getInputProps()} />
+                        <label htmlFor="icon-button-file">
+                          <Button type="primary">Profile Image Upload</Button>
+                        </label>
+                      </div>
+                    </StyledInfoUploadBtnView>
+                  </StyledInfoUploadContent>
                 </StyledInputWrapper>
               </Col>
               <Col xs={24} md={24}>
@@ -123,7 +162,12 @@ const PersonalInfo = () => {
                   shouldUpdate
                   className="user-profile-group-btn"
                 >
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={isLoading}
+                    disabled={isLoading}
+                  >
                     Save Changes
                   </Button>
                   <Button htmlType="cancel">Cancel</Button>

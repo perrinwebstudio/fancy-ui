@@ -9,6 +9,7 @@ import {
   StyledUserProfileFormTitle,
   StyledUserProfileGroupBtn,
 } from "../index.styled";
+import { useUpdateUserSettingMutation } from "apps/fancyai-web-client/src/core/api/apiUserSetting";
 
 const ChangePassword = () => {
   const { messages } = useIntl();
@@ -16,10 +17,16 @@ const ChangePassword = () => {
   const [form] = Form.useForm();
   const oldPassword = Form.useWatch("oldPassword", form);
   const newPassword = Form.useWatch("newPassword", form);
-  const reNewPassword = Form.useWatch("reNewPassword", form);
+  const confirmPassword = Form.useWatch("confirmPassword", form);
+
+  const [updateUserSetting, { isLoading }] = useUpdateUserSettingMutation();
 
   const onFinish = (values) => {
     console.log("Success:", values);
+    updateUserSetting?.(values)
+      .unwrap()
+      .then((result) => {})
+      .catch(() => {});
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -34,7 +41,7 @@ const ChangePassword = () => {
       form={form}
     >
       <Row>
-        <Col xs={24} md={24} lg={12}>
+        <Col xs={24} md={24} lg={18}>
           <StyledUserProfileFormTitle>
             <IntlMessages id="userProfile.changePassword" />
           </StyledUserProfileFormTitle>
@@ -64,11 +71,20 @@ const ChangePassword = () => {
                 value={newPassword}
               >
                 <Form.Item
-                  name="password"
+                  name="newPassword"
                   rules={[
                     {
                       required: true,
                       message: "Please input your New Password!",
+                    },
+                    {
+                      min: 8,
+                      message: "Password must have a minimum length of 8",
+                    },
+                    {
+                      pattern: new RegExp("(?=.*[A-Z|!@#$&*])(?!.*[ ]).*$"),
+                      message:
+                        "Password must contain at least one uppercase letter or special character",
                     },
                   ]}
                 >
@@ -79,7 +95,7 @@ const ChangePassword = () => {
             <Col xs={24} md={12}>
               <FloatLabel
                 label={messages["common.retypeNewPassword"]}
-                value={reNewPassword}
+                value={confirmPassword}
               >
                 <Form.Item
                   name="confirmPassword"
@@ -90,7 +106,7 @@ const ChangePassword = () => {
                     },
                     ({ getFieldValue }) => ({
                       validator(rule, value) {
-                        if (!value || getFieldValue("password") === value) {
+                        if (!value || getFieldValue("newPassword") === value) {
                           return Promise.resolve();
                         }
                         return Promise.reject(
@@ -109,7 +125,12 @@ const ChangePassword = () => {
                 shouldUpdate
                 className="user-profile-group-btn"
               >
-                <Button type="primary" htmlType="submit">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={isLoading}
+                  disabled={isLoading}
+                >
                   Save Changes
                 </Button>
                 <Button htmlType="cancel">Cancel</Button>

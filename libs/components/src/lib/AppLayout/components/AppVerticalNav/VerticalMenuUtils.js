@@ -1,27 +1,27 @@
-import { Link } from 'react-router-dom';
-import React from 'react';
-import { useIntl } from 'react-intl';
-import { allowMultiLanguage } from '@crema/constants';
+import { Link } from "react-router-dom";
+import React from "react";
+import { useIntl } from "react-intl";
+import { allowMultiLanguage } from "@crema/constants";
 
 const MenuItemChildren = (item) => {
   const { icon, messageId, path } = item;
   const { messages } = useIntl();
 
-  if (path && path.includes('/'))
+  if (path && path.includes("/"))
     return {
       key: item.id,
       icon:
         icon &&
         (React.isValidElement(icon) ? (
-          <span id={path} className='ant-menu-item-icon'>
+          <span id={path} className="ant-menu-item-icon">
             {icon}
           </span>
         ) : (
-          <icon id={path} className='ant-menu-item-icon' />
+          <icon id={path} className="ant-menu-item-icon" />
         )),
       label: (
         <Link to={path} id={path}>
-          <span data-testid={messageId.toLowerCase + '-nav'}>
+          <span data-testid={messageId.toLowerCase + "-nav"}>
             {allowMultiLanguage ? messages[messageId] : item.title}
           </span>
         </Link>
@@ -33,14 +33,14 @@ const MenuItemChildren = (item) => {
       icon:
         icon &&
         (React.isValidElement(icon) ? (
-          <span id={path} className='ant-menu-item-icon'>
+          <span id={path} className="ant-menu-item-icon">
             {icon}
           </span>
         ) : (
-          <icon id={path} className='ant-menu-item-icon' />
+          <icon id={path} className="ant-menu-item-icon" />
         )),
       label: (
-        <span id={path} data-testid={messageId.toLowerCase + '-nav'}>
+        <span id={path} data-testid={messageId.toLowerCase + "-nav"}>
           {allowMultiLanguage ? messages[messageId] : item.title}
         </span>
       ),
@@ -49,12 +49,12 @@ const MenuItemChildren = (item) => {
 };
 
 const renderMenuItem = (item) => {
-  return item.type === 'collapse'
+  return item.type === "collapse"
     ? {
         key: item.id,
         ...MenuItemChildren(item),
         children: item.children.map((item) => renderMenuItem(item)),
-        type: 'collapse',
+        type: "collapse",
       }
     : {
         key: item.id,
@@ -63,13 +63,13 @@ const renderMenuItem = (item) => {
 };
 
 const renderMenu = (item) => {
-  return item.type === 'group'
+  return item.type === "group"
     ? {
         key: item.path ? item.path : item.id,
         id: item.url,
         ...MenuItemChildren(item),
         children: item.children.map((item) => renderMenuItem(item)),
-        type: 'group',
+        type: "group",
       }
     : {
         key: item.id,
