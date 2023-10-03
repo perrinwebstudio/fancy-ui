@@ -10,6 +10,8 @@ phases:
   build:
     commands:
       - echo Entered the build phase...
+      - rm -rf apps/fancyai-web-client/src/index.html
+      - mv apps/fancyai-web-client/src/index.staging.html apps/fancyai-web-client/src/index.html
       - yarn build:$BUILD_ENV
   post_build:
     commands:
@@ -17,10 +19,6 @@ phases:
       - bash -c "if [ /"$CODEBUILD_BUILD_SUCCEEDING/" == /"0/" ]; then exit 1; fi"
       - echo Build stage successfully completed on `date`
       - echo Move dist to build
-      - echo remove index.html
       - mv dist/apps/fancyai-web-client/ build/
-      - rm -rf build/index.html
-      - rename index.staging.html to index.html
-      - mv build/index.staging.html build/index.html
       - aws s3 sync build $S3_BUCKET --delete --exclude "build/index.html"
       - aws s3 cp build/index.html $S3_BUCKET/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html
