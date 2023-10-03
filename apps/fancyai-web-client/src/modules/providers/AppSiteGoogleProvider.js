@@ -5,8 +5,6 @@ import { useConnectGoogleServiceMutation, useGetGAAccountsMutation, useGetGSCSit
 import AppLoader from '@crema/components/AppLoader';
 
 const AppSiteGoogleProvider = ({ children, siteId, selectedGaAccount }) => {
-  console.log('siteee22222id', siteId)
-
   const {data, isLoading} = useGetSiteQuery({siteId}, {
     skip: !siteId
   })
@@ -15,8 +13,6 @@ const AppSiteGoogleProvider = ({ children, siteId, selectedGaAccount }) => {
   const [getGscList, { isLoading: isGettingGscList }] = useGetGSCSitesMutation()
 
   if (isLoading || !siteId) return <AppLoader />
-
-  console.log('data', data.data)
 
   return <SiteGoogleProvider
     site={data?.data}
