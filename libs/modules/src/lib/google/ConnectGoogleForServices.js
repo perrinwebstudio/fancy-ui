@@ -11,7 +11,7 @@ const ConnectGoogleForServices = ({ prop1 }) => {
     flow: 'auth-code',
     ux_mode: 'popup',
     // emails, anaytics, webmasters
-    // scope: 'https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/userinfo.email',
+    scope: 'https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/userinfo.email',
   })
 
   return <Button onClick={() => login()}>Test Google GSC, GA</Button>
