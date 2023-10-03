@@ -5,6 +5,7 @@ import { useGetSiteQuery, useUpdateSiteMutation } from 'apps/fancyai-web-client/
 import { useSiteDetail } from '@crema/modules/siteDetail';
 import AppLoader from '@crema/components/AppLoader';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import AppSiteGoogleProvider from 'apps/fancyai-web-client/src/modules/providers/AppSiteGoogleProvider';
 
 const SiteConnections = ({ prop1 }) => {
   const { id } = useSiteDetail()
@@ -14,14 +15,18 @@ const SiteConnections = ({ prop1 }) => {
 
   const [form] = Form.useForm()
 
+  const gaAccountId = Form.useWatch('gaAccountId', form)
+
   if (isLoading) return <AppLoader />
   return <Card>
-    <Form onFinish={() => {
-      update({siteId: id, site: form.getFieldsValue(), showNotification: true})
-    }} form={form} disabled={!edit} layout="vertical" initialValues={data?.data || {}}>
-      <Step5 />
-      <Step6 sitePlatform={data?.data?.platform} />
-    </Form>
+      <Form onFinish={() => {
+        update({siteId: id, site: form.getFieldsValue(), showNotification: true})
+      }} form={form} disabled={!edit} layout="vertical" initialValues={data?.data || {}}>
+        <AppSiteGoogleProvider selectedGaAccount={gaAccountId} siteId={id}>
+          <Step5 />
+        </AppSiteGoogleProvider>
+        <Step6 sitePlatform={data?.data?.platform} />
+      </Form>
     <Divider />
     
     <div style={{width: '100%', display: 'flex', justifyContent: 'center', gap: '20px'}}>

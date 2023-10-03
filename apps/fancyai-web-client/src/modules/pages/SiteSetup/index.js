@@ -8,9 +8,10 @@ import { Link } from "react-router-dom";
 import SimpleBarReact from "simplebar-react";
 import NewSiteForm, { CAN_SKIP_STEPS, validateStep } from "./NewSiteForm";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { useStoreCompanySiteMutation, useUpdateSiteMutation } from "apps/fancyai-web-client/src/core/api/apiSite";
+import { useGetSiteQuery, useStoreCompanySiteMutation, useUpdateSiteMutation } from "apps/fancyai-web-client/src/core/api/apiSite";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
 import StyledSpaceOnCompleted from "./StyledSpaceOnCompleted";
+import AppSiteGoogleProvider from "../../providers/AppSiteGoogleProvider";
 
 const { Title } = Typography;
 
@@ -72,6 +73,7 @@ const SiteSetup = () => {
       }}
     >
       <NewSiteForm
+        siteId={id}
         downloadedWpPlugin={downloadedWpPlugin}
         setDownloadedWpPlugin={setDownloadedWpPlugin}
         installedShopifyApp={installedShopifyApp}

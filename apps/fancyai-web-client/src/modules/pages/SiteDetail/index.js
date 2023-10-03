@@ -12,6 +12,7 @@ import SiteConfiguration from "./modules/SiteConfiguration";
 import SiteStrategyPlan from "./modules/StrategyPlan";
 import SiteReviewCenter from "./modules/ReviewCenter";
 import SitePerformanceReporting from "./modules/PerformanceReporting";
+import AppSiteGoogleProvider from "../../providers/AppSiteGoogleProvider";
 const { Title } = Typography;
 
 const SiteDetail = () => {
@@ -57,7 +58,6 @@ const SiteDetail = () => {
       <StyledSiteDetailBodyWrapper>
         {body}
       </StyledSiteDetailBodyWrapper>
-
       <AppInfoView />
     </>
   );

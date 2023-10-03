@@ -4,17 +4,21 @@ import { Button, Form, Space, Typography, theme } from 'antd';
 import StepFormWrapper from './StepFormWrapper';
 import StyledInstructionWrapper from './StyledInstructionWrapper';
 import { CheckOutlined } from '@ant-design/icons';
+import SiteGoogleGAServiceConnect from '../siteGoogle/GoogleGAServiceConnect';
+import { useSiteGoogle } from '../siteGoogle';
 
 const SiteSetupStep5 = ({ validated }) => {
   const {token} = theme.useToken()
+
+  const { site: siteData } = useSiteGoogle()
+
   return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4}  id='step5'>{validated && <CheckOutlined
       style={{marginRight: '10px', color: token.colorSuccess}}
     />} 5. Site Connections</StyledSiteSetupTitle>
     <Form.Item label="Connect to Google Search Console">
-      <Button type='primary' block>
-        Sign In
-      </Button>
+      {/* <SiteGoogleGAServiceConnect siteData={siteData} /> */}
+      <div>Coming soon</div>
     </Form.Item>
     <StyledInstructionWrapper direction='vertical'>
       <Typography.Text strong type='secondary'>Instructions</Typography.Text>
@@ -27,9 +31,7 @@ const SiteSetupStep5 = ({ validated }) => {
     </StyledInstructionWrapper>
 
     <Form.Item label="Connect to Google Analytics">
-      <Button type='primary' block>
-        Sign In
-      </Button>
+      <SiteGoogleGAServiceConnect siteData={siteData} />
     </Form.Item>
     <StyledInstructionWrapper direction='vertical'>
       <Typography.Text strong type='secondary'>Instructions</Typography.Text>

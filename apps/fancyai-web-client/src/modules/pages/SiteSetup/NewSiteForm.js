@@ -4,6 +4,7 @@ import { Button, Form, notification } from "antd";
 import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8, StepFormWrapper } from '@crema/modules/siteSetup';
 import StyledSpaceOnCompleted from './StyledSpaceOnCompleted';
 import { useNavigate } from 'react-router-dom';
+import AppSiteGoogleProvider from '../../providers/AppSiteGoogleProvider';
 
 export const validateStep = (step, formData, downloadedWpPlugin = false, installedShopifyApp = false) => {
   switch (step) {
@@ -52,11 +53,18 @@ const renderForm = (currentStep, formStep, props) => {
   const styles = {display: currentStep === formStep ? '' : 'none'}
 
   return <div style={styles}>
-    <FormComponent {...props} />
+    {
+      formStep === 4 ? 
+      <AppSiteGoogleProvider selectedGaAccount={props.gaAccountId} siteId={props.siteId}>
+        <FormComponent {...props} />
+      </AppSiteGoogleProvider>
+      : <FormComponent {...props} />
+    }
   </div>
 }
 
 const NewSiteForm = ({ formData,
+    siteId,
     currentStep = 0,
     onPrevStep,
     onNextStep,
@@ -66,6 +74,9 @@ const NewSiteForm = ({ formData,
     installedShopifyApp,
     setInstalledShopifyApp
   }) => {
+
+  console.log('siteeeeeid', siteId)
+  
   const navigate = useNavigate()
   return <>
     {FINISH_STEPS.includes(currentStep) && <StyledSpaceOnCompleted />}
@@ -73,14 +84,19 @@ const NewSiteForm = ({ formData,
     {renderForm(currentStep, 1, { validated: validateStep(1, formData)})}
     {renderForm(currentStep, 2, { validated: validateStep(2, formData)})}
     {renderForm(currentStep, 3, { validated: validateStep(3, formData)})}
-    {renderForm(currentStep, 4, { validated: validateStep(4, formData)})}
-    {renderForm(currentStep, 5, { 
+    {renderForm(currentStep, 4, { 
+      validated: validateStep(4, formData),
+      siteId,
+      gaAccountId: formData.gaAccountId,
+    })}
+    {renderForm(currentStep, 5, {
         validated: validateStep(5, formData, downloadedWpPlugin, installedShopifyApp),
         sitePlatform: formData.platform,
         downloadedWpPlugin,
         setDownloadedWpPlugin,
         installedShopifyApp,
-        setInstalledShopifyApp
+        setInstalledShopifyApp,
+        siteId,
       }
     )}
     {renderForm(currentStep, 6, {})}

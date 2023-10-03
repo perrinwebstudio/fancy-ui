@@ -82,3 +82,14 @@ export const SITE_DETAIL_MENU_CONFIG = {
     subMenu: null
   },
 }
+
+export const SITE_GOOGLE_ACCOUNT_TYPES = {
+  googleGeneralTokens: 'googleGeneralTokens',
+  googleGATokens: 'googleGATokens',
+  googleGSCTokens: 'googleGSCTokens'
+}
+
+export const SITE_GOOGLE_SERVICE_TYPES = { 
+  GSC: 'GSC', 
+  GA: 'GA',
+}
