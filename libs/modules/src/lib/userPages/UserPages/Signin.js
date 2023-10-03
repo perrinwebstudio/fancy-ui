@@ -125,9 +125,9 @@ const Signin = ({
                 <Button>
                   <GoogleOutlined />
                 </Button>
-                <Button>
+                {/* <Button>
                   <LinkedinFilled />
-                </Button>
+                </Button> */}
                 <Button>
                   <GithubOutlined />
                 </Button>
