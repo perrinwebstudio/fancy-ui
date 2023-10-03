@@ -36,6 +36,10 @@
             {
               "replace": "apps/fancyai-web-client/src/environments/environment.js",
               "with": "apps/fancyai-web-client/src/environments/environment.staging.js"
+            },
+            {
+              "replace": "apps/fancyai-web-client/src/index.html",
+              "with": "apps/fancyai-web-client/src/index.staging.html"
             }
           ],
           "optimization": true,
