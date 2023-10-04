@@ -3,14 +3,14 @@ import { SITE_GOOGLE_ACCOUNT_TYPES } from '@crema/constants';
 import ConnectGoogleForServices from '../../google/ConnectGoogleForServices';
 import { Button } from 'antd';
 import { useSiteGoogle } from '../SiteGoogleProvider';
-import GADropdown from './GADropdown';
+import GSCDropdown from './GSCDropdown';
 
-const SiteGoogleGAServiceConnect = () => {
+const SiteGoogleGscServiceConnect = () => {
   const { site: siteData, connect, isMutating } = useSiteGoogle()
   const { googleGeneralTokens, googleGATokens, googleGSCTokens } = siteData || {}
 
   const googleAccount = useMemo(() => {
-    let accountType = googleGATokens ? 'googleGATokens' : googleGeneralTokens ? 'googleGeneralTokens' : null
+    let accountType = googleGSCTokens ? 'googleGSCTokens' : googleGeneralTokens ? 'googleGeneralTokens' : null
     return {
       accountType,
       account: accountType ? siteData[accountType] : null
@@ -19,7 +19,7 @@ const SiteGoogleGAServiceConnect = () => {
 
   const toConnectAccountType = useMemo(() => {
     let _type = SITE_GOOGLE_ACCOUNT_TYPES.googleGeneralTokens
-    if (googleGeneralTokens) _type = SITE_GOOGLE_ACCOUNT_TYPES.googleGATokens
+    if (googleGeneralTokens) _type = SITE_GOOGLE_ACCOUNT_TYPES.googleGSCTokens
 
     return _type
   }, [googleGeneralTokens])
@@ -37,17 +37,24 @@ const SiteGoogleGAServiceConnect = () => {
   }
 
   return <div>
-    <GADropdown accountType={googleGATokens ? 'googleGATokens' : 'googleGeneralTokens'} />
+    <GSCDropdown accountType={googleGSCTokens ? 'googleGSCTokens' : 'googleGeneralTokens'} />
     <ConnectGoogleForServices
       isLoading={isMutating}
       label={'Connect To Another Account'}
       onSuccess={async (response) => {
+        console.log('s===============>', response)
         const code = response.code
-        await connect({ siteId: siteData._id, code, type: toConnectAccountType, redirectUri: location.protocol + '//' + location.host })
+        console.log('connect 11111')
+        await connect({ siteId: siteData._id, code, type: toConnectAccountType, redirectUri: location.protocol + '//' + location.host }).unwrap().then((res) => {
+          console.log('ressxx', res)
+        }).catch((err) => {
+          console.log('err', err)
+        })
+        console.log('connect 22??????')
       }}
       Element={(props) => <Button block type="primary" {...props} disabled={false} />}
     />
   </div>
 }
 
-export default SiteGoogleGAServiceConnect
+export default SiteGoogleGscServiceConnect

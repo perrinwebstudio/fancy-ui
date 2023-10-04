@@ -64,7 +64,6 @@ export const HowItWorkServicesWrapper = styled(Row)`
 
 export const HowItWorkServiceBoxText = styled(Paragraph)`
   font-size: ${({theme}) => {
-    console.log('theme', theme)
     return theme.font.size.lg
   }};
   line-height: 2;

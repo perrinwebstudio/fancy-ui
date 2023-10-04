@@ -73,10 +73,7 @@ const NewSiteForm = ({ formData,
     setDownloadedWpPlugin,
     installedShopifyApp,
     setInstalledShopifyApp
-  }) => {
-
-  console.log('siteeeeeid', siteId)
-  
+  }) => {  
   const navigate = useNavigate()
   return <>
     {FINISH_STEPS.includes(currentStep) && <StyledSpaceOnCompleted />}

@@ -34,6 +34,15 @@ const SiteSetup = () => {
   const [downloadedWpPlugin, setDownloadedWpPlugin] = React.useState(false)
   const [installedShopifyApp, setInstalledShopifyApp] = React.useState(false)
 
+  const [visitedSteps, setVisitedSteps] = React.useState([0])
+
+  const onStepChange = useCallback((step) => {
+    setCurrentStep(step)
+    if (!visitedSteps.includes(step)) {
+      setVisitedSteps([...visitedSteps, step])
+    }
+  }, [setCurrentStep, visitedSteps])
+
   const onNextStep = useCallback(async (step) => {
     if (currentStep === 0 && !id) {
       await store({
@@ -41,28 +50,31 @@ const SiteSetup = () => {
         site: formData
       }).unwrap().then((rsp) => {
         setId(rsp.data._id)
-        setCurrentStep(currentStep + 1)
-      })
+        onStepChange(currentStep + 1)
+      }).catch((err) => {})
     } else if (id) {
       // update company here
       await update({
         siteId: id,
         site: formData
       }).unwrap().then((rsp) => {
-        setCurrentStep(currentStep + 1)
-      })
-      // setCurrentStep(currentStep + 1)
+        onStepChange(currentStep + 1)
+      }).catch((err) => {})
     }
-  }, [currentStep, setCurrentStep, store, selectedCompanyId, formData, id])
+  }, [currentStep, onStepChange, store, selectedCompanyId, formData, id])
+
+  const onPreviousStep = useCallback(async () => {
+    console.log('currentStep', currentStep)
+    if (currentStep > 0) {
+      onStepChange(currentStep - 1)
+    }
+  }, [onStepChange, currentStep])
 
   const form = useMemo(() => {
     return <Form initialValues={{
         platform: 'shopify'
       }}
       form={formRef}
-      onFinish={(values) => {
-        console.log(values)
-      }}
       layout="vertical"
       onFieldsChange={(changedFields, allFields) => {
         const _data = {}
@@ -83,9 +95,7 @@ const SiteSetup = () => {
         currentStep={currentStep}
         onNextStep={onNextStep}
         onPrevStep={() => {
-          if (currentStep > 0) {
-            setCurrentStep(currentStep - 1)
-          }
+          onPreviousStep()
         }}
       />
     </Form>
@@ -105,9 +115,10 @@ const SiteSetup = () => {
             }}
             current={currentStep}
             onClickStep={(step) => {
-              setCurrentStep(step)
+              onStepChange(step)
             }}
             skippableSteps={CAN_SKIP_STEPS}
+            visitedSteps={visitedSteps}
           />
         </Col>
         <Col md={16} lg={5}>

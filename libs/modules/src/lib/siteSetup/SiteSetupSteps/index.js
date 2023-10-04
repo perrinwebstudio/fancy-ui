@@ -21,7 +21,7 @@ const StepIcon = ({status}) => {
   return icon
 }
 
-const SiteSetupSteps = ({ current = 1, onClickStep, checkStepFinish, skippableSteps }) => {
+const SiteSetupSteps = ({ current = 1, onClickStep, checkStepFinish, skippableSteps, visitedSteps = [] }) => {
   const getStatus = (step) => {
     if (step === 6) {
       if (current === 7) {
@@ -31,7 +31,13 @@ const SiteSetupSteps = ({ current = 1, onClickStep, checkStepFinish, skippableSt
     if (skippableSteps.includes(step) && current > step) {
       return 'finish'
     }
-    return current === step ?  'process' : checkStepFinish?.(step) ? 'finish' : 'wait'
+    const status = current === step ?  'process' : checkStepFinish?.(step) ? 'finish' : 'wait'
+
+    if (status === 'finish' && !visitedSteps.includes(step)) {
+      return 'wait'
+    }
+
+    return status
   }
 
   const renderItemProps = (step) => {
@@ -45,7 +51,7 @@ const SiteSetupSteps = ({ current = 1, onClickStep, checkStepFinish, skippableSt
   return <Steps
     size="small"
     onChange={(step) => {
-      if (getStatus(step) !== 'wait') {
+      if (getStatus(step) !== 'wait' || visitedSteps.includes(step)) {
         onClickStep(step)
       }
     }}

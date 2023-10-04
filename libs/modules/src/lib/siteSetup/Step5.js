@@ -6,6 +6,7 @@ import StyledInstructionWrapper from './StyledInstructionWrapper';
 import { CheckOutlined } from '@ant-design/icons';
 import SiteGoogleGAServiceConnect from '../siteGoogle/GoogleGAServiceConnect';
 import { useSiteGoogle } from '../siteGoogle';
+import SiteGoogleGscServiceConnect from '../siteGoogle/GoogleGSCServiceConnect';
 
 const SiteSetupStep5 = ({ validated }) => {
   const {token} = theme.useToken()
@@ -17,8 +18,7 @@ const SiteSetupStep5 = ({ validated }) => {
       style={{marginRight: '10px', color: token.colorSuccess}}
     />} 5. Site Connections</StyledSiteSetupTitle>
     <Form.Item label="Connect to Google Search Console">
-      {/* <SiteGoogleGAServiceConnect siteData={siteData} /> */}
-      <div>Coming soon</div>
+      <SiteGoogleGscServiceConnect siteData={siteData} />
     </Form.Item>
     <StyledInstructionWrapper direction='vertical'>
       <Typography.Text strong type='secondary'>Instructions</Typography.Text>

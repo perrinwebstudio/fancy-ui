@@ -15,21 +15,24 @@ const GADropdown = ({ accountType }) => {
       return account.propertySummaries || []
     }
     return []
-  }, [selectedGaAccount])
+  }, [selectedGaAccount, gaList])
 
   useEffect(() => {
-    if (siteData) {
+    if (siteData._id) {
       getGaList({ siteId: siteData._id, type: accountType, redirectUri: location.protocol + '//' + location.host })
         .unwrap().then((res) => {
-          console.log('res ga', res)
           setGaList(res?.data?.accountSummaries || [])
           setError(null)
         }).catch((err) => {
           setGaList([])
-          setError('Can not fetch GA account list')
+          setError('Can not fetch GA account list. Please try refresh your page or re-connect your Google Account with the button below.')
         })
     }
-  }, [siteData, accountType])
+  }, [siteData._id, siteData[accountType]?.access_token, accountType])
+
+  if (error) {
+    return <Alert style={{marginBottom: '20px'}} message={error} type="error" />
+  }
 
   if (!isMutating && !gaList.length) {
     return <Alert style={{marginBottom: '20px'}} message="Can not find any Google Analytics associated with connected Google Account" type="warning" />
@@ -50,9 +53,6 @@ const GADropdown = ({ accountType }) => {
         })}
       </Select>
     </Form.Item>
-    {
-      error && <Alert style={{marginBottom: '20px'}} message={error} type="error" />
-    }
   </>
 }
 

@@ -31,7 +31,7 @@ export const apiSite = api.injectEndpoints({
     updateSite: build.mutation({
       query: ({ siteId, site }) => ({
         url: `site/update/${siteId}`,
-        method: "PUT",
+        method: "PATCH",
         body: {
           "updates": site
         },
