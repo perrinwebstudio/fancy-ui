@@ -37,6 +37,7 @@ const TeamMembers = () => {
       title: "Role",
       dataIndex: "role",
       key: "role",
+      render: (text) => <Typography>{text.replace("Company", "")}</Typography>,
     },
     {
       title: "Action",
@@ -81,41 +82,39 @@ const TeamMembers = () => {
   }, []);
 
   return (
-    <>
-      <Card
-        style={{
-          boxShadow: "0 8px 12px 0 rgba(29,32,43,.07)",
-          marginTop: "16px",
-        }}
-      >
-        <Row justify="space-between" style={{ alignItems: "center" }}>
-          <Typography
-            style={{ fontSize: "24px", fontWeight: 600, padding: "8px 0" }}
-          >
-            Team Members
-          </Typography>
-          <Button type="primary" onClick={() => setIsShowInviteModal(true)}>
-            Invite Team Member
-          </Button>
-        </Row>
-        <Space direction="vertical" style={{ width: "100%" }}>
-          {isLoading ? (
-            <AppLoader />
-          ) : (
-            <Table columns={columns} dataSource={teamMembers} />
-          )}
-        </Space>
-        <InviteMemberModal
-          isShowModal={isShowInviteModal}
-          handleCloseModal={handleCloseInviteModal}
-        />
-        <EditMemberModal
-          member={teamMembers.filter((e) => e.id === editMemberId)?.[0]}
-          isShowModal={isShowEditModal}
-          handleCloseModal={handleCloseEditModal}
-        />
-      </Card>
-    </>
+    <Card
+      style={{
+        boxShadow: "0 8px 12px 0 rgba(29,32,43,.07)",
+        marginTop: "16px",
+      }}
+    >
+      <Row justify="space-between" style={{ alignItems: "center" }}>
+        <Typography
+          style={{ fontSize: "24px", fontWeight: 600, padding: "8px 0" }}
+        >
+          Team Members
+        </Typography>
+        <Button type="primary" onClick={() => setIsShowInviteModal(true)}>
+          Invite Team Member
+        </Button>
+      </Row>
+      <Space direction="vertical" style={{ width: "100%" }}>
+        {isLoading ? (
+          <AppLoader />
+        ) : (
+          <Table columns={columns} dataSource={teamMembers} />
+        )}
+      </Space>
+      <InviteMemberModal
+        isShowModal={isShowInviteModal}
+        handleCloseModal={handleCloseInviteModal}
+      />
+      <EditMemberModal
+        member={teamMembers.filter((e) => e.id === editMemberId)?.[0]}
+        isShowModal={isShowEditModal}
+        handleCloseModal={handleCloseEditModal}
+      />
+    </Card>
   );
 };
 
