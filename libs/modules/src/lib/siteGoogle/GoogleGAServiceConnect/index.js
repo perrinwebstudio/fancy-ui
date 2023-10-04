@@ -4,6 +4,7 @@ import ConnectGoogleForServices from '../../google/ConnectGoogleForServices';
 import { Button } from 'antd';
 import { useSiteGoogle } from '../SiteGoogleProvider';
 import GADropdown from './GADropdown';
+import { GoogleOutlined } from '@ant-design/icons';
 
 const SiteGoogleGAServiceConnect = () => {
   const { site: siteData, connect, isMutating } = useSiteGoogle()

@@ -23,17 +23,23 @@ const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setIns
       </Form.Item>
     </>}
     {(!sitePlatform || sitePlatform === 'wordpress') && <Form.Item style={{marginBottom: '10px'}} label="Wordpress site">
-      <Button disabled={false} type='primary' block onClick={() => {
-        setDownloadedWpPlugin?.(true)
-        window.open('https://fancy-ai-data.s3.us-east-2.amazonaws.com/public/testwp.zip', "_blank", "noreferrer");
-      }}>Download Plugin</Button>
+      <Button
+        style={{marginBottom: '20px'}}
+        disabled={false}
+        type='primary'
+        block
+        onClick={() => {
+          setDownloadedWpPlugin?.(true)
+          window.open('https://fancy-ai-data.s3.us-east-2.amazonaws.com/public/testwp.zip', "_blank", "noreferrer");
+        }}
+      >Download Plugin</Button>
       <StyledInstructionWrapper direction='vertical'>
         <Typography.Text strong type='secondary'>Instructions</Typography.Text>
         <Typography.Text type='secondary'>
-          1. Get a Google account if you don't have one. That's the only requirement to use Search Console.
+          1. In your Wordpress dashboard, choose Plugins {'>'} Add new
         </Typography.Text>
         <Typography.Text type='secondary'>
-          2. <a href="https://search.google.com/search-console/welcome" target="_blank">Open Search Console</a>, then <a href='https://support.google.com/webmasters/answer/34592' target='_blank'>add and verify ownership of your site</a>. You'll need to prove that you are the owner of your website, because Search Console shows information about your site that only site owners should see, and allows you to make changes that can affect how your site appears on Google.
+          2. After finding the plugin in the results, click Install now.
         </Typography.Text>
       </StyledInstructionWrapper>
     </Form.Item>}
@@ -41,7 +47,7 @@ const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setIns
       <StyledInstructionWrapper direction='vertical'>
         <Typography.Text strong type='secondary'>Instructions</Typography.Text>
         <Typography.Text type='secondary'>
-          1. Get a Google account if you don't have one. That's the only requirement to use Search Console.
+          1. There will be instruction for other.
         </Typography.Text>
         <Typography.Text type='secondary'>
           2. <a href="https://search.google.com/search-console/welcome" target="_blank">Open Search Console</a>, then <a href='https://support.google.com/webmasters/answer/34592' target='_blank'>add and verify ownership of your site</a>. You'll need to prove that you are the owner of your website, because Search Console shows information about your site that only site owners should see, and allows you to make changes that can affect how your site appears on Google.
