@@ -513,7 +513,6 @@ export const GlobalStyles = createGlobalStyle`
   .ant-picker-cell-in-view,
   .ant-input-affix-wrapper,
   .ant-select-dropdown,
-  .ant-select-item-option-content,
   .ant-drawer-content,
   .ant-dropdown-menu,
   .ant-list-item-meta-description,

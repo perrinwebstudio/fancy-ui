@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Avatar, List } from 'antd';
-import { darken } from 'polished';
+import styled from "styled-components";
+import { Avatar, List } from "antd";
+import { darken } from "polished";
 
 export const StyledDropdownList = styled(List)`
   & .ant-list-item {
@@ -64,7 +64,11 @@ export const StyledCrUserInfoContent = styled.span`
   margin-left: 16px;
   transition: all 0.2s ease;
 
-  [dir='rtl'] & {
+  &.full-width {
+    width: auto;
+  }
+
+  [dir="rtl"] & {
     margin-left: 0;
     margin-right: 16px;
   }
@@ -94,7 +98,7 @@ export const StyledUserArrow = styled.span`
   align-items: center;
   justify-content: center;
 
-  [dir='rtl'] & {
+  [dir="rtl"] & {
     margin-left: 0;
     margin-right: 12px;
   }

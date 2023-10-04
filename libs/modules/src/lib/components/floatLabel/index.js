@@ -4,7 +4,7 @@ import { StyledFloatLabel, StyledLabel } from "./index.styled";
 
 const FloatLabel = (props) => {
   const [focus, setFocus] = useState(false);
-  const { children, label, value } = props;
+  const { children, label, value, style } = props;
 
   const labelClass =
     focus || (value && value.length !== 0) ? "label-float" : "";
