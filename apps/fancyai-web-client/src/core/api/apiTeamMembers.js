@@ -38,6 +38,54 @@ export const apiTeamMembers = api.injectEndpoints({
         );
       },
     }),
+    fetchSiteMembers: build.mutation({
+      query: (payload) => ({
+        url: `site/${payload.siteId}/member`,
+        method: "GET",
+      }),
+      transformResponse: (response, meta, arg) => {
+        return response;
+      },
+    }),
+    inviteSiteMember: build.mutation({
+      query: (payload) => ({
+        url: `site/${payload.siteId}/member/invite`,
+        method: "POST",
+        body: payload,
+      }),
+      transformResponse: (response, meta, arg) => {
+        return transformResponseWithNotification(
+          response,
+          "Site member invited successfully"
+        );
+      },
+    }),
+    editSiteMember: build.mutation({
+      query: (payload) => ({
+        url: `site/${payload.siteId}/member`,
+        method: "PUT",
+        body: payload,
+      }),
+      transformResponse: (response, meta, arg) => {
+        return transformResponseWithNotification(
+          response,
+          "Site member updated successfully"
+        );
+      },
+    }),
+    deleteSiteMember: build.mutation({
+      query: (payload) => ({
+        url: `site/${payload.siteId}/member`,
+        method: "DELETE",
+        body: payload,
+      }),
+      transformResponse: (response, meta, arg) => {
+        return transformResponseWithNotification(
+          response,
+          "Site member deleted successfully"
+        );
+      },
+    }),
   }),
 });
 
@@ -45,4 +93,8 @@ export const {
   useInviteTeamMemberMutation,
   useTeamMemberChangeRoleMutation,
   useFetchTeamMembersMutation,
+  useFetchSiteMembersMutation,
+  useInviteSiteMemberMutation,
+  useEditSiteMemberMutation,
+  useDeleteSiteMemberMutation,
 } = apiTeamMembers;
