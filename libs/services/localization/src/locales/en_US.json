@@ -703,6 +703,7 @@
   "mail.archived": "Mail Archived!",
   "common.writeComment": "Write a comment...",
   "common.at": "at",
+  "common.update": "Update",
   "scrumboard.deleteCard": "Are you sure, you want to delete the selected Card ?",
   "aws.signupComplete": "Congratulations, Signup process is complete, You can now Sign in by entering correct credentials!",
   "aws.emailAlreadyRegistered": "The entered Email address is already registered!",
@@ -844,5 +845,6 @@
   "userProfile.enable_two_factor": "Enable Two-Factor Authentication",
   "userProfile.multi_factor": "Multi-Factor Authentication",
   "userProfile.enable_multi_factor": "Enable Multi-Factor Authentication",
+  "member.invite": "Invite",
   "sidebar.billing": "Billing"
 }
