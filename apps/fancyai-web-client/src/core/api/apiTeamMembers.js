@@ -38,11 +38,12 @@ export const apiTeamMembers = api.injectEndpoints({
         );
       },
     }),
-    fetchSiteMembers: build.mutation({
-      query: (payload) => ({
-        url: `site/${payload.siteId}/member`,
+    fetchSiteMembers: build.query({
+      query: ({ siteId }) => ({
+        url: `site/${siteId}/member`,
         method: "GET",
       }),
+      providesTags: ["SiteMember"],
       transformResponse: (response, meta, arg) => {
         return response;
       },
@@ -53,6 +54,7 @@ export const apiTeamMembers = api.injectEndpoints({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["SiteMember"],
       transformResponse: (response, meta, arg) => {
         return transformResponseWithNotification(
           response,
@@ -66,6 +68,7 @@ export const apiTeamMembers = api.injectEndpoints({
         method: "PUT",
         body: payload,
       }),
+      invalidatesTags: ["SiteMember"],
       transformResponse: (response, meta, arg) => {
         return transformResponseWithNotification(
           response,
@@ -79,6 +82,7 @@ export const apiTeamMembers = api.injectEndpoints({
         method: "DELETE",
         body: payload,
       }),
+      invalidatesTags: ["SiteMember"],
       transformResponse: (response, meta, arg) => {
         return transformResponseWithNotification(
           response,
@@ -93,7 +97,7 @@ export const {
   useInviteTeamMemberMutation,
   useTeamMemberChangeRoleMutation,
   useFetchTeamMembersMutation,
-  useFetchSiteMembersMutation,
+  useFetchSiteMembersQuery,
   useInviteSiteMemberMutation,
   useEditSiteMemberMutation,
   useDeleteSiteMemberMutation,

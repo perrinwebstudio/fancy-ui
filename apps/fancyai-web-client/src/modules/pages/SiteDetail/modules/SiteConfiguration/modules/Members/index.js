@@ -3,7 +3,7 @@ import { Space, Table, Tag, Card, Row, Typography, Button } from "antd";
 import InviteMemberModal from "./InviteMemberModal";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
 import {
-  useFetchSiteMembersMutation,
+  useFetchSiteMembersQuery,
   useFetchTeamMembersMutation,
 } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
 import UserInfo from "libs/components/src/lib/AppLayout/components/UserInfo";
@@ -17,12 +17,15 @@ const SiteMembers = ({ prop1 }) => {
   const [isShowInviteModal, setIsShowInviteModal] = useState(false);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
-  const [siteMembers, setSiteMembers] = useState([]);
   const [editMemberId, setEditMemberId] = useState(null);
   const [editMemberRole, setEditMemberRole] = useState(null);
 
   const { id: siteId } = useSiteDetail();
-  const [fetchSiteMembers, { isLoading }] = useFetchSiteMembersMutation();
+  const { data, isLoading } = useFetchSiteMembersQuery({
+    siteId,
+  });
+
+  const siteMembers = data?.data ?? [];
 
   const columns = [
     {
@@ -106,18 +109,6 @@ const SiteMembers = ({ prop1 }) => {
     setIsShowDeleteModal(false);
   };
 
-  const getSiteMembers = () => {
-    fetchSiteMembers?.({ siteId })
-      .unwrap()
-      .then((result) => {
-        setSiteMembers(result?.data ?? []);
-      });
-  };
-
-  useEffect(() => {
-    getSiteMembers();
-  }, []);
-
   return (
     <Card
       style={{
@@ -145,20 +136,17 @@ const SiteMembers = ({ prop1 }) => {
       <InviteMemberModal
         isShowModal={isShowInviteModal}
         handleCloseModal={handleCloseInviteModal}
-        handleSuccess={getSiteMembers}
       />
       <EditMemberModal
         member={siteMembers.filter((e) => e.id === editMemberId)?.[0]}
         isShowModal={isShowEditModal}
         handleCloseModal={handleCloseEditModal}
-        handleSuccess={getSiteMembers}
         editRole={editMemberRole}
       />
       <RemoveMemberModal
         member={siteMembers.filter((e) => e.id === editMemberId)?.[0]}
         isShowModal={isShowDeleteModal}
         handleCloseModal={handleCloseDeleteModal}
-        handleSuccess={getSiteMembers}
       />
     </Card>
   );
