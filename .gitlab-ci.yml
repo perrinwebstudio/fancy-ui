@@ -1,7 +1,7 @@
 stages:
   - build
-  - test
   - deploy
+
 .assume_role: &assume_role
     - >
       STS=($(aws sts assume-role-with-web-identity
@@ -14,6 +14,7 @@ stages:
     - export AWS_ACCESS_KEY_ID="${STS[0]}"
     - export AWS_SECRET_ACCESS_KEY="${STS[1]}"
     - export AWS_SESSION_TOKEN="${STS[2]}"
+
 build artifact:
   stage: build
   image: node:latest
@@ -30,6 +31,7 @@ build artifact:
   rules:
     - if: '$CI_COMMIT_REF_NAME == "main"'
       when: always
+
 deploy s3:
   stage: deploy
   image:
@@ -38,7 +40,7 @@ deploy s3:
       - '/usr/bin/env'
   id_tokens:
       ID_TOKEN:
-        aud: react_s3_gl
+        aud: fancyai_staging
   script:
     - *assume_role
     - aws s3 sync build s3://$S3_BUCKET --delete --exclude "build/index.html"
