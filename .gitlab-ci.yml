@@ -43,8 +43,8 @@ deploy s3:
         aud: fancyai_staging
   script:
     - *assume_role
-    - aws s3 sync build s3://$S3_BUCKET --delete --exclude "build/index.html"
-    - aws s3 cp build/index.html $S3_BUCKET/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html
+    - aws s3 sync build s3://staging-app.getfancy.ai --delete --exclude "build/index.html"
+    - aws s3 cp build/index.html s3://staging-app.getfancy.ai/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html
   rules:
     - if: '$CI_COMMIT_REF_NAME == "develop"'
       when: always
