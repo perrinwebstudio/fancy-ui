@@ -19,11 +19,11 @@ build artifact:
   stage: build
   image: node:latest
   before_script:
-    - npm install
+    - yarn
   script:
     - rm -rf apps/fancyai-web-client/src/index.html
     - mv apps/fancyai-web-client/src/index.staging.html apps/fancyai-web-client/src/index.html
-    - npm run build:stage
+    - yarn build:stage
   artifacts:
     paths:
       - build/
