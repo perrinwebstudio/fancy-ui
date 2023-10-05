@@ -24,9 +24,10 @@ build artifact:
     - rm -rf apps/fancyai-web-client/src/index.html
     - mv apps/fancyai-web-client/src/index.staging.html apps/fancyai-web-client/src/index.html
     - yarn build:stage
+    - mv dist/apps/fancyai-web-client/ build/
   artifacts:
     paths:
-      - dist/apps/fancyai-web-client/
+      - build/
     when: always
   rules:
     - if: '$CI_COMMIT_REF_NAME == "develop"'
