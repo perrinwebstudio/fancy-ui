@@ -1,24 +1,38 @@
-import { Modal, Form, Input } from "antd";
+import { Modal, Form, Input, Switch, Row, Typography } from "antd";
 import FloatLabel from "@crema/modules/components/floatLabel";
-import { StyledDivider, StyledFormBtn, StyledSelect } from "./index.styled";
+import {
+  StyledDivider,
+  StyledFormBtn,
+  StyledSelect,
+  StyledSwitch,
+  StyledSwitchLabel,
+} from "./index.styled";
 import IntlMessages from "@crema/helpers/IntlMessages";
-import { useInviteTeamMemberMutation } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
-import { useAppAuth } from "@crema/context/AppAuthProvider";
+import { useInviteSiteMemberMutation } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
+import { useSiteDetail } from "@crema/modules/siteDetail";
 
-const InviteMemberModal = ({ isShowModal, handleCloseModal }) => {
+const InviteMemberModal = ({
+  isShowModal,
+  handleCloseModal,
+  handleSuccess,
+}) => {
   const [form] = Form.useForm();
   const name = Form.useWatch("name", form);
   const email = Form.useWatch("email", form);
-  const role = Form.useWatch("role", form);
-  const { selectedCompanyId } = useAppAuth();
+  const { id: siteId } = useSiteDetail();
 
-  const [inviteTeamMember, { isLoading }] = useInviteTeamMemberMutation();
+  const [inviteSiteMember, { isLoading }] = useInviteSiteMemberMutation();
 
-  const handleInviteMember = (values) => {
-    inviteTeamMember?.({ ...values, companyId: selectedCompanyId })
+  const handleInviteSiteMember = async (values) => {
+    inviteSiteMember?.({ ...values, siteId })
       ?.unwrap()
       .then((result) => {
+        form.resetFields();
+        handleSuccess?.();
         handleCloseModal();
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
 
@@ -33,8 +47,10 @@ const InviteMemberModal = ({ isShowModal, handleCloseModal }) => {
       <StyledDivider />
       <Form
         name="invite_member"
-        initialValues={{}}
-        onFinish={handleInviteMember}
+        initialValues={{
+          create_team_member: false,
+        }}
+        onFinish={handleInviteSiteMember}
         form={form}
       >
         <FloatLabel label="Member Full Name" value={name}>
@@ -63,15 +79,18 @@ const InviteMemberModal = ({ isShowModal, handleCloseModal }) => {
           <StyledSelect
             placeholder="Choose Role"
             options={[
-              { value: "CompanyOwner", label: "Owner" },
-              { value: "CompanyAdmin", label: "Admin" },
-              { value: "CompanyManager", label: "Manager" },
-              { value: "CompanyUser", label: "User" },
-              { value: "CompanyGuest", label: "Guest" },
+              { value: "SiteManager", label: "Manager" },
+              { value: "SiteUser", label: "User" },
+              { value: "SiteGuest", label: "Guest" },
             ]}
           />
         </Form.Item>
-
+        <Row>
+          <Form.Item name="create_team_member" className="form-field">
+            <StyledSwitch title="Add to Team Members" />
+          </Form.Item>
+          <StyledSwitchLabel>Add to Team Members</StyledSwitchLabel>
+        </Row>
         <StyledFormBtn
           loading={isLoading}
           disabled={isLoading}

@@ -7,7 +7,7 @@ export const REDUCER_KEY_USER_API = "splitApi";
 export const api = createApi({
   reducerPath: REDUCER_KEY_USER_API,
   baseQuery: apiUserBaseQuery,
-  tagTypes: ["Users", "AuthUser", "Sites", "UserSetting"],
+  tagTypes: ["Users", "AuthUser", "Sites", "UserSetting", "SiteMember"],
   endpoints: (builder) => ({
     getUser: builder.mutation({
       query: () => {
