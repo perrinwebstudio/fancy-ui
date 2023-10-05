@@ -29,7 +29,7 @@ build artifact:
       - build/
     when: always
   rules:
-    - if: '$CI_COMMIT_REF_NAME == "main"'
+    - if: '$CI_COMMIT_REF_NAME == "develop"'
       when: always
 
 deploy s3:
