@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Row, Button, Col, Form, Input, Typography } from "antd";
 import AppRowContainer from "@crema/components/AppRowContainer";
 import IntlMessages from "@crema/helpers/IntlMessages";
@@ -18,7 +19,10 @@ import {
 } from "../index.styled";
 import FloatLabel from "@crema/modules/components/floatLabel";
 import { useUpdateUserSettingMutation } from "apps/fancyai-web-client/src/core/api/apiUserSetting";
-import { useGetUserMutation } from "apps/fancyai-web-client/src/core/api/api";
+import {
+  useGetUserMutation,
+  useGetS3PresignedUrlMutation,
+} from "apps/fancyai-web-client/src/core/api/api";
 
 const { Text } = Typography;
 
@@ -36,9 +40,11 @@ const PersonalInfo = () => {
   );
 
   const [updateUserSetting, { isLoading }] = useUpdateUserSettingMutation();
+  const [getS3PresignedUrl] = useGetS3PresignedUrlMutation();
   const [getUser] = useGetUserMutation();
+  const [isUploading, setIsUploading] = useState(false);
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     accept: {
       "image/png": [".png"],
       "image/jpeg": [".jpg", ".jpeg"],
@@ -52,8 +58,21 @@ const PersonalInfo = () => {
     setUserImage("/assets/images/user_avatar_placeholder.jpg");
   };
 
-  const onFinish = (values) => {
-    console.log("Finish:", values);
+  const onFinish = async (values) => {
+    // console.log("Finish:", values);
+    // if (acceptedFiles?.length) {
+    //   const avatarFile = acceptedFiles[0];
+    //   setIsUploading(true);
+    //   const res = await getS3PresignedUrl({
+    //     fileName: avatarFile.name.split(".")?.[0],
+    //     fileType: avatarFile.name.split(".")?.[1] ?? "",
+    //   });
+    //   if (res?.data?.data) {
+    //     const { url, signedRequest } = res.data.data;
+    //     await axios.put(signedRequest, avatarFile);
+    //     window.location.href = url;
+    //   }
+    // }
     updateUserSetting?.(values)
       .unwrap()
       .then((result) => {
@@ -63,7 +82,8 @@ const PersonalInfo = () => {
             dispatch(logout());
             dispatch(resetStateAction());
           });
-      });
+      })
+      .catch((err) => console.error(err));
   };
 
   console.log(user);
@@ -165,8 +185,8 @@ const PersonalInfo = () => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={isLoading}
-                    disabled={isLoading}
+                    loading={isUploading || isLoading}
+                    disabled={isUploading || isLoading}
                   >
                     Save Changes
                   </Button>
