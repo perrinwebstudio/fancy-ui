@@ -29,11 +29,13 @@ import {
   NodeIndexOutlined,
   QuestionCircleOutlined,
   SearchOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 import KeywordIcon from "./KeywordIcon";
 import MapSearchIcon from "./MapSearchIcon";
 import ContentIcon from "./ContentIcon";
 import BarChartIcon from "./BarChartIcon";
+import GeoMetreIcon from "./GeoMetre";
 
 const getIconByName = (iconName) => {
   switch (iconName) {
@@ -85,6 +87,10 @@ const getIconByName = (iconName) => {
       return <LineChartOutlined />;
     case "layout":
       return <LayoutOutlined />;
+    case "geometre":
+      return <GeoMetreIcon />;
+    case "user-add":
+      return <UserAddOutlined />;
   }
 };
 

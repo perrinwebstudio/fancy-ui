@@ -103,7 +103,12 @@ export const SITE_DETAIL_MENU_CONFIG = {
       search_performance: {
         key: "search_performance",
         text: "Search Performance",
-        icon: "layout",
+        icon: "geometre",
+      },
+      user_performance: {
+        key: "user_performance",
+        text: "User Performance",
+        icon: "user-add",
       },
     },
   },
