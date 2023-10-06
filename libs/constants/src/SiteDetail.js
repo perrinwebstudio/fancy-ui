@@ -1,27 +1,4 @@
 export const SITE_DETAIL_MENU_CONFIG = {
-  "site_configuration": {
-    key: 'site_configuration',
-    text: 'Site Configuration',
-    defaultSubMenu: "general",
-    subMenu: {
-      "general": {
-        key: "general",
-        text: 'General Site / Business Information',
-      },
-      "billing": {
-        key: "billing",
-        text: 'Service Billing / Plan',
-      },
-      "connections": {
-        key: "connections",
-        text: 'Site Connections',
-      },
-      "members": {
-        key: "members",
-        text: 'Site Members',
-      },
-    }
-  },
   "strategy_plan": {
     key: "strategy_plan",
     text: 'Strategy Plan',
@@ -80,6 +57,29 @@ export const SITE_DETAIL_MENU_CONFIG = {
     text: 'Performance Reporting',
     defaultSubMenu: null,
     subMenu: null
+  },
+  "site_configuration": {
+    key: 'site_configuration',
+    text: 'Site Configuration',
+    defaultSubMenu: "general",
+    subMenu: {
+      "general": {
+        key: "general",
+        text: 'General Site / Business Information',
+      },
+      "billing": {
+        key: "billing",
+        text: 'Service Billing / Plan',
+      },
+      "connections": {
+        key: "connections",
+        text: 'Site Connections',
+      },
+      "members": {
+        key: "members",
+        text: 'Site Members',
+      },
+    }
   },
 }
 

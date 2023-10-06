@@ -45,7 +45,7 @@ const CourseCategories = ({ course }) => {
             <IoMdNotifications />
             {notifications} Items for review
           </StyledCourseCategoryBadge>
-          <Link to={`/pages/sites/${id}/site_configuration`}>
+          <Link to={`/pages/sites/${id}/strategy_plan`}>
             <Button type="primary">Open</Button>
           </Link>
         </StyledCourseCategoryFooter>

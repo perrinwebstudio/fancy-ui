@@ -10,6 +10,14 @@ const useConnectForGoogleServices = ({ onSuccess }) => {
       setIsConnecting(false)
       onSuccess?.(res)
     },
+    onError: (err) => {
+      console.log('err', err)
+      setIsConnecting(false)
+    },
+    onNonOAuthError: (err) => {
+      console.log('err', err)
+      setIsConnecting(false)
+    },
     flow: 'auth-code',
     ux_mode: 'popup',
     scope: 'https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/userinfo.email',

@@ -1,5 +1,6 @@
 import React from "react";
 import Verify2FaPage from "../../modules/auth/2FA";
+import SocialTokenCallback from "../../modules/auth/SocialTokenCallback";
 
 const Signin = React.lazy(() => import("../../modules/auth/Signin"));
 const Signup = React.lazy(() => import("../../modules/auth/Signup"));
@@ -43,5 +44,9 @@ export const authRouteConfig = [
   {
     path: "/verify-2fa",
     element: <Verify2FaPage />,
+  },
+  {
+    path: "/social-token-callback",
+    element: <SocialTokenCallback />,
   },
 ];
