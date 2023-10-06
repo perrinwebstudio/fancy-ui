@@ -6,6 +6,7 @@ export const StyledSelect = styled(Select)`
     border-radius: 0;
     padding: 8px 14px !important;
     height: 50px !important;
+    min-width: 140px;
   }
 `;
 
@@ -29,4 +30,11 @@ export const StyledFormTitle = styled(Typography)`
 
 export const StyledEditButton = styled(Button)`
   min-width: 100px;
+`;
+
+export const StyledMemberInformation = styled(Typography)`
+  font-size: 13px;
+  font-weight: 400;
+  padding-bottom: 12px;
+  color: #0078cc;
 `;

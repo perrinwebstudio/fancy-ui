@@ -2,20 +2,26 @@ import { useEffect, useState } from "react";
 import { Space, Table, Tag, Card, Row, Typography, Button } from "antd";
 import InviteMemberModal from "./InviteMemberModal";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
-import { useFetchTeamMembersMutation } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
+import { useFetchTeamMembersQuery } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
 import UserInfo from "libs/components/src/lib/AppLayout/components/UserInfo";
-import { StyledEditButton } from "./index.styled";
+import { StyledEditButton, StyledSelect } from "./index.styled";
 import AppLoader from "@crema/components/AppLoader";
 import EditMemberModal from "./EditMemberModal";
+import RemoveMemberModal from "./RemoveMemberModal";
 
 const TeamMembers = () => {
-  const [isShowInviteModal, setIsShowInviteModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
-  const [teamMembers, setTeamMembers] = useState([]);
   const [editMemberId, setEditMemberId] = useState(null);
+  const [editMemberRole, setEditMemberRole] = useState(null);
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 
   const { selectedCompanyId } = useAppAuth();
-  const [fetchTeamMembers, { isLoading }] = useFetchTeamMembersMutation();
+  const { data, isLoading } = useFetchTeamMembersQuery({
+    companyId: selectedCompanyId,
+  });
+
+  const teamMembers = data?.data ?? [];
 
   const columns = [
     {
@@ -24,7 +30,7 @@ const TeamMembers = () => {
       key: "name",
       render: (text, record) => (
         <Row>
-          <UserInfo hasColor hideDropDown />
+          <UserInfo hasColor hideDropDown propsUser={record} />
         </Row>
       ),
     },
@@ -37,7 +43,24 @@ const TeamMembers = () => {
       title: "Role",
       dataIndex: "role",
       key: "role",
-      render: (text) => <Typography>{text.replace("Company", "")}</Typography>,
+      render: (text, record) => (
+        <StyledSelect
+          placeholder="Choose Role"
+          value={text}
+          onChange={(e) => {
+            setEditMemberId(record.id);
+            setEditMemberRole(e);
+            setIsShowEditModal(true);
+          }}
+          options={[
+            { value: "CompanyOwner", label: "Owner" },
+            { value: "CompanyAdmin", label: "Admin" },
+            { value: "CompanyManager", label: "Manager" },
+            { value: "CompanyUser", label: "User" },
+            { value: "CompanyGuest", label: "Guest" },
+          ]}
+        />
+      ),
     },
     {
       title: "Action",
@@ -50,14 +73,19 @@ const TeamMembers = () => {
           >
             Edit
           </StyledEditButton>
-          <StyledEditButton danger>Delete</StyledEditButton>
+          <StyledEditButton
+            onClick={() => handleOpenDeleteModal(record.id)}
+            danger
+          >
+            Delete
+          </StyledEditButton>
         </Space>
       ),
     },
   ];
 
   const handleCloseInviteModal = () => {
-    setIsShowInviteModal(false);
+    setIsShowModal(false);
   };
 
   const handleCloseEditModal = () => {
@@ -69,17 +97,14 @@ const TeamMembers = () => {
     setIsShowEditModal(true);
   };
 
-  const getTeamMembers = () => {
-    fetchTeamMembers?.({ companyId: selectedCompanyId })
-      .unwrap()
-      .then((result) => {
-        setTeamMembers(result?.data ?? []);
-      });
+  const handleOpenDeleteModal = (memberId) => {
+    setEditMemberId(memberId);
+    setIsShowDeleteModal(true);
   };
 
-  useEffect(() => {
-    getTeamMembers();
-  }, []);
+  const handleCloseDeleteModal = () => {
+    setIsShowDeleteModal(false);
+  };
 
   return (
     <Card
@@ -94,7 +119,7 @@ const TeamMembers = () => {
         >
           Team Members
         </Typography>
-        <Button type="primary" onClick={() => setIsShowInviteModal(true)}>
+        <Button type="primary" onClick={() => setIsShowModal(true)}>
           Invite Team Member
         </Button>
       </Row>
@@ -106,13 +131,19 @@ const TeamMembers = () => {
         )}
       </Space>
       <InviteMemberModal
-        isShowModal={isShowInviteModal}
+        isShowModal={isShowModal}
         handleCloseModal={handleCloseInviteModal}
       />
       <EditMemberModal
         member={teamMembers.filter((e) => e.id === editMemberId)?.[0]}
         isShowModal={isShowEditModal}
         handleCloseModal={handleCloseEditModal}
+        editRole={editMemberRole}
+      />
+      <RemoveMemberModal
+        member={teamMembers.filter((e) => e.id === editMemberId)?.[0]}
+        isShowModal={isShowDeleteModal}
+        handleCloseModal={handleCloseDeleteModal}
       />
     </Card>
   );
