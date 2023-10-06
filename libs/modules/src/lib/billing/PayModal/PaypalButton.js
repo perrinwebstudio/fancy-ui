@@ -15,8 +15,8 @@ const StyledPaypalButton = styled(Button)`
   font-weight: 600 !important;
 `
 
-const PaypalButton = ({ prop1 }) => {
-  return <StyledPaypalButton block className='paypal'>
+const PaypalButton = (props) => {
+  return <StyledPaypalButton block className='paypal' {...props}>
     <Space align='center'>
       <BsPaypal /> Paypal
     </Space>

@@ -24,22 +24,26 @@ export const rtkQueryErrorLogger = (api) => (next) => (action) => {
   };
   if (isRejectedWithValue(action)) {
     const error = action.payload;
-    if (error.status === 500) {
+    const errorStatus = error.originalStatus || error.status;
+
+    console.log('error', error)
+
+    if (errorStatus === 500) {
       notification.message =
         "So sorry! This error is from our end. We will fix it as soon as possbile.";
       notification.header = "Server error";
     } else if (
-      error.status === 400 ||
-      error.status === 403 ||
-      error.status === 401 ||
-      error.status === 422
+      errorStatus === 400 ||
+      errorStatus === 403 ||
+      errorStatus === 401 ||
+      errorStatus === 422
     ) {
       notification.message = error.data.msg;
       notification.header = "Error";
-    } else if (error.status === 404 && error.data.msg) {
-      notification.message = error.data.msg;
+    } else if (errorStatus === 404) {
+      notification.message = error.data.msg || 'Not found';
       notification.header = "Error";
-    } else if (error.status === "FETCH_ERROR") {
+    } else if (errorStatus === "FETCH_ERROR") {
       notification.message = "Network error, please check your network";
       notification.header = "Fetch Error";
     } else {

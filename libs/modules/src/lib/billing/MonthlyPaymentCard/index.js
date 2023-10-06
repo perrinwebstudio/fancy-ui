@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Col, Row, Space } from 'antd';
+import { Card, Col, Row, Skeleton, Space } from 'antd';
 import AppRowContainer from '@crema/components/AppRowContainer';
 import { StyledMonthlyPaymentCard } from './index.styled';
 import Title from 'antd/es/typography/Title';
 import Text from 'antd/es/typography/Text';
 
-const MonthlyPaymentCard = ({ paymentType, paymentAmount, nextPayment }) => {
+const MonthlyPaymentCard = ({ isLoading, paymentType, paymentAmount, nextPayment }) => {
   return <StyledMonthlyPaymentCard bordered={false} title="Monthly Payment">
     <AppRowContainer>
       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
         <Card>
-          <Row gutter={[16, 16]}>
+          {isLoading ? <Skeleton active /> : <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} lg={12}>
               <div>
                 <Space><Title level={3}>$456</Title><Text type='secondary'>/month</Text></Space>
@@ -34,7 +34,7 @@ const MonthlyPaymentCard = ({ paymentType, paymentAmount, nextPayment }) => {
             <Col xs={24} sm={24} lg={12}>
               <Text type="secondary">Your payment amount for all companies and sites you setup will charge automatically</Text>
             </Col>
-          </Row>
+          </Row>}
         </Card>
       </Col>
     </AppRowContainer>

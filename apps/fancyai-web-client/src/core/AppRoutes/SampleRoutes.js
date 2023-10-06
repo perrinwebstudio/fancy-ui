@@ -3,6 +3,7 @@ import { RoutePermittedRole } from "@crema/constants/AppEnums";
 import SiteSetup from "../../modules/pages/SiteSetup";
 import SiteDetail from "../../modules/pages/SiteDetail";
 import TestPage from "../../modules/pages/test";
+import PaypalCallback from "../../modules/pages/PaypalCallback";
 
 const Sites = React.lazy(() => import("../../modules/pages/Sites"));
 const TeamMembers = React.lazy(() => import("../../modules/pages/TeamMembers"));
@@ -44,5 +45,10 @@ export const samplePagesConfigs = [
     permittedRole: RoutePermittedRole.User,
     path: "/test",
     element: <TestPage />,
+  },
+  {
+    permittedRole: RoutePermittedRole.User,
+    path: "/billing/paypal/checkout/return",
+    element: <PaypalCallback />,
   },
 ];

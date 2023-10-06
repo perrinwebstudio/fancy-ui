@@ -8,7 +8,7 @@ import PaymentPaypalForm from './PaymentPaypalForm';
 import StyledPayModal from './index.styled';
 import StripeFormWrapper from './StripeForm/StripeFormWrapper';
 
-const PayModal = ({ paymentType = 'card', paymentAmount, nextPayment, onClose }) => {
+const PayModal = ({ paymentType = 'card', onClose, onSubmitStripe, onSubmitPaypal }) => {
   const [form] = Form.useForm()
   const _paymentType = Form.useWatch('payment_type', form)
 
@@ -47,6 +47,7 @@ const PayModal = ({ paymentType = 'card', paymentAmount, nextPayment, onClose })
           onCancel={() => {
             onClose && onClose()
           }}
+          onSubmit={onSubmitStripe}
         />
       </StripeFormWrapper>
     }
@@ -61,6 +62,7 @@ const PayModal = ({ paymentType = 'card', paymentAmount, nextPayment, onClose })
         onCancel={() => {
           onClose && onClose()
         }}
+        onSubmit={onSubmitPaypal}
       />
     }
     {
