@@ -46,7 +46,7 @@ export const authRouteConfig = [
     element: <Verify2FaPage />,
   },
   {
-    path: "/social-token-callback",
+    path: "/oauth-redirect",
     element: <SocialTokenCallback />,
   },
 ];
