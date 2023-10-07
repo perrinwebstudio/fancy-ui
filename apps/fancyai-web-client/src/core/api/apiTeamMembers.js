@@ -3,11 +3,12 @@ import { api } from "./api";
 
 export const apiTeamMembers = api.injectEndpoints({
   endpoints: (build) => ({
-    fetchTeamMembers: build.mutation({
-      query: (payload) => ({
-        url: `company/${payload.companyId}/members`,
+    fetchTeamMembers: build.query({
+      query: ({ companyId }) => ({
+        url: `company/${companyId}/members`,
         method: "GET",
       }),
+      providesTags: ["TeamMembers"],
       transformResponse: (response, meta, arg) => {
         return response;
       },
@@ -18,23 +19,39 @@ export const apiTeamMembers = api.injectEndpoints({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["TeamMembers"],
       transformResponse: (response, meta, arg) => {
         return transformResponseWithNotification(
           response,
-          "Team Member Invited successfully"
+          "Team member invited successfully"
         );
       },
     }),
     teamMemberChangeRole: build.mutation({
       query: (payload) => ({
-        url: `company/${payload.companyId}/member/invite`,
-        method: "POST",
+        url: `company/${payload.companyId}/member`,
+        method: "PUT",
         body: payload,
       }),
+      invalidatesTags: ["TeamMembers"],
       transformResponse: (response, meta, arg) => {
         return transformResponseWithNotification(
           response,
-          "Team Member Invited successfully"
+          "Team member updated successfully"
+        );
+      },
+    }),
+    deleteTeamMember: build.mutation({
+      query: (payload) => ({
+        url: `company/${payload.companyId}/member`,
+        method: "DELETE",
+        body: payload,
+      }),
+      invalidatesTags: ["TeamMembers"],
+      transformResponse: (response, meta, arg) => {
+        return transformResponseWithNotification(
+          response,
+          "Team member deleted successfully"
         );
       },
     }),
@@ -96,7 +113,8 @@ export const apiTeamMembers = api.injectEndpoints({
 export const {
   useInviteTeamMemberMutation,
   useTeamMemberChangeRoleMutation,
-  useFetchTeamMembersMutation,
+  useDeleteTeamMemberMutation,
+  useFetchTeamMembersQuery,
   useFetchSiteMembersQuery,
   useInviteSiteMemberMutation,
   useEditSiteMemberMutation,

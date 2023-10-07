@@ -66,8 +66,6 @@ const PersonalInfo = () => {
       });
   };
 
-  console.log(user);
-
   return (
     <>
       <StyledUserProfileFormTitle>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { Dropdown } from "antd";
@@ -19,20 +19,25 @@ import {
 } from "./index.styled";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
 
-const UserInfo = ({ hasColor, hideDropDown }) => {
+const UserInfo = ({ hasColor, hideDropDown, propsUser }) => {
   const { themeMode } = useThemeContext();
-  const { user } = useAuthUser();
+  const { user: myself } = useAuthUser();
   const navigate = useNavigate();
   const { sidebarColorSet } = useSidebarContext();
   const { allowSidebarBgImage } = useSidebarContext();
   const { onLogout } = useAppAuth();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    setUser(propsUser ?? myself);
+  }, [propsUser, myself]);
 
   const getUserAvatar = () => {
-    if (user.displayName) {
-      return user.displayName.charAt(0).toUpperCase();
+    if (user?.name) {
+      return user?.name.charAt(0).toUpperCase();
     }
-    if (user.email) {
-      return user.email.charAt(0).toUpperCase();
+    if (user?.email) {
+      return user?.email.charAt(0).toUpperCase();
     }
   };
 
@@ -55,6 +60,8 @@ const UserInfo = ({ hasColor, hideDropDown }) => {
       ),
     },
   ];
+
+  console.log(user, "user");
 
   return (
     <>
@@ -80,8 +87,8 @@ const UserInfo = ({ hasColor, hideDropDown }) => {
             }}
           >
             <StyledCrUserInfoInner className="ant-dropdown-link">
-              {user.photoURL ? (
-                <StyledCrUserInfoAvatar src={user.photoURL} />
+              {user?.photoURL ? (
+                <StyledCrUserInfoAvatar src={user?.photoURL} />
               ) : (
                 <StyledCrUserInfoAvatar>
                   {getUserAvatar()}
@@ -98,7 +105,7 @@ const UserInfo = ({ hasColor, hideDropDown }) => {
                       light: themeMode === "light",
                     })}
                   >
-                    {user.displayName ? user.displayName : "admin user "}
+                    {user?.name ? user?.name : "admin user "}
                   </StyledUsername>
                   {!hideDropDown && (
                     <StyledUserArrow className="cr-user-arrow">
@@ -126,8 +133,8 @@ const UserInfo = ({ hasColor, hideDropDown }) => {
             }}
           >
             <StyledCrUserInfoInner className="ant-dropdown-link">
-              {user.photoURL ? (
-                <StyledCrUserInfoAvatar src={user.photoURL} />
+              {user?.photoURL ? (
+                <StyledCrUserInfoAvatar src={user?.photoURL} />
               ) : (
                 <StyledCrUserInfoAvatar>
                   {getUserAvatar()}
@@ -140,7 +147,7 @@ const UserInfo = ({ hasColor, hideDropDown }) => {
                       light: themeMode === "light",
                     })}
                   >
-                    {user.displayName ? user.displayName : "admin user "}
+                    {user?.name ? user?.name : "admin user "}
                   </StyledUsername>
                   <StyledUserArrow className="cr-user-arrow">
                     <FaChevronDown />

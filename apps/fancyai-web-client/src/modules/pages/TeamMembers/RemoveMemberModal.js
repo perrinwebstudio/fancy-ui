@@ -1,32 +1,41 @@
 import { Modal, Form, Input } from "antd";
 import FloatLabel from "@crema/modules/components/floatLabel";
-import { StyledDivider, StyledFormBtn, StyledSelect } from "./index.styled";
+import {
+  StyledDivider,
+  StyledFormBtn,
+  StyledFormTitle,
+  StyledMemberInformation,
+} from "./index.styled";
 import IntlMessages from "@crema/helpers/IntlMessages";
-import { useInviteTeamMemberMutation } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
+import { useDeleteTeamMemberMutation } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
 
-const InviteMemberModal = ({ isShowInviteModal, handleCloseInviteModal }) => {
+const RemoveMemberModal = ({
+  isShowModal,
+  handleCloseModal,
+  handleSuccess,
+  member,
+}) => {
   const [form] = Form.useForm();
-  const name = Form.useWatch("name", form);
-  const email = Form.useWatch("email", form);
-  const role = Form.useWatch("role", form);
   const { selectedCompanyId } = useAppAuth();
 
-  const [inviteTeamMember, { isLoading }] = useInviteTeamMemberMutation();
+  const [deleteTeamMember, { isLoading }] = useDeleteTeamMemberMutation();
 
   const handleInviteMember = (values) => {
-    inviteTeamMember?.({ ...values, companyId: selectedCompanyId })
+    deleteTeamMember?.({ companyId: selectedCompanyId, userId: member?.id })
       ?.unwrap()
       .then((result) => {
-        console.log(result);
-      });
+        handleSuccess?.();
+        handleCloseModal();
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
     <Modal
-      title="Invite Team Member"
-      open={isShowInviteModal}
-      onCancel={handleCloseInviteModal}
+      title="Do you want remove team member?"
+      open={isShowModal}
+      onCancel={handleCloseModal}
       okButtonProps={{ style: { display: "none" } }}
       cancelButtonProps={{ style: { display: "none" } }}
     >
@@ -37,53 +46,31 @@ const InviteMemberModal = ({ isShowInviteModal, handleCloseInviteModal }) => {
         onFinish={handleInviteMember}
         form={form}
       >
-        <FloatLabel label="Member Full Name" value={name}>
-          <Form.Item
-            name="name"
-            className="form-field"
-            rules={[{ required: true, message: "Please input member name!" }]}
-          >
-            <Input />
-          </Form.Item>
-        </FloatLabel>
-        <FloatLabel label="Member Email" value={email}>
-          <Form.Item
-            name="email"
-            className="form-field"
-            rules={[{ required: true, message: "Please input member email!" }]}
-          >
-            <Input />
-          </Form.Item>
-        </FloatLabel>
-        <Form.Item
-          name="role"
-          className="form-field"
-          rules={[{ required: true, message: "Please choose member role!" }]}
-        >
-          <StyledSelect
-            placeholder="Choose Role"
-            options={[
-              { value: "CompanyOwner", label: "Owner" },
-              { value: "CompanyAdmin", label: "Admin" },
-              { value: "CompanyManager", label: "Manager" },
-              { value: "CompanyUser", label: "User" },
-              { value: "CompanyGuest", label: "Guest" },
-            ]}
-          />
-        </Form.Item>
+        <StyledFormTitle>Member</StyledFormTitle>
+
+        <StyledMemberInformation>
+          <b>{member?.name}</b> / {member?.email}
+        </StyledMemberInformation>
+
+        <StyledFormTitle>Role</StyledFormTitle>
+
+        <StyledMemberInformation>
+          <b>{member?.role.replace("Company", "")}</b>
+        </StyledMemberInformation>
 
         <StyledFormBtn
           loading={isLoading}
           disabled={isLoading}
-          type="primary"
+          // type="primary"
           htmlType="submit"
+          danger
         >
-          <IntlMessages id="member.invite" />
+          <IntlMessages id="member.remove" />
         </StyledFormBtn>
         <StyledFormBtn
           disabled={isLoading}
           htmlType="button"
-          onClick={handleCloseInviteModal}
+          onClick={handleCloseModal}
         >
           <IntlMessages id="common.cancel" />
         </StyledFormBtn>
@@ -92,4 +79,4 @@ const InviteMemberModal = ({ isShowInviteModal, handleCloseInviteModal }) => {
   );
 };
 
-export default InviteMemberModal;
+export default RemoveMemberModal;

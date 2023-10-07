@@ -34,7 +34,7 @@ const SiteMembers = ({ prop1 }) => {
       key: "name",
       render: (text, record) => (
         <Row>
-          <UserInfo hasColor hideDropDown />
+          <UserInfo hasColor hideDropDown propsUser={record} />
         </Row>
       ),
     },
