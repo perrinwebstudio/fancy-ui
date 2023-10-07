@@ -6,12 +6,12 @@ import { useDispatch } from 'react-redux';
 
 const SocialTokenCallback = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const token = searchParams.get('token')
+  const token = searchParams.get('jwt')
   const dispatch = useDispatch()
   useEffect(() => {
     if (token && token !== 'undefined') {
       setTimeout(() => {
-        searchParams.delete('token')
+        searchParams.delete('jwt')
         setSearchParams(searchParams)
         dispatch(updateApiToken(token))
       }, 100)
