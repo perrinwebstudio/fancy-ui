@@ -32,6 +32,9 @@ import FloatLabel from "@crema/modules/components/floatLabel";
 const Signin = ({
   loginEmail,
   isLoggingIn,
+  loginGoogle,
+  loginGithub,
+  loginMicrosoft
 }) => {
   const { messages } = useIntl();
   const navigate = useNavigate();
@@ -122,16 +125,16 @@ const Signin = ({
                 <IntlMessages id="common.orLoginWith" />
               </span>
               <StyledUserSocialLink>
-                <Button>
+                <Button onClick={loginGoogle}>
                   <GoogleOutlined />
                 </Button>
                 {/* <Button>
                   <LinkedinFilled />
                 </Button> */}
-                <Button>
+                <Button onClick={loginGithub}>
                   <GithubOutlined />
                 </Button>
-                <Button>
+                <Button onClick={loginMicrosoft}>
                   <BsMicrosoft />
                 </Button>
               </StyledUserSocialLink>
