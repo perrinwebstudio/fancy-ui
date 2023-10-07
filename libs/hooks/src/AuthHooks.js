@@ -11,6 +11,7 @@ export const useAuthUser = () => {
     user: auth.currentUser || null,
     companies: auth.companies || [],
     apiToken: auth.apiToken || null,
+    verify2FAToken: auth.verify2FAToken || null,
   };
 };
 

@@ -6,6 +6,7 @@ import { api } from '../../../api/api'
 
 const initialState = {
   apiToken: undefined,
+  verify2FAToken: undefined,
   currentUser: undefined,
   actAsUserId: undefined,
   authInit: false,
@@ -47,7 +48,7 @@ export const authSlice = createSlice({
       apiAuth.endpoints.emailLogin.matchFulfilled,
       (state, action) => {
         if (action.payload.token) {
-          state.apiToken = action.payload.token
+          state.verify2FAToken = action.payload.token
         }
       },
     )
