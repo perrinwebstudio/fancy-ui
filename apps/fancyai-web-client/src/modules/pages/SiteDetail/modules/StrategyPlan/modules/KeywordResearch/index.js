@@ -1,117 +1,93 @@
-import { Button, Dropdown, Space, Switch, Table, Tag } from 'antd';
+import { Table } from 'antd';
 import Title from 'antd/es/typography/Title';
-import React from 'react';
+import React, { useState } from 'react';
 import TagColorByRank from '../../TagColorByRank';
 import { convertNumberToCommaSeparated, formatCurrency } from '@crema/helpers';
-import { CircleMenuButton, StyledUrlHolder } from '../../shared.styled';
-import { EllipsisOutlined } from '@ant-design/icons';
-import { MdMoreVert } from 'react-icons/md';
+import { StyledUrlHolder } from '../../shared.styled';
 import MenuDropdown from './MenuDropdown';
 import TagColorByKeywordDifficulty from '../../TagColorByKeywordDifficulty';
+import { useSiteDetail } from '@crema/modules/siteDetail';
+import { useGetResearchKeywordsQuery } from 'apps/fancyai-web-client/src/core/api/apiKeyword';
+import RemoveKeywordModal from '../../RemoveKeywordModal';
 
-const columns = [
-  {
-    title: 'Keyword',
-    dataIndex: 'keyword',
-    key: 'keyword',
-    render: (_, {rank, keyword}) => (
-      <>
-        <TagColorByRank isKeyword text={keyword} rank={rank} />
-      </>
-    ),
-  },
-  {
-    title: 'Search Intent Type',
-    dataIndex: 'searchIntentType',
-    key: 'searchIntentType',
-  },
-  {
-    title: 'Keyword Priority Score',
-    key: 'priorityScore',
-    dataIndex: 'priorityScore',
-    render: (_, {priorityScore}) => (
-      <>
-        <TagColorByRank text={priorityScore} rank={priorityScore} />
-      </>
-    ),
-  },
-  {
-    title: 'Keyword Difficulty Score',
-    key: 'dificultyScore',
-    dataIndex: 'dificultyScore',
-    render: (_, {dificultyScore}) => (
-      <>
-        <TagColorByKeywordDifficulty text={dificultyScore} difficulty={dificultyScore} />
-      </>
-    ),
-  },
-  {
-    title: 'Monthly Search Traffic',
-    dataIndex: 'monthlyVolume',
-    key: 'monthlyVolume',
-    render: (_, {monthlyVolume}) => {
-      return convertNumberToCommaSeparated(monthlyVolume)
-    },
-  },
-  {
-    title: 'Page',
-    dataIndex: 'page',
-    key: 'page',
-    render: (_, {page}) => {
-      return <StyledUrlHolder>{page}</StyledUrlHolder>
-    },
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: () => (
-      <MenuDropdown />
-    ),
-  }
-];
-
-const data = [
-  {
-    key: '1',
-    keyword: 'This is a longtail keyword longer longer longer',
-    searchIntentType: 'Transactional',
-    monthlyVolume: 32000,
-    rank: 2,
-    gain: 1000,
-    page: 'www.yoga.com/homepage/tag1/tag2/tag3/tag3',
-    priorityScore: 32000,
-    dificultyScore: 1,
-  },
-  {
-    key: '2',
-    keyword: 'This is a longtail keyword longer longer longer',
-    searchIntentType: 'Transactional',
-    monthlyVolume: 32000,
-    rank: 30,
-    gain: 1000,
-    page: 'www.yoga.com/homepage/tag1/tag2/tag3/tag3',
-    priorityScore: 32000,
-    dificultyScore: 55,
-  },
-  {
-    key: '3',
-    keyword: 'This is a longtail keyword longer longer longer',
-    searchIntentType: 'Transactional',
-    monthlyVolume: 32000,
-    rank: 100,
-    gain: 1000,
-    page: 'www.yoga.com/homepage/tag1/tag2/tag3/tag3',
-    priorityScore: 32000,
-    dificultyScore: 100,
-  },
-];
 
 const KeywordResearch = ({ prop1 }) => {
+  const {id} = useSiteDetail()
+  const {data: keywordData, isLoading} = useGetResearchKeywordsQuery({ siteId: id })
+
+  const [remove, setRemove] = useState(null)
+
+  const columns = [
+    {
+      title: 'Keyword',
+      dataIndex: 'keyword',
+      key: 'keyword',
+      render: (_, {currentSiteRank, keyword}) => (
+        <>
+          <TagColorByRank isKeyword text={keyword} rank={currentSiteRank} />
+        </>
+      ),
+      width: 230,
+    },
+    {
+      title: 'Search Intent Type',
+      dataIndex: 'searchIntentType',
+      key: 'searchIntentType',
+      render: (_, {searchIntentType}) => {
+        return <div className='nowrap'>{searchIntentType}</div>
+      },
+    },
+    {
+      title: 'Keyword Priority Score',
+      key: 'priorityScore',
+      dataIndex: 'priorityScore',
+      render: (_, {priorityScore}) => (
+        <>
+          <TagColorByRank text={priorityScore} rank={priorityScore} />
+        </>
+      ),
+    },
+    {
+      title: 'Keyword Difficulty Score',
+      key: 'dificultyScore',
+      dataIndex: 'dificultyScore',
+      render: (_, {dificultyScore}) => (
+        <>
+          <TagColorByKeywordDifficulty text={dificultyScore} difficulty={dificultyScore} />
+        </>
+      ),
+    },
+    {
+      title: 'Monthly Search Traffic',
+      dataIndex: 'monthlyVolume',
+      key: 'monthlyVolume',
+      render: (_, {monthlyVolume}) => {
+        return convertNumberToCommaSeparated(monthlyVolume)
+      },
+    },
+    {
+      title: 'Page',
+      dataIndex: 'pageUrl',
+      key: 'pageUrl',
+      render: (_, {pageUrl}) => {
+        return <StyledUrlHolder>{pageUrl}</StyledUrlHolder>
+      },
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, keyword) => (
+        <MenuDropdown keyword={keyword} onRemove={() => setRemove(keyword)} />
+      ),
+    }
+  ];
+
   return <>
     <Title level={5}>Short Term Keywords</Title>
-    <Table scroll={{
+    <Table loading={isLoading} scroll={{
       x: 'min-content'
-    }} style={{marginTop: '10px'}} columns={columns} dataSource={data} />
+    }} style={{marginTop: '10px'}} columns={columns} dataSource={keywordData?.data || []} />
+    <RemoveKeywordModal open={!!remove} keyword={remove} onClose={() => setRemove(null)}  />
   </>
 }
 

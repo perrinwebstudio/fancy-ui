@@ -1,91 +1,94 @@
 import { Button, Space, Table, Tag } from 'antd';
 import Title from 'antd/es/typography/Title';
-import React from 'react';
+import React, { useState } from 'react';
 import TagColorByRank from '../../TagColorByRank';
 import { convertNumberToCommaSeparated, formatCurrency } from '@crema/helpers';
 import { StyledUrlHolder } from '../../shared.styled';
-
-const columns = [
-  {
-    title: 'Keyword',
-    dataIndex: 'keyword',
-    key: 'keyword',
-    render: (_, {rank, keyword}) => (
-      <>
-        <TagColorByRank isKeyword text={keyword} rank={rank} />
-      </>
-    ),
-  },
-  {
-    title: 'Search Intent Type',
-    dataIndex: 'searchIntentType',
-    key: 'searchIntentType',
-  },
-  {
-    title: 'Monthly Volume',
-    dataIndex: 'monthlyVolume',
-    key: 'monthlyVolume',
-    render: (_, {monthlyVolume}) => {
-      return convertNumberToCommaSeparated(monthlyVolume)
-    },
-  },
-  {
-    title: 'Current Site Rank',
-    key: 'rank',
-    dataIndex: 'rank',
-    render: (_, {rank}) => (
-      <>
-        <TagColorByRank text={rank} rank={rank} />
-      </>
-    ),
-  },
-  {
-    title: 'Potential Revenue Gains',
-    key: 'gain',
-    render: (_, {gain}) => {
-      return formatCurrency(gain, {
-        language: 'en-US',
-        currency: 'USD',
-      }, 0)
-    },
-  },
-  {
-    title: 'Page',
-    dataIndex: 'page',
-    key: 'page',
-    render: (_, {page}) => {
-      return <StyledUrlHolder>{page}</StyledUrlHolder>
-    },
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: () => (
-      <Space size="middle">
-        <Button danger>Remove</Button>
-      </Space>
-    ),
-  }
-];
-
-const data = [
-  {
-    key: '1',
-    keyword: 'This is a longtail keyword longer longer longer',
-    searchIntentType: 'Transactional',
-    monthlyVolume: 32000,
-    rank: 2,
-    gain: 1000,
-    page: 'www.yoga.com/homepage/tag1/tag2/tag3/tag3',
-  },
-];
+import { useGetLongTermKeywordsQuery, useGetShortTermsKeywordsQuery } from 'apps/fancyai-web-client/src/core/api/apiKeyword';
+import { useSiteDetail } from '@crema/modules/siteDetail';
+import { useAuthUser } from '@crema/hooks/AuthHooks';
+import RemoveKeywordModal from '../../RemoveKeywordModal';
 
 const LongTermKeywords = ({ prop1 }) => {
+  const {id} = useSiteDetail()
+  const {data: keywordData, isLoading} = useGetLongTermKeywordsQuery({ siteId: id })
+
+  const [remove, setRemove] = useState(null)
+
+  const columns = [
+    {
+      title: 'Keyword',
+      dataIndex: 'keyword',
+      key: 'keyword',
+      render: (_, {currentSiteRank, keyword}) => (
+        <>
+          <TagColorByRank isKeyword text={keyword} rank={currentSiteRank} />
+        </>
+      ),
+      fixed: 'left',
+      width: 230,
+    },
+    {
+      title: 'Search Intent Type',
+      dataIndex: 'searchIntentType',
+      key: 'searchIntentType',
+      render: (_, {searchIntentType}) => {
+        return <div className='nowrap'>{searchIntentType}</div>
+      },
+    },
+    {
+      title: 'Monthly Volume',
+      dataIndex: 'monthlyVolume',
+      key: 'monthlyVolume',
+      render: (_, {monthlyVolume}) => {
+        return convertNumberToCommaSeparated(monthlyVolume)
+      },
+    },
+    {
+      title: 'Current Site Rank',
+      key: 'currentSiteRank',
+      dataIndex: 'currentSiteRank',
+      render: (_, {currentSiteRank}) => (
+        <>
+          <TagColorByRank text={currentSiteRank} rank={currentSiteRank} />
+        </>
+      ),
+    },
+    {
+      title: 'Potential Revenue Gains',
+      key: 'potentialRevenueGains',
+      render: (_, {potentialRevenueGains}) => {
+        return formatCurrency(potentialRevenueGains, {
+          language: 'en-US',
+          currency: 'USD',
+        }, 0)
+      },
+    },
+    {
+      title: 'Page',
+      dataIndex: 'pageURL',
+      key: 'pageURL',
+      render: (_, {pageURL}) => {
+        return <StyledUrlHolder>{pageURL}</StyledUrlHolder>
+      },
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, keyword) => (
+        <Space size="middle">
+          <Button danger onClick={() => setRemove(keyword)}>Remove</Button>
+        </Space>
+      ),
+    }
+  ];
+
   return <>
-    <Title level={5}>Short Term Keywords</Title>
-    <Table scroll={{
+    <Title level={5}>Long-Term Keyword Priorities</Title>
+    <Table loading={isLoading} scroll={{
       x: 'min-content'
-    }} style={{marginTop: '10px'}} columns={columns} dataSource={data} />
+    }} style={{marginTop: '10px'}} columns={columns} dataSource={keywordData?.data || []} />
+    <RemoveKeywordModal open={!!remove} keyword={remove} onClose={() => setRemove(null)}  />
   </>
 }
 

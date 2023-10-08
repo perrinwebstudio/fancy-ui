@@ -19,9 +19,9 @@ export const StyledKeywordRankTag = styled.span`
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
-  display: -webkit-box;
-  max-width: 100%;
-  min-width: 200px;
+  // display: -webkit-box;
+  // max-width: 100%;
+  // min-width: 200px;
   -webkit-line-clamp: 3; /* number of lines to show */
           line-clamp: 3; 
   -webkit-box-orient: vertical;

@@ -34,18 +34,15 @@ export const apiSite = api.injectEndpoints({
         return []
       },
       transformResponse: (response, meta, arg) => {
-        if (arg.showNotification) {
-          return transformResponseWithNotification(response, 'Keyword rejected successfully');
-        }
-        return response
+        return transformResponseWithNotification(response, 'Keyword rejected successfully');
       },
     }),
     setKeywordType: build.mutation({
-      query: ({ keywordId, type }) => ({
+      query: ({ keywordId, keywordType }) => ({
         url: `keywords/${keywordId}/settype`,
         method: "PATCH",
         body: {
-          keywordType: type
+          keywordType,
         },
       }),
       invalidatesTags: (_result, error, _arg) => {
