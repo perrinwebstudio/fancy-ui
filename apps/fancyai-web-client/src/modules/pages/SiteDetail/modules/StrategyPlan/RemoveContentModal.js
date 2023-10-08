@@ -1,24 +1,23 @@
 import React from 'react';
 import { Button, Divider, Modal, Typography, theme } from 'antd';
-import { useRejectKeywordMutation } from 'apps/fancyai-web-client/src/core/api/apiKeyword';
+import { useRejectContentMutation } from 'apps/fancyai-web-client/src/core/api/apiContent';
 
-const RemoveKeywordModal = ({ open, onClose, keyword }) => {
+const RemoveContentModal = ({ open, onClose, content, type }) => {
   const {token} = theme.useToken()
-  const [reject, { isLoading }] = useRejectKeywordMutation()
+  const [reject, { isLoading }] = useRejectContentMutation()
 
   return <Modal footer={<></>} open={open} onCancel={onClose}>
     <Typography.Title level={5}>Do you want to remove?</Typography.Title>
     <Divider />
-    <div><Typography.Text strong>Keyword</Typography.Text></div>
-    <div><Typography.Text style={{color: token.blue}}>{keyword?.keyword}</Typography.Text></div>
-
+    <div><Typography.Text strong>{type === 'update' ? 'Content Update' : 'New Content'}</Typography.Text></div>
+    <div><Typography.Text style={{color: token.blue}}>{content?.topic}</Typography.Text></div>
     <Divider />
     <Button
       size='large'
       loading={isLoading}
       onClick={() => {
         reject({
-          keywordId: keyword._id
+          contentId: content._id
         }).unwrap().then(() => {
           onClose()
         }).catch(() => {})
@@ -35,4 +34,4 @@ const RemoveKeywordModal = ({ open, onClose, keyword }) => {
 }
 
 
-export default RemoveKeywordModal
+export default RemoveContentModal

@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import Title from 'antd/es/typography/Title';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import TagColorByRank from '../../TagColorByRank';
 import { convertNumberToCommaSeparated, formatCurrency } from '@crema/helpers';
 import { StyledUrlHolder } from '../../shared.styled';
@@ -9,6 +9,8 @@ import TagColorByKeywordDifficulty from '../../TagColorByKeywordDifficulty';
 import { useSiteDetail } from '@crema/modules/siteDetail';
 import { useGetResearchKeywordsQuery } from 'apps/fancyai-web-client/src/core/api/apiKeyword';
 import RemoveKeywordModal from '../../RemoveKeywordModal';
+import TagColorByScore from '../../TagColorByScore';
+import UrlHolder from '../../UrlHolder';
 
 
 const KeywordResearch = ({ prop1 }) => {
@@ -16,6 +18,14 @@ const KeywordResearch = ({ prop1 }) => {
   const {data: keywordData, isLoading} = useGetResearchKeywordsQuery({ siteId: id })
 
   const [remove, setRemove] = useState(null)
+
+  const maxPriorityScore = useMemo(() => {
+    let max = 0;
+    (keywordData?.data || []).forEach((element) => {
+      if (max < element.priorityScore) max = element.priorityScore
+    }) ;
+    return max;
+  }, [keywordData])
 
   const columns = [
     {
@@ -43,17 +53,24 @@ const KeywordResearch = ({ prop1 }) => {
       dataIndex: 'priorityScore',
       render: (_, {priorityScore}) => (
         <>
-          <TagColorByRank text={priorityScore} rank={priorityScore} />
+          <TagColorByScore
+            text={Math.round(priorityScore)}
+            score={priorityScore}
+            minValue={0}
+            maxValue={maxPriorityScore}
+            minColor={'#E8FFEA'}
+            maxColor={'#5AE168'}
+          />
         </>
       ),
     },
     {
       title: 'Keyword Difficulty Score',
-      key: 'dificultyScore',
-      dataIndex: 'dificultyScore',
-      render: (_, {dificultyScore}) => (
+      key: 'difficultyScore',
+      dataIndex: 'difficultyScore',
+      render: (_, {difficultyScore}) => (
         <>
-          <TagColorByKeywordDifficulty text={dificultyScore} difficulty={dificultyScore} />
+          <TagColorByKeywordDifficulty text={difficultyScore} difficulty={difficultyScore} />
         </>
       ),
     },
@@ -66,11 +83,11 @@ const KeywordResearch = ({ prop1 }) => {
       },
     },
     {
-      title: 'Page',
-      dataIndex: 'pageUrl',
-      key: 'pageUrl',
-      render: (_, {pageUrl}) => {
-        return <StyledUrlHolder>{pageUrl}</StyledUrlHolder>
+      title: 'Related Page',
+      dataIndex: 'pageURL',
+      key: 'pageURL',
+      render: (_, {pageURL}) => {
+        return <UrlHolder url={pageURL} />
       },
     },
     {

@@ -8,6 +8,7 @@ import { useGetShortTermsKeywordsQuery } from 'apps/fancyai-web-client/src/core/
 import { useSiteDetail } from '@crema/modules/siteDetail';
 import { useAuthUser } from '@crema/hooks/AuthHooks';
 import RemoveKeywordModal from '../../RemoveKeywordModal';
+import UrlHolder from '../../UrlHolder';
 
 const ShortTermKeywords = ({ prop1 }) => {
   const {id} = useSiteDetail()
@@ -69,7 +70,7 @@ const ShortTermKeywords = ({ prop1 }) => {
         dataIndex: 'pageURL',
         key: 'pageURL',
         render: (_, {pageURL}) => {
-          return <StyledUrlHolder>{pageURL}</StyledUrlHolder>
+          return <UrlHolder url={pageURL} />
         },
       },
       {

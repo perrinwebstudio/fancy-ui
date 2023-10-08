@@ -30,11 +30,14 @@ export const StyledKeywordRankTag = styled.span`
 export const StyledUrlHolder = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 100px;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
-          line-clamp: 2; 
+  -webkit-line-clamp: ${(props => props.maxLine)}; /* number of lines to show */
+          line-clamp: ${(props => props.maxLine)}; 
   -webkit-box-orient: vertical;
+
+  & a {
+    word-break: break-all
+  }
 `
 
 export const StyledOneLineText = styled.div`

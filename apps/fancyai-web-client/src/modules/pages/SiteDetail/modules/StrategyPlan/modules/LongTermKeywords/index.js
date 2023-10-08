@@ -8,6 +8,7 @@ import { useGetLongTermKeywordsQuery, useGetShortTermsKeywordsQuery } from 'apps
 import { useSiteDetail } from '@crema/modules/siteDetail';
 import { useAuthUser } from '@crema/hooks/AuthHooks';
 import RemoveKeywordModal from '../../RemoveKeywordModal';
+import UrlHolder from '../../UrlHolder';
 
 const LongTermKeywords = ({ prop1 }) => {
   const {id} = useSiteDetail()
@@ -69,7 +70,7 @@ const LongTermKeywords = ({ prop1 }) => {
       dataIndex: 'pageURL',
       key: 'pageURL',
       render: (_, {pageURL}) => {
-        return <StyledUrlHolder>{pageURL}</StyledUrlHolder>
+        return <UrlHolder url={pageURL} />
       },
     },
     {

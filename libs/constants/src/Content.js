@@ -1,3 +1,5 @@
+import { defaultTheme } from "./defaultConfig";
+
 function to2Character(strValue) {
   return strValue.length === 1 ? `0${strValue}` : strValue;
 }
@@ -41,15 +43,21 @@ export const getKeywordDifficultyColor = (keywordDifficulty) => {
 }
 
 export const CONTENT_STATUSES = {
-  'Planned': {
-    key: 'Planned',
+  'planned': {
+    key: 'planned',
     text: 'Planned',
     colorText: '#006EBD',
     colorBg: '#DFEFFF',
   },
-  'Completed': {
-    key: 'Completed',
-    text: 'Completed',
+  'in-review': {
+    key: 'in-review',
+    text: 'In Review',
+    colorText: "#fa8c16",
+    colorBg: "#fa8c1640",
+  },
+  'complete': {
+    key: 'complete',
+    text: 'Complete',
     colorText: '#067F12',
     colorBg: '#D7FADA',
   },
