@@ -2,7 +2,7 @@ export const SITE_DETAIL_MENU_CONFIG = {
   "strategy_plan": {
     key: "strategy_plan",
     text: 'Strategy Plan',
-    defaultSubMenu: 'how_it_work',
+    defaultSubMenu: 'overview',
     subMenu: {
       "overview": {
         key: "overview",

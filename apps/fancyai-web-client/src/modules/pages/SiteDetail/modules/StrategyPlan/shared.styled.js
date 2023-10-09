@@ -1,5 +1,12 @@
-import { Button, Modal } from "antd";
+import { Button, Card, Modal } from "antd";
 import styled from "styled-components";
+
+export const StyledStrategyPlanCard = styled(Card)`
+  h5 {
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+`
 
 export const StyledUpdateModal = styled(Modal)`
   .ant-modal-content {

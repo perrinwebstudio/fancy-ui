@@ -10,6 +10,7 @@ import ContentList from './modules/ContentList';
 import SiteOptimizations from './modules/SiteOptimizations';
 import SiteBacklinking from './modules/SiteBacklinking';
 import StrategyOverview from './modules/StrategyOverview';
+import { StyledStrategyPlanCard } from './shared.styled';
 
 const SiteStrategyPlan = ({ prop1 }) => {
   const {id, subMenu} = useSiteDetail()
@@ -20,7 +21,7 @@ const SiteStrategyPlan = ({ prop1 }) => {
         <SiteDetailSubMenuVertical />
       </Col>
       <Col xs={24} sm={24} md={12} lg={17} xl={18}>
-        {subMenu !== 'backlinking' && <Card bordered={false}>
+        {subMenu !== 'backlinking' && <StyledStrategyPlanCard bordered={false}>
           {
             subMenu === 'how_it_work' && <HowItWork />
           }
@@ -45,7 +46,7 @@ const SiteStrategyPlan = ({ prop1 }) => {
           {
             subMenu === 'site_optimizations' && <SiteOptimizations />
           }
-        </Card>}
+        </StyledStrategyPlanCard>}
           {
             subMenu === 'backlinking' && <SiteBacklinking />
           }

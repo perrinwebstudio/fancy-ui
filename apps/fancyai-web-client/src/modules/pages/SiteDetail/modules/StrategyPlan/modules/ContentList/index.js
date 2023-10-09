@@ -145,15 +145,14 @@ const ContentList = ({ type }) => {
   ], [filteredData, type]);
 
   return <>
-    <Title level={5}>Content Updates</Title>
+    <Title level={5}>{type === 'new' ? 'New Content' : 'Content Updates'}</Title>
     <Table
-      sticky={{ offsetHeader: 64 }}
       rowKey={record => record._id}
       loading={isLoading}
       scroll={{
         x: 'max-content'
       }}
-      style={{marginTop: '10px'}} columns={columns} dataSource={filteredData || []} />
+      columns={columns} dataSource={filteredData || []} />
     {edit && <UpdateContentScheduleDateModal type={type} onClose={() => setEdit(null)} open={!!edit} content={edit} />}
     {remove && <RemoveContentModal open={!!remove} onClose={() => setRemove(null)} content={remove} type={type} /> }
   </>
