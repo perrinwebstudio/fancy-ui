@@ -10,7 +10,7 @@ const AppAuthProvider = ({ children, onLogout, useFetchCompanies }) => {
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [fetchCompanies, { isLoading }] = useFetchCompanies();
 
-  const { isAuthenticated } = useAuthUser();
+  const { isAuthenticated, companies } = useAuthUser();
 
   const refetchCompanies = useCallback(async () => {
     await fetchCompanies().unwrap().then((rsp) => {
@@ -36,9 +36,9 @@ const AppAuthProvider = ({ children, onLogout, useFetchCompanies }) => {
     return <AppLoader />
   }
 
-  // if (isAuthenticated && !selectedCompanyId) {
-  //   return <div>Handle first company creation here</div>
-  // }
+  if (isAuthenticated && companies?.length > 0 && !selectedCompanyId) {
+    return <AppLoader />
+  }
 
   return (
     <AppAuthContext.Provider

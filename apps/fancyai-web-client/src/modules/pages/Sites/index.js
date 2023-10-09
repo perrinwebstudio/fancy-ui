@@ -25,6 +25,7 @@ const Sites = () => {
   const { selectedCompanyId } = useAppAuth();
 
   useEffect(() => {
+    console.log('get company sites!!!', selectedCompanyId)
     getCompanySites?.({ companyId: selectedCompanyId })
       .unwrap()
       .then((result) => {

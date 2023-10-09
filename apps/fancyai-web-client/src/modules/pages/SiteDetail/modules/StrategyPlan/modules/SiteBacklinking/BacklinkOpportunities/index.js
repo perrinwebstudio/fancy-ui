@@ -140,7 +140,7 @@ const BacklinkOpportunities = ({ prop1 }) => {
     </div>
     <Table loading={isLoading} scroll={{
       x: 'min-content'
-    }} style={{marginTop: '10px'}} columns={columns} dataSource={filteredData || []} />
+    }} columns={columns} dataSource={filteredData || []} />
     {
       remove && <RemoveBacklinkOpportunityModal
         onClose={() => setRemove(null)}

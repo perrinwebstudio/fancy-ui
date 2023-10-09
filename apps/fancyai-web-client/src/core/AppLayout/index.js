@@ -50,6 +50,8 @@ const AppLayout = () => {
     setSidebarBgImage,
   ]);
 
+  console.log('companies', companies)
+
   return (
     <>
       <ReactNotifications />

@@ -57,9 +57,6 @@ export const authSlice = createSlice({
       (state, action) => {
         if (action.payload.token) {
           state.apiToken = action.payload.token
-          state.currentUser = {
-            ...action.payload.user,
-          }
         }
       },
     )

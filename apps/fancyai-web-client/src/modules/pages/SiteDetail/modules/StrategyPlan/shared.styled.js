@@ -2,6 +2,8 @@ import { Button, Card, Modal } from "antd";
 import styled from "styled-components";
 
 export const StyledStrategyPlanCard = styled(Card)`
+  margin-bottom: 20px;
+
   h5 {
     line-height: 1;
     margin-bottom: 20px;
