@@ -1,16 +1,21 @@
 import React from 'react';
-import { Button, Divider, Modal, Typography, theme } from 'antd';
+import { Button, Divider, Form, Modal, Typography, theme } from 'antd';
 import { useRejectKeywordMutation } from 'apps/fancyai-web-client/src/core/api/apiKeyword';
+import { StyledUpdateModal } from './shared.styled';
 
 const RemoveKeywordModal = ({ open, onClose, keyword }) => {
   const {token} = theme.useToken()
   const [reject, { isLoading }] = useRejectKeywordMutation()
 
-  return <Modal footer={<></>} open={open} onCancel={onClose}>
-    <Typography.Title level={5}>Do you want to remove?</Typography.Title>
+  return <StyledUpdateModal closable={false} footer={<></>} open={open} onCancel={onClose}>
+    <Typography.Title level={5}>Do you want to Remove?</Typography.Title>
     <Divider />
-    <div><Typography.Text strong>Keyword</Typography.Text></div>
-    <div><Typography.Text style={{color: token.blue}}>{keyword?.keyword}</Typography.Text></div>
+
+    <Form layout='vertical'>
+      <Form.Item label="Keyword">
+        <Typography.Text style={{color: token.blue}}>{keyword?.keyword}</Typography.Text>
+      </Form.Item>
+    </Form>
 
     <Divider />
     <Button
@@ -31,7 +36,7 @@ const RemoveKeywordModal = ({ open, onClose, keyword }) => {
         onClick={onClose}
         block type='ghost'>Cancel</Button>
     </div>
-  </Modal>
+  </StyledUpdateModal>
 }
 
 

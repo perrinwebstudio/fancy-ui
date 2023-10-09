@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Button, Divider, Form, Modal, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useUpdateBacklinkOpportunityMutation } from 'apps/fancyai-web-client/src/core/api/apiBacklink';
+import { StyledUpdateModal } from './shared.styled';
 
 const UpdateUserFeedbackBacklinkOpportunityModal = ({ open, onClose, backlink }) => {
   const [update, { isLoading }] = useUpdateBacklinkOpportunityMutation()
   const [userFeedback, setUserFeedback] = React.useState(backlink.userFeedback)
 
-  return <Modal closable={false} footer={<></>} open={open} destroyOnClose onCancel={onClose}>
+  return <StyledUpdateModal closable={false} footer={<></>} open={open} destroyOnClose onCancel={onClose}>
     <Typography.Title level={4}>User Feedback Edits</Typography.Title>
     <Divider />
     <Form layout='vertical'>
@@ -43,7 +44,7 @@ const UpdateUserFeedbackBacklinkOpportunityModal = ({ open, onClose, backlink })
         onClick={onClose}
         block type='ghost'>Cancel</Button>
     </div>
-  </Modal>
+  </StyledUpdateModal>
 }
 
 

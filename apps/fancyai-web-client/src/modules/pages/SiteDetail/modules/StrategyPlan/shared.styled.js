@@ -1,5 +1,26 @@
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import styled from "styled-components";
+
+export const StyledUpdateModal = styled(Modal)`
+  .ant-modal-content {
+    background: #fafafa;
+    padding: 40px;
+  }
+
+  .ant-picker-large input {
+    font-size: ${({ theme }) => {
+      return theme.font.size.base
+    }};
+  }
+
+  .ant-divider {
+    margin: 10px 0px 20px 0px;
+    border-color: ${({ theme }) => {
+      console.log('theme', theme)
+      return theme.palette.gray[400]
+    }};
+  }
+`
 
 export const CircleMenuButton = styled(Button)`
   box-shadow: 0px 4px 8px 0px #00000014 !important;

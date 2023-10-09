@@ -49,8 +49,8 @@ const ContentList = ({ type }) => {
     }] : []),
     {
       title: 'Blog/Page Topic',
-      dataIndex: 'pageURL',
-      key: 'pageURL',
+      dataIndex: 'topic',
+      key: 'topi',
       render: (_, {topic, url}) => (
         <>
           <StyledOneLineText>{topic}</StyledOneLineText>
@@ -125,6 +125,7 @@ const ContentList = ({ type }) => {
       key: 'action',
       render: (_, content) => (
         <MenuDropdown
+          type={type}
           onEdit={() => {
             setEdit(content)
           }}
@@ -137,8 +138,6 @@ const ContentList = ({ type }) => {
     }
   ], [contentData, type]);
 
-  const [fixedTop, setFixedTop] = useState(false);
-
   return <>
     <Title level={5}>Content Updates</Title>
     <Table
@@ -149,7 +148,7 @@ const ContentList = ({ type }) => {
         x: 'max-content'
       }}
       style={{marginTop: '10px'}} columns={columns} dataSource={contentData?.data || []} />
-    {edit && <UpdateContentScheduleDateModal onClose={() => setEdit(null)} open={!!edit} content={edit} />}
+    {edit && <UpdateContentScheduleDateModal type={type} onClose={() => setEdit(null)} open={!!edit} content={edit} />}
     {remove && <RemoveContentModal open={!!remove} onClose={() => setRemove(null)} content={remove} type={type} /> }
   </>
 }

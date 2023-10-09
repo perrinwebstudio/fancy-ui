@@ -1,17 +1,20 @@
 import React from 'react';
-import { Button, Divider, Modal, Typography, theme } from 'antd';
+import { Button, Divider, Form, Modal, Typography, theme } from 'antd';
 import { useRejectContentMutation } from 'apps/fancyai-web-client/src/core/api/apiContent';
+import { StyledUpdateModal } from './shared.styled';
 
 const RemoveContentModal = ({ open, onClose, content, type }) => {
   const {token} = theme.useToken()
   const [reject, { isLoading }] = useRejectContentMutation()
 
-  return <Modal footer={<></>} open={open} onCancel={onClose}>
-    <Typography.Title level={5}>Do you want to remove?</Typography.Title>
+  return <StyledUpdateModal closable={false} footer={<></>} open={open} onCancel={onClose}>
+    <Typography.Title level={5}>Do you want to Remove?</Typography.Title>
     <Divider />
-    <div><Typography.Text strong>{type === 'update' ? 'Content Update' : 'New Content'}</Typography.Text></div>
-    <div><Typography.Text style={{color: token.blue}}>{content?.topic}</Typography.Text></div>
-    <Divider />
+    <Form layout='vertical'>
+      <Form.Item label={type === 'update' ? 'Content Update' : 'New Content'}>
+        <Typography.Text style={{color: token.blue}}>{content?.topic}</Typography.Text>
+      </Form.Item>
+    </Form>
     <Button
       size='large'
       loading={isLoading}
@@ -30,7 +33,7 @@ const RemoveContentModal = ({ open, onClose, content, type }) => {
         onClick={onClose}
         block type='ghost'>Cancel</Button>
     </div>
-  </Modal>
+  </StyledUpdateModal>
 }
 
 
