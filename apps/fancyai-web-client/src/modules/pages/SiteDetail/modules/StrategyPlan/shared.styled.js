@@ -23,7 +23,7 @@ export const StyledUpdateModal = styled(Modal)`
   }
 
   .ant-divider {
-    margin: 10px 0px 20px 0px;
+    margin: 15px 0px 30px 0px;
     border-color: ${({ theme }) => {
       console.log('theme', theme)
       return theme.palette.gray[400]

@@ -8,13 +8,12 @@ const RemoveContentModal = ({ open, onClose, content, type }) => {
   const [reject, { isLoading }] = useRejectContentMutation()
 
   return <StyledUpdateModal closable={false} footer={<></>} open={open} onCancel={onClose}>
-    <Typography.Title level={5}>Do you want to Remove?</Typography.Title>
+    <Typography.Title level={4}>Do you want to Remove?</Typography.Title>
     <Divider />
-    <Form layout='vertical'>
-      <Form.Item label={type === 'update' ? 'Content Update' : 'New Content'}>
-        <Typography.Text style={{color: token.blue}}>{content?.topic}</Typography.Text>
-      </Form.Item>
-    </Form>
+    <div style={{marginBottom: '30px'}}>
+      <div><Typography.Text strong style={{fontSize: '15px'}}>{type === 'update' ? 'Content Update' : 'New Content'}</Typography.Text></div>
+      <div style={{marginTop: '5px'}}><Typography.Text style={{color: token.colorPrimary}}>{content?.topic}</Typography.Text></div>
+    </div>
     <Button
       size='large'
       loading={isLoading}

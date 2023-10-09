@@ -10,15 +10,17 @@ const RemoveBacklinkOpportunityModal = ({ open, onClose, backlink }) => {
   const [update, { isLoading }] = useUpdateBacklinkOpportunityMutation()
 
   return <StyledUpdateModal closable={false} footer={<></>} open={open} onCancel={onClose}>
-    <Typography.Title level={5}>Do you want to remove Backlink Opportunity?</Typography.Title>
+    <Typography.Title level={4}>Do you want to remove Backlink Opportunity?</Typography.Title>
     <Divider />
     <Form layout='vertical'>
-      <Form.Item label="Opportunity Type">
-        <Typography.Text style={{color: token.blue}}>{backlink?.opportunityType}</Typography.Text>
-      </Form.Item>
-      <Form.Item label="Opportunity Link">
-        <UrlHolder url={backlink.opportunityUrl} />
-      </Form.Item>
+      <div style={{marginBottom: '10px'}}>
+        <div><Typography.Text strong style={{fontSize: '15px'}}>Opportunity Type</Typography.Text></div>
+        <div style={{marginTop: '5px'}}><Typography.Text style={{color: token.colorPrimary}}>{backlink?.opportunityType}</Typography.Text></div>
+      </div>
+      <div style={{marginBottom: '30px'}}>
+        <div><Typography.Text strong style={{fontSize: '15px'}}>Opportunity Link</Typography.Text></div>
+        <div style={{marginTop: '5px'}}><Typography.Text style={{color: token.colorPrimary}}>{backlink.opportunityUrl}</Typography.Text></div>
+      </div>
     </Form>
     <div style={{marginTop: '20px'}}>
       <Button
