@@ -9,8 +9,8 @@ const SiteBilling = () => {
   const { id } = useSiteDetail()
   const {data, isLoading} = useGetSiteQuery({siteId: id})
   const [update, { isLoading: isUpdating }] = useUpdateSiteMutation()
-  const [edit, setEdit] = React.useState(false)
   const [form] = Form.useForm()
+  const billingPlan = Form.useWatch('billingPlan', form)
 
   return <>
     <Card>
@@ -20,40 +20,23 @@ const SiteBilling = () => {
           console.log('form.getFieldsValue()', form.getFieldsValue())
           update({siteId: id, site: form.getFieldsValue(), showNotification: true})
         }} 
-        disabled={!edit} layout="vertical" initialValues={data?.data || {}}
+        layout="vertical" initialValues={data?.data || {}}
       >
         <Form.Item name="billingPlan">
-          <SEOPlanPicker viewMode={!edit} buttonLabel={"Try Now"} />
+          <SEOPlanPicker buttonLabel={"Try Now"} />
         </Form.Item>
       </Form>
 
       <Divider />
 
       <div style={{width: '100%', display: 'flex', justifyContent: 'center', gap: '20px'}}>
-        {!edit && <Button
-          loading={isUpdating}
-          className='limited-min-width'
-          type="primary"
-          onClick={() => {
-            setEdit(true)
-          }}
-        >Edit</Button>}
-        {edit && <Button
-          loading={isUpdating}
-          ghost type="primary"
-          className='limited-min-width'
-          icon={<ArrowLeftOutlined />}
-          onClick={() => {
-            setEdit(false)
-          }}
-        >Cancel</Button>}
-        {edit && <Button
+        <Button
+          disabled={billingPlan === data?.data?.billingPlan}
           loading={isUpdating} className='limited-min-width' type="primary"
           onClick={() => {
             form.submit()
-            setEdit(false)
           }}
-        >Confirm Changes</Button>}
+        >Confirm Changes</Button>
       </div>
     </Card>
   </>

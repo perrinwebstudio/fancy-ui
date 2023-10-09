@@ -22,7 +22,7 @@ const AppAuthProvider = ({ children, onLogout, useFetchCompanies }) => {
     const f = async () => {
       if (isAuthenticated && !selectedCompanyId) {
         await fetchCompanies().unwrap().then((rsp) => {
-          setSelectedCompanyId(rsp.data.companies[0].id);
+          setSelectedCompanyId(rsp.data.companies[0]?.id);
         });
       }
     }
@@ -30,9 +30,13 @@ const AppAuthProvider = ({ children, onLogout, useFetchCompanies }) => {
     f();
   }, [fetch, setSelectedCompanyId, isAuthenticated])
 
-  if (isAuthenticated && (isLoading || !selectedCompanyId)) {
+  if (isAuthenticated && (isLoading)) {
     return <AppLoader />
   }
+
+  // if (isAuthenticated && !selectedCompanyId) {
+  //   return <div>Handle first company creation here</div>
+  // }
 
   return (
     <AppAuthContext.Provider

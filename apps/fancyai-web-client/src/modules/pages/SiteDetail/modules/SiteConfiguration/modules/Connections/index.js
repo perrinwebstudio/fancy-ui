@@ -10,7 +10,6 @@ import AppSiteGoogleProvider from 'apps/fancyai-web-client/src/modules/providers
 const SiteConnections = ({ prop1 }) => {
   const { id } = useSiteDetail()
   const {data, isLoading} = useGetSiteQuery({siteId: id})
-  const [edit, setEdit] = React.useState(false)
   const [update, { isLoading: isUpdating }] = useUpdateSiteMutation()
 
   const [form] = Form.useForm()
@@ -21,7 +20,7 @@ const SiteConnections = ({ prop1 }) => {
   return <Card>
       <Form onFinish={() => {
         update({siteId: id, site: form.getFieldsValue(), showNotification: true})
-      }} form={form} disabled={!edit} layout="vertical" initialValues={data?.data || {}}>
+      }} form={form} layout="vertical" initialValues={data?.data || {}}>
         <AppSiteGoogleProvider selectedGaAccount={gaAccountId} siteId={id}>
           <Step5 />
         </AppSiteGoogleProvider>
@@ -30,30 +29,13 @@ const SiteConnections = ({ prop1 }) => {
     <Divider />
     
     <div style={{width: '100%', display: 'flex', justifyContent: 'center', gap: '20px'}}>
-      {!edit && <Button
-        loading={isUpdating}
-        className='limited-min-width'
-        type="primary"
-        onClick={() => {
-          setEdit(true)
-        }}
-      >Edit</Button>}
-      {edit && <Button
-        loading={isUpdating}
-        ghost type="primary"
-        className='limited-min-width'
-        icon={<ArrowLeftOutlined />}
-        onClick={() => {
-          setEdit(false)
-        }}
-      >Cancel</Button>}
-      {edit && <Button
+      <Button
         loading={isUpdating} className='limited-min-width' type="primary"
         onClick={() => {
           form.submit()
           setEdit(false)
         }}
-      >Save</Button>}
+      >Save</Button>
     </div>
   </Card>
 }

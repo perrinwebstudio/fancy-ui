@@ -11,7 +11,7 @@ const SiteGeneral = ({ prop1 }) => {
   const { id } = useSiteDetail()
   const {data, isLoading} = useGetSiteQuery({siteId: id})
   const [update, { isLoading: isUpdating }] = useUpdateSiteMutation()
-  const [edit, setEdit] = React.useState(false)
+  const [edit, setEdit] = React.useState(true)
   const [form] = Form.useForm()
 
   if (isLoading) return <AppLoader />
@@ -21,7 +21,7 @@ const SiteGeneral = ({ prop1 }) => {
       onFinish={() => {
         update({siteId: id, site: form.getFieldsValue(), showNotification: true})
       }} 
-      disabled={!edit} layout="vertical" initialValues={data?.data || {}}
+      layout="vertical" initialValues={data?.data || {}}
     >
       <Step1 />
       <Step2 />
@@ -31,28 +31,10 @@ const SiteGeneral = ({ prop1 }) => {
     <Divider />
     
     <div style={{width: '100%', display: 'flex', justifyContent: 'center', gap: '20px'}}>
-      {!edit && <Button
-        loading={isUpdating}
-        className='limited-min-width'
-        type="primary"
-        onClick={() => {
-          setEdit(true)
-        }}
-      >Edit</Button>}
-      {edit && <Button
-        loading={isUpdating}
-        ghost type="primary"
-        className='limited-min-width'
-        icon={<ArrowLeftOutlined />}
-        onClick={() => {
-          setEdit(false)
-        }}
-      >Cancel</Button>}
       {edit && <Button
         loading={isUpdating} className='limited-min-width' type="primary"
         onClick={() => {
           form.submit()
-          setEdit(false)
         }}
       >Save</Button>}
     </div>
