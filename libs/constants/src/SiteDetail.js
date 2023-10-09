@@ -4,9 +4,9 @@ export const SITE_DETAIL_MENU_CONFIG = {
     text: 'Strategy Plan',
     defaultSubMenu: 'how_it_work',
     subMenu: {
-      "how_it_work": {
-        key: "how_it_work",
-        text: 'How It Works',
+      "overview": {
+        key: "overview",
+        text: 'Overview',
         icon: 'how-it-work',
       },
       "keyword_short_term": {

@@ -56,9 +56,9 @@ const renderForm = (currentStep, formStep, props) => {
     {
       formStep === 4 ? 
       <AppSiteGoogleProvider selectedGaAccount={props.gaAccountId} siteId={props.siteId}>
-        <FormComponent {...props} />
+        <FormComponent {...props} showNumber />
       </AppSiteGoogleProvider>
-      : <FormComponent {...props} />
+      : <FormComponent {...props} showNumber />
     }
   </div>
 }

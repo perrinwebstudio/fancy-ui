@@ -7,7 +7,7 @@ export const CircleMenuButton = styled(Button)`
   border: none;
 `
 
-export const StyledRankTag = styled.span`
+export const StyledTag = styled.span`
   padding: 5px 15px;
   border-radius: 5px;
   display: inline-block;

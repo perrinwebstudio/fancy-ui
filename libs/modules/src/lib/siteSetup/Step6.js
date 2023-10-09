@@ -5,12 +5,12 @@ import { Button, Form, Input, Typography, theme } from 'antd';
 import StyledInstructionWrapper from './StyledInstructionWrapper';
 import { CheckOutlined } from '@ant-design/icons';
 
-const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setInstalledShopifyApp }) => {
+const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setInstalledShopifyApp, showNumber }) => {
   const {token} = theme.useToken()
   return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4}  id='step6'>{validated && <CheckOutlined
       style={{marginRight: '10px', color: token.colorSuccess}}
-    />} 6. App / Plugin Installation</StyledSiteSetupTitle>
+    />} {showNumber && <span>6.</span>} App / Plugin Installation</StyledSiteSetupTitle>
     {(!sitePlatform || sitePlatform === 'shopify') && <>
       <Form.Item name="shopifySiteUrl" style={{marginBottom: '10px'}} label="Shopify site URL">
         <Input />

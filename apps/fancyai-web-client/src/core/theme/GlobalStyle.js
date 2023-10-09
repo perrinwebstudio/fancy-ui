@@ -477,6 +477,10 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1;
   }
 
+  .ant-btn-link {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
+
   .ant-picker,
   .ant-picker-calendar-header,
   .ant-picker-panel,

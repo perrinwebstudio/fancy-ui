@@ -8,7 +8,7 @@ import SiteGoogleGAServiceConnect from '../siteGoogle/GoogleGAServiceConnect';
 import { useSiteGoogle } from '../siteGoogle';
 import SiteGoogleGscServiceConnect from '../siteGoogle/GoogleGSCServiceConnect';
 
-const SiteSetupStep5 = ({ validated }) => {
+const SiteSetupStep5 = ({ validated, showNumber }) => {
   const {token} = theme.useToken()
 
   const { site: siteData } = useSiteGoogle()
@@ -16,7 +16,7 @@ const SiteSetupStep5 = ({ validated }) => {
   return <StepFormWrapper className='form-section'>
     <StyledSiteSetupTitle level={4}  id='step5'>{validated && <CheckOutlined
       style={{marginRight: '10px', color: token.colorSuccess}}
-    />} 5. Site Connections</StyledSiteSetupTitle>
+    />} {showNumber && <span>5.</span>} Site Connections</StyledSiteSetupTitle>
     <Form.Item label="Connect to Google Search Console">
       <SiteGoogleGscServiceConnect siteData={siteData} />
     </Form.Item>

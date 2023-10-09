@@ -13,6 +13,13 @@ import UrlHolder from '../../UrlHolder';
 const ShortTermKeywords = ({ prop1 }) => {
   const {id} = useSiteDetail()
   const {data: keywordData, isLoading} = useGetShortTermsKeywordsQuery({ siteId: id })
+
+  const filteredData = useMemo(() => {
+    return (keywordData?.data || []).filter((r) => {
+      return !r.isRejected
+    })
+  }, [keywordData])
+
   const [remove, setRemove] = useState(null)
 
   const columns = useMemo(() => {
@@ -91,7 +98,7 @@ const ShortTermKeywords = ({ prop1 }) => {
     <Title level={5}>Short Term Keyword Priorities</Title>
     <Table loading={isLoading} scroll={{
       x: 'min-content'
-    }} style={{marginTop: '10px'}} columns={columns} dataSource={keywordData?.data || []} />
+    }} style={{marginTop: '10px'}} columns={columns} dataSource={filteredData || []} />
     <RemoveKeywordModal open={!!remove} keyword={remove} onClose={() => setRemove(null)}  />
   </>
 }

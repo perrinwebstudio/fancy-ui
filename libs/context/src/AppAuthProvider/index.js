@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import AppLoader from "@crema/components/AppLoader"
 import { useAuthUser } from "@crema/hooks/AuthHooks";
 
@@ -7,23 +7,25 @@ export const AppAuthContext = createContext();
 export const useAppAuth = () => useContext(AppAuthContext);
 
 const AppAuthProvider = ({ children, onLogout, useFetchCompanies }) => {
-  const value = useMemo(() => {
-    return {
-      onLogout,
-    };
-  }, [onLogout]);
-
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [fetchCompanies, { isLoading }] = useFetchCompanies();
 
   const { isAuthenticated } = useAuthUser();
+
+  const refetchCompanies = useCallback(async () => {
+    await fetchCompanies().unwrap().then((rsp) => {
+      if (!selectedCompanyId && rsp.data?.companies?.length > 0) {
+        setSelectedCompanyId(rsp.data.companies[0].id);
+      }
+    }).catch(() => {});
+  }, [fetchCompanies])
 
   useEffect(() => {
     const f = async () => {
       if (isAuthenticated && !selectedCompanyId) {
         await fetchCompanies().unwrap().then((rsp) => {
           setSelectedCompanyId(rsp.data.companies[0]?.id);
-        });
+        }).catch(() => {});
       }
     }
 
@@ -40,7 +42,7 @@ const AppAuthProvider = ({ children, onLogout, useFetchCompanies }) => {
 
   return (
     <AppAuthContext.Provider
-      value={{ ...value, selectedCompanyId, setSelectedCompanyId }}
+      value={{ onLogout, selectedCompanyId, setSelectedCompanyId, refetchCompanies }}
     >
       {children}
     </AppAuthContext.Provider>

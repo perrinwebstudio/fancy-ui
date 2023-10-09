@@ -1,7 +1,7 @@
 import { transformResponseWithNotification } from "@crema/helpers";
 import { api } from "./api";
 
-export const apiSite = api.injectEndpoints({
+export const apiContent = api.injectEndpoints({
   endpoints: (build) => ({
     getNewContents: build.query({
       query: ({ siteId }) => ({
@@ -54,4 +54,4 @@ export const {
   useGetContentUpdatesQuery,
   useUpdateContentMutation,
   useRejectContentMutation,
-} = apiSite;
+} = apiContent;

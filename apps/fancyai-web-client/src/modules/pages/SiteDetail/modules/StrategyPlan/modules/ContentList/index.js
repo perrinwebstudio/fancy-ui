@@ -1,4 +1,4 @@
-import { Space, Table } from 'antd';
+import { Space, Switch, Table } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React, { useMemo, useState } from 'react';
 import { convertNumberToCommaSeparated } from '@crema/helpers';
@@ -137,9 +137,12 @@ const ContentList = ({ type }) => {
     }
   ], [contentData, type]);
 
+  const [fixedTop, setFixedTop] = useState(false);
+
   return <>
     <Title level={5}>Content Updates</Title>
     <Table
+      sticky={{ offsetHeader: 64 }}
       rowKey={record => record._id}
       loading={isLoading}
       scroll={{

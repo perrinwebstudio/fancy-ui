@@ -1,7 +1,7 @@
 import { transformResponseWithNotification } from "@crema/helpers";
 import { api } from "./api";
 
-export const apiSite = api.injectEndpoints({
+export const apiKeyword = api.injectEndpoints({
   endpoints: (build) => ({
     getResearchKeywords: build.query({
       query: ({ siteId }) => ({
@@ -65,4 +65,4 @@ export const {
   useGetShortTermsKeywordsQuery,
   useRejectKeywordMutation,
   useSetKeywordTypeMutation,
-} = apiSite;
+} = apiKeyword;

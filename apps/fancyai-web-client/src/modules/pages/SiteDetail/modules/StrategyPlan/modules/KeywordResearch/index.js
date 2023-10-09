@@ -17,6 +17,12 @@ const KeywordResearch = ({ prop1 }) => {
   const {id} = useSiteDetail()
   const {data: keywordData, isLoading} = useGetResearchKeywordsQuery({ siteId: id })
 
+  const filteredData = useMemo(() => {
+    return (keywordData?.data || []).filter((r) => {
+      return !r.isRejected
+    })
+  }, [keywordData])
+
   const [remove, setRemove] = useState(null)
 
   const maxPriorityScore = useMemo(() => {
@@ -27,83 +33,85 @@ const KeywordResearch = ({ prop1 }) => {
     return max;
   }, [keywordData])
 
-  const columns = [
-    {
-      title: 'Keyword',
-      dataIndex: 'keyword',
-      key: 'keyword',
-      render: (_, {currentSiteRank, keyword}) => (
-        <>
-          <TagColorByRank isKeyword text={keyword} rank={currentSiteRank} />
-        </>
-      ),
-      width: 230,
-    },
-    {
-      title: 'Search Intent Type',
-      dataIndex: 'searchIntentType',
-      key: 'searchIntentType',
-      render: (_, {searchIntentType}) => {
-        return <div className='nowrap'>{searchIntentType}</div>
+  const columns = useMemo(() => {
+    return [
+      {
+        title: 'Keyword',
+        dataIndex: 'keyword',
+        key: 'keyword',
+        render: (_, {currentSiteRank, keyword}) => (
+          <>
+            <TagColorByRank isKeyword text={keyword} rank={currentSiteRank} />
+          </>
+        ),
+        width: 230,
       },
-    },
-    {
-      title: 'Keyword Priority Score',
-      key: 'priorityScore',
-      dataIndex: 'priorityScore',
-      render: (_, {priorityScore}) => (
-        <>
-          <TagColorByScore
-            text={Math.round(priorityScore)}
-            score={priorityScore}
-            minValue={0}
-            maxValue={maxPriorityScore}
-            minColor={'#E8FFEA'}
-            maxColor={'#5AE168'}
-          />
-        </>
-      ),
-    },
-    {
-      title: 'Keyword Difficulty Score',
-      key: 'difficultyScore',
-      dataIndex: 'difficultyScore',
-      render: (_, {difficultyScore}) => (
-        <>
-          <TagColorByKeywordDifficulty text={difficultyScore} difficulty={difficultyScore} />
-        </>
-      ),
-    },
-    {
-      title: 'Monthly Search Traffic',
-      dataIndex: 'monthlyVolume',
-      key: 'monthlyVolume',
-      render: (_, {monthlyVolume}) => {
-        return convertNumberToCommaSeparated(monthlyVolume)
+      {
+        title: 'Search Intent Type',
+        dataIndex: 'searchIntentType',
+        key: 'searchIntentType',
+        render: (_, {searchIntentType}) => {
+          return <div className='nowrap'>{searchIntentType}</div>
+        },
       },
-    },
-    {
-      title: 'Related Page',
-      dataIndex: 'pageURL',
-      key: 'pageURL',
-      render: (_, {pageURL}) => {
-        return <UrlHolder url={pageURL} />
+      {
+        title: 'Keyword Priority Score',
+        key: 'priorityScore',
+        dataIndex: 'priorityScore',
+        render: (_, {priorityScore}) => (
+          <>
+            <TagColorByScore
+              text={Math.round(priorityScore)}
+              score={priorityScore}
+              minValue={0}
+              maxValue={maxPriorityScore}
+              minColor={'#E8FFEA'}
+              maxColor={'#5AE168'}
+            />
+          </>
+        ),
       },
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, keyword) => (
-        <MenuDropdown keyword={keyword} onRemove={() => setRemove(keyword)} />
-      ),
-    }
-  ];
+      {
+        title: 'Keyword Difficulty Score',
+        key: 'difficultyScore',
+        dataIndex: 'difficultyScore',
+        render: (_, {difficultyScore}) => (
+          <>
+            <TagColorByKeywordDifficulty text={difficultyScore} difficulty={difficultyScore} />
+          </>
+        ),
+      },
+      {
+        title: 'Monthly Search Traffic',
+        dataIndex: 'monthlyVolume',
+        key: 'monthlyVolume',
+        render: (_, {monthlyVolume}) => {
+          return convertNumberToCommaSeparated(monthlyVolume)
+        },
+      },
+      {
+        title: 'Related Page',
+        dataIndex: 'pageURL',
+        key: 'pageURL',
+        render: (_, {pageURL}) => {
+          return <UrlHolder url={pageURL} />
+        },
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: (_, keyword) => (
+          <MenuDropdown keyword={keyword} onRemove={() => setRemove(keyword)} />
+        ),
+      }
+    ]
+  }, [setRemove, maxPriorityScore]);
 
   return <>
     <Title level={5}>Short Term Keywords</Title>
     <Table loading={isLoading} scroll={{
       x: 'min-content'
-    }} style={{marginTop: '10px'}} columns={columns} dataSource={keywordData?.data || []} />
+    }} style={{marginTop: '10px'}} columns={columns} dataSource={filteredData || []} />
     <RemoveKeywordModal open={!!remove} keyword={remove} onClose={() => setRemove(null)}  />
   </>
 }

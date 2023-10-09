@@ -7,19 +7,25 @@ import ShortTermKeywords from './modules/ShortTermKeywords';
 import LongTermKeywords from './modules/LongTermKeywords';
 import KeywordResearch from './modules/KeywordResearch';
 import ContentList from './modules/ContentList';
+import SiteOptimizations from './modules/SiteOptimizations';
+import SiteBacklinking from './modules/SiteBacklinking';
+import StrategyOverview from './modules/StrategyOverview';
 
 const SiteStrategyPlan = ({ prop1 }) => {
   const {id, subMenu} = useSiteDetail()
 
   return <>
     <Row gutter={20}>
-      <Col lg={7} xl={6}>
+      <Col xs={0} sm={0} md={12} lg={7} xl={6}>
         <SiteDetailSubMenuVertical />
       </Col>
-      <Col lg={17} xl={18}>
-        <Card bordered={false}>
+      <Col xs={24} sm={24} md={12} lg={17} xl={18}>
+        {subMenu !== 'backlinking' && <Card bordered={false}>
           {
             subMenu === 'how_it_work' && <HowItWork />
+          }
+          {
+            subMenu === 'overview' && <StrategyOverview />
           }
           {
             subMenu === 'keyword_short_term' && <ShortTermKeywords />
@@ -36,7 +42,13 @@ const SiteStrategyPlan = ({ prop1 }) => {
           {
             subMenu === 'new_content' && <ContentList type="new" />
           }
-        </Card>
+          {
+            subMenu === 'site_optimizations' && <SiteOptimizations />
+          }
+        </Card>}
+          {
+            subMenu === 'backlinking' && <SiteBacklinking />
+          }
       </Col>
     </Row>
   </>

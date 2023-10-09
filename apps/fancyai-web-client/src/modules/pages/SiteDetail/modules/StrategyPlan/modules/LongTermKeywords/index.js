@@ -1,6 +1,6 @@
 import { Button, Space, Table, Tag } from 'antd';
 import Title from 'antd/es/typography/Title';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import TagColorByRank from '../../TagColorByRank';
 import { convertNumberToCommaSeparated, formatCurrency } from '@crema/helpers';
 import { StyledUrlHolder } from '../../shared.styled';
@@ -13,6 +13,12 @@ import UrlHolder from '../../UrlHolder';
 const LongTermKeywords = ({ prop1 }) => {
   const {id} = useSiteDetail()
   const {data: keywordData, isLoading} = useGetLongTermKeywordsQuery({ siteId: id })
+
+  const filteredData = useMemo(() => {
+    return (keywordData?.data || []).filter((r) => {
+      return !r.isRejected
+    })
+  }, [keywordData])
 
   const [remove, setRemove] = useState(null)
 
@@ -88,7 +94,7 @@ const LongTermKeywords = ({ prop1 }) => {
     <Title level={5}>Long-Term Keyword Priorities</Title>
     <Table loading={isLoading} scroll={{
       x: 'min-content'
-    }} style={{marginTop: '10px'}} columns={columns} dataSource={keywordData?.data || []} />
+    }} style={{marginTop: '10px'}} columns={columns} dataSource={filteredData || []} />
     <RemoveKeywordModal open={!!remove} keyword={remove} onClose={() => setRemove(null)}  />
   </>
 }
