@@ -53,6 +53,7 @@ export const authSlice = createSlice({
             state.verify2FAToken = action.payload.token
           } else if (action.payload.multiFactorRequired) {
             // TODO - handle MFA 
+            state.apiToken = action.payload.token
           } else {
             state.apiToken = action.payload.token
           }
