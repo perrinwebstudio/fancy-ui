@@ -36,7 +36,7 @@ const PersonalInfo = () => {
   const email = Form.useWatch("email", form);
 
   const [userImage, setUserImage] = useState(
-    user.photoURL ? user.photoURL : "/assets/images/user_avatar_placeholder.jpg"
+    user.avatar ? user.avatar : "/assets/images/user_avatar_placeholder.jpg"
   );
 
   const [updateUserSetting, { isLoading }] = useUpdateUserSettingMutation();
@@ -60,20 +60,27 @@ const PersonalInfo = () => {
 
   const onFinish = async (values) => {
     // console.log("Finish:", values);
-    // if (acceptedFiles?.length) {
-    //   const avatarFile = acceptedFiles[0];
-    //   setIsUploading(true);
-    //   const res = await getS3PresignedUrl({
-    //     fileName: avatarFile.name.split(".")?.[0],
-    //     fileType: avatarFile.name.split(".")?.[1] ?? "",
-    //   });
-    //   if (res?.data?.data) {
-    //     const { url, signedRequest } = res.data.data;
-    //     await axios.put(signedRequest, avatarFile);
-    //     window.location.href = url;
-    //   }
-    // }
-    updateUserSetting?.(values)
+    let avatar = user.photoURL ?? "";
+    if (acceptedFiles?.length) {
+      const avatarFile = acceptedFiles[0];
+      setIsUploading(true);
+      const res = await getS3PresignedUrl({
+        fileName: avatarFile.name.split(".")?.[0],
+        fileType: avatarFile.name.split(".")?.[1] ?? "",
+      });
+      if (res?.data?.data) {
+        const { signedRequest } = res.data.data;
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(avatarFile);
+
+        reader.onload = () => {
+          const data = reader.result;
+          axios.put(`${signedRequest}`, data);
+        };
+        avatar = signedRequest.split("?")?.[0];
+      }
+    }
+    updateUserSetting?.({ ...values, avatar })
       .unwrap()
       .then((result) => {
         getUser()
@@ -84,6 +91,7 @@ const PersonalInfo = () => {
           });
       })
       .catch((err) => console.error(err));
+    setIsUploading(false);
   };
 
   console.log(user);
