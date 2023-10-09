@@ -27,7 +27,21 @@ export const api = createApi({
       },
       providesTags: ["AuthUser"],
     }),
+    getS3PresignedUrl: builder.mutation({
+      query: (params) => ({
+        url: `user/presigned-url`,
+        method: "GET",
+        params,
+      }),
+      transformResponse: (response, meta, arg) => {
+        return response;
+      },
+    }),
   }),
 });
 
-export const { useGetUserMutation, useFetchUserQuery } = api;
+export const {
+  useGetUserMutation,
+  useFetchUserQuery,
+  useGetS3PresignedUrlMutation,
+} = api;

@@ -9,7 +9,7 @@ import {
   StyledUserProfileFormTitle,
   StyledUserProfileGroupBtn,
 } from "../index.styled";
-import { useUpdateUserSettingMutation } from "apps/fancyai-web-client/src/core/api/apiUserSetting";
+import { useUpdateUserPasswordMutation } from "apps/fancyai-web-client/src/core/api/apiUserSetting";
 
 const ChangePassword = () => {
   const { messages } = useIntl();
@@ -19,11 +19,11 @@ const ChangePassword = () => {
   const newPassword = Form.useWatch("newPassword", form);
   const confirmPassword = Form.useWatch("confirmPassword", form);
 
-  const [updateUserSetting, { isLoading }] = useUpdateUserSettingMutation();
+  const [updateUserPassword, { isLoading }] = useUpdateUserPasswordMutation();
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    updateUserSetting?.(values)
+    updateUserPassword?.(values)
       .unwrap()
       .then((result) => {})
       .catch(() => {});

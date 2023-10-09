@@ -69,3 +69,9 @@ export const StyledInfoUploadBtnView = styled.div`
     padding: 3.5px 12px;
   }
 `;
+
+export const StyledQRcodeImage = styled.div`
+  position: relative;
+  width: 200px;
+  height: 200px;
+`;
