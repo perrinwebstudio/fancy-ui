@@ -15,6 +15,26 @@ export const apiBacklink = api.injectEndpoints({
         }
       },
     }),
+    updateBacklinkConfig: build.mutation({
+      query: ({ backlinkConfigId, updates }) => ({
+        url: `backlinkconfig/${backlinkConfigId}`, // @TODO: use a separate endpoint instead 
+        method: "PATCH",
+        body: {
+          updates
+        }
+      }),
+      invalidatesTags: ['Backlink'],
+      transformResponse: (response, meta, args) => {
+        if (args.showNotification) {
+          let message = args.showNotification
+          if (typeof message === 'boolean') {
+            message = 'Backlink config updated successfully'
+          }
+          return transformResponseWithNotification(response, message)
+        }
+        return response
+      }
+    }),
     getBacklinkOpportunities: build.query({
       query: ({ siteId }) => ({
         url: `backlinks?siteId=${siteId}`,
@@ -47,6 +67,7 @@ export const apiBacklink = api.injectEndpoints({
 
 export const {
   useGetBacklinkOpportunitiesQuery,
+  useUpdateBacklinkConfigMutation,
   useGetBacklinkConfigQuery,
   useUpdateBacklinkOpportunityMutation
 } = apiBacklink;

@@ -20,13 +20,19 @@ const ContentList = ({ type }) => {
 
   const { data: contentData, isLoading } = hook({ siteId: id })
 
+  const filteredData = useMemo(() => {
+    return (contentData?.data || []).filter((element) => {
+      return !element.isRejected
+    })
+  }, [contentData])
+
   const maxPriorityScore = useMemo(() => {
     let max = 0;
-    (contentData?.data || []).forEach((element) => {
+    (filteredData || []).forEach((element) => {
       if (max < element.priorityScore) max = element.priorityScore
     }) ;
     return max;
-  }, [contentData])
+  }, [filteredData])
 
   const [remove, setRemove] = useState(null)
   const [edit, setEdit] = useState(null)
@@ -136,7 +142,7 @@ const ContentList = ({ type }) => {
       ),
       fixed: 'right'
     }
-  ], [contentData, type]);
+  ], [filteredData, type]);
 
   return <>
     <Title level={5}>Content Updates</Title>
@@ -147,7 +153,7 @@ const ContentList = ({ type }) => {
       scroll={{
         x: 'max-content'
       }}
-      style={{marginTop: '10px'}} columns={columns} dataSource={contentData?.data || []} />
+      style={{marginTop: '10px'}} columns={columns} dataSource={filteredData || []} />
     {edit && <UpdateContentScheduleDateModal type={type} onClose={() => setEdit(null)} open={!!edit} content={edit} />}
     {remove && <RemoveContentModal open={!!remove} onClose={() => setRemove(null)} content={remove} type={type} /> }
   </>

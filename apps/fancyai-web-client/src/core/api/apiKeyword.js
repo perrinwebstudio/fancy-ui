@@ -34,7 +34,7 @@ export const apiKeyword = api.injectEndpoints({
         return []
       },
       transformResponse: (response, meta, arg) => {
-        return transformResponseWithNotification(response, 'Keyword rejected successfully');
+        return transformResponseWithNotification(response, 'Keyword removed');
       },
     }),
     setKeywordType: build.mutation({

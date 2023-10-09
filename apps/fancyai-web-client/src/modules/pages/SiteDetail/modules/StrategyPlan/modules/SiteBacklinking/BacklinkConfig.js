@@ -1,9 +1,10 @@
+import _ from 'lodash'
 import { InfoCircleFilled } from '@ant-design/icons';
 import { Col, Input, InputNumber, Row, Space, Spin, Typography } from 'antd';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StyledBackConfigWrapper } from './index.styled';
 import { convertNumberToCommaSeparated } from '@crema/helpers';
-import { useGetBacklinkConfigQuery } from 'apps/fancyai-web-client/src/core/api/apiBacklink';
+import { useGetBacklinkConfigQuery, useUpdateBacklinkConfigMutation } from 'apps/fancyai-web-client/src/core/api/apiBacklink';
 import { useSiteDetail } from '@crema/modules/siteDetail';
 
 const BacklinkConfig = ({ prop1 }) => {
@@ -11,6 +12,29 @@ const BacklinkConfig = ({ prop1 }) => {
   const { data, isLoading } = useGetBacklinkConfigQuery({
     siteId: id,
   })
+  const [update] = useUpdateBacklinkConfigMutation()
+
+  const [monthlyPaidContentBudget, setMonthlyPaidContentBudget] = useState(data?.data?.monthlyPaidContentBudget)
+  useEffect(() => {
+    if (data?.data?.monthlyPaidContentBudget) {
+      setMonthlyPaidContentBudget(data.data.monthlyPaidContentBudget)
+    }
+  }, [data])
+
+  const updateBacklinkConfig = useCallback((value) => {
+    if (data?.data?._id) {
+      update({
+        backlinkConfigId: data?.data?._id,
+        updates: {
+          monthlyPaidContentBudget: value
+        },
+        showNotification: 'Paid content budget updated successfully'
+      })
+    }
+  }, [data?.data?._id])
+
+  // use debounce from lodash
+  const updateDebounce = useCallback(_.debounce(updateBacklinkConfig, 700), [updateBacklinkConfig])
 
   return <StyledBackConfigWrapper>
     <Row gutter={20}>
@@ -18,6 +42,11 @@ const BacklinkConfig = ({ prop1 }) => {
         <div className='budget primary'>
           {isLoading ? <Spin size="small" /> : <InputNumber
             className='number'
+            value={monthlyPaidContentBudget}
+            onChange={(value) => {
+              setMonthlyPaidContentBudget(value)
+              updateDebounce(value)
+            }}
             formatter={(value) =>
               `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }

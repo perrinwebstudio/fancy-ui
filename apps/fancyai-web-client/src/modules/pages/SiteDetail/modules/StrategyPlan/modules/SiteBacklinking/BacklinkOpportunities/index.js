@@ -73,13 +73,14 @@ const BacklinkOpportunities = ({ prop1 }) => {
       {
         title: 'Action',
         key: 'action',
-        render: (_, keyword) => (
-          <MenuDropdown 
+        render: (_, blacklink) => (
+          <MenuDropdown
+            canRemove={blacklink.status === 'pending'}
             onEdit={() => {
-              setEdit(keyword)
+              setEdit(blacklink)
             }}
             onRemove={() => {
-              setRemove(keyword)
+              setRemove(blacklink)
             }}
           />
         ),

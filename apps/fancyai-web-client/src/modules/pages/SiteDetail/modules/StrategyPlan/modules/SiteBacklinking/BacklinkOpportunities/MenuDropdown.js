@@ -5,11 +5,11 @@ import { CircleMenuButton } from '../../../shared.styled';
 import { MdMoreVert } from 'react-icons/md';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
-const MenuDropdown = ({ onEdit, onRemove }) => {
+const MenuDropdown = ({ onEdit, onRemove, canRemove }) => {
   const [open, setOpen] = useState(false);
 
   return <Popover
-    content={<Space direction='vertical'>
+    content={<Space style={{ minWidth: '150px' }} direction='vertical'>
       <Button
         onClick={() => {
           onEdit?.()
@@ -19,7 +19,7 @@ const MenuDropdown = ({ onEdit, onRemove }) => {
         padding: '0 5px',
         textAlign: 'left',
       }} type="link" icon={<EditOutlined />}>Edit</Button>
-      <Button
+      {canRemove && <Button
         onClick={() => {
           onRemove?.()
           setOpen(false)
@@ -27,7 +27,7 @@ const MenuDropdown = ({ onEdit, onRemove }) => {
         block style={{
         padding: '0 5px',
         textAlign: 'left',
-      }} danger type="text" icon={<DeleteOutlined />}>Remove</Button>
+      }} danger type="text" icon={<DeleteOutlined />}>Remove</Button>}
     </Space>}
     trigger='click'
     open={open}

@@ -35,7 +35,7 @@ export const apiContent = api.injectEndpoints({
     }),
     rejectContent: build.mutation({
       query: ({ contentId }) => ({
-        url: `keywords/${contentId}/reject`,
+        url: `content/${contentId}/reject`,
         method: "PATCH",
       }),
       invalidatesTags: (_result, error, _arg) => {
@@ -43,7 +43,7 @@ export const apiContent = api.injectEndpoints({
         return []
       },
       transformResponse: (response, meta, arg) => {
-        return transformResponseWithNotification(response, 'Content rejected successfully');
+        return transformResponseWithNotification(response, 'Item removed');
       },
     }),
   }),
