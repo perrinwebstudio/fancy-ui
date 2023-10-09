@@ -19,14 +19,11 @@ const UpdateContentScheduleDateModal = ({ open, onClose, content, type }) => {
 
   if (!content) return null
 
-  console.log('dayjs(content.scheduledFor, "M/D/YYYY")', dayjs(content.scheduledFor, "M/D/YYYY"))
-  console.log('date', date)
-
   return <StyledUpdateModal width={450} closable={false} footer={<></>} open={open} destroyOnClose onCancel={onClose}>
     <Typography.Title level={5}>{type === 'new' ? 'New Content Edits' : 'Content Update Edits'}</Typography.Title>
     <Divider />
     <Form layout='vertical'>
-      <Form.Item label="Blog/Page Topic">
+      {type === 'new' && <Form.Item label="Blog/Page Topic">
         <TextArea
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
@@ -34,7 +31,7 @@ const UpdateContentScheduleDateModal = ({ open, onClose, content, type }) => {
           placeholder="Enter blog/page topic"
           style={{ width: '100%' }}
         />
-      </Form.Item>
+      </Form.Item>}
       <Form.Item label="Schedule For">
        <DatePicker
         onChange={(date) => setDate(date)}
