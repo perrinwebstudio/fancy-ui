@@ -50,9 +50,9 @@ const FilterButton = ({ filters, onChangeToggleFilter, onClearAll }) => {
   >
     <Button type="link">
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontWeight: 'bold' }}>
-        Filter By
-        {!open && <CgChevronUp size={16} />}
-        {open && <CgChevronDown size={16} />}
+        <div>Filter By</div>
+        {!open && <CgChevronUp style={{marginTop: '3px'}} size={16} />}
+        {open && <CgChevronDown style={{marginTop: '3px'}} size={16} />}
       </div>
     </Button>
   </Popover>
