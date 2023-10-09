@@ -3,6 +3,15 @@ import { api } from "./api";
 
 export const apiUserSetting = api.injectEndpoints({
   endpoints: (build) => ({
+    getMFAQRImage: build.query({
+      query: ({}) => ({
+        url: `user/qrcode`,
+        method: "GET",
+      }),
+      transformResponse: (response, meta, arg) => {
+        return response;
+      },
+    }),
     updateUserSetting: build.mutation({
       query: (payload) => ({
         url: `user/profile`,
@@ -57,4 +66,5 @@ export const {
   useUpdateUserSettingMutation,
   useUpdateUserPasswordMutation,
   useUpdateUser2faMutation,
+  useGetMFAQRImageQuery,
 } = apiUserSetting;

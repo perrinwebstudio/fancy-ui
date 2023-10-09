@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Button, Col, Input, Typography, Switch, Image } from "antd";
 import IntlMessages from "@crema/helpers/IntlMessages";
 import { useIntl } from "react-intl";
-import { VerticalCenterDiv } from "./index.styled";
+import { StyledQRcodeImage, VerticalCenterDiv } from "./index.styled";
 import { Divider } from "antd";
 import AppCard from "@crema/components/AppCard";
 import {
@@ -10,8 +10,12 @@ import {
   StyledUserProfileGroupBtn,
 } from "../index.styled";
 import FloatLabel from "@crema/modules/components/floatLabel";
-import { useUpdateUser2faMutation } from "apps/fancyai-web-client/src/core/api/apiUserSetting";
+import {
+  useGetMFAQRImageQuery,
+  useUpdateUser2faMutation,
+} from "apps/fancyai-web-client/src/core/api/apiUserSetting";
 import { useAuthUser } from "@crema/hooks/AuthHooks";
+import AppLoader from "@crema/components/AppLoader";
 
 const { Text } = Typography;
 
@@ -28,6 +32,7 @@ const TwoFactorAuthentication = () => {
   );
 
   const [updateUser2fa, { isLoading }] = useUpdateUser2faMutation();
+  const { data: qrcode, isLoading: qrcodeLoading } = useGetMFAQRImageQuery({});
 
   const onFinish = () => {
     updateUser2fa?.({
@@ -88,13 +93,24 @@ const TwoFactorAuthentication = () => {
         </Col>
         <Col xs={24} md={12}>
           <h3>QR Code</h3>
-          <Image
-            src={
-              "/assets/images/qr-" +
-              (multiFactorEnabled ? "enabled.png" : "disabled.png")
-            }
-            preview={false}
-          />
+          {qrcodeLoading ? (
+            <StyledQRcodeImage>
+              <AppLoader />
+            </StyledQRcodeImage>
+          ) : (
+            <Image
+              src={
+                qrcode?.data ??
+                "/assets/images/qr-enabled.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+              }
+              style={{
+                filter: multiFactorEnabled ? "" : "blur(4px)",
+                transition: "all .2s",
+              }}
+              preview={false}
+              width={200}
+            />
+          )}
         </Col>
       </Row>
       <Row style={{ marginTop: "24px" }}>
