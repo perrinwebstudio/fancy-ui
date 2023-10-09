@@ -15,9 +15,10 @@ const SigninPage = ({ prop1 }) => {
     }}
     loginGithub={() => {
       location.href = `${environment.apiHost}/auth/github`
+      
     }}
     loginMicrosoft={() => {
-      alert('coming soon')
+      location.href = `${environment.apiHost}/auth/microsoft`
     }}
   />
 }
