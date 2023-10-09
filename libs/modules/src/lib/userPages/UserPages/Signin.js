@@ -28,6 +28,7 @@ import {
 } from "../index.styled";
 import { useNavigate } from "react-router-dom";
 import FloatLabel from "@crema/modules/components/floatLabel";
+import { initialUrl } from "@crema/constants";
 
 const Signin = ({
   loginEmail,
@@ -45,7 +46,11 @@ const Signin = ({
 
   const onFinish = (values) => {
     loginEmail?.(values).unwrap().then((result) => {
-      navigate('/verify-2fa');
+      if (result.twoFactorRequired) {
+        navigate('/verify-2fa');
+      } else {
+        navigate(initialUrl);
+      }
     })
     .catch(() => {});
   };

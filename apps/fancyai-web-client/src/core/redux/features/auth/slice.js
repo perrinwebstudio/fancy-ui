@@ -47,8 +47,15 @@ export const authSlice = createSlice({
     .addMatcher(
       apiAuth.endpoints.emailLogin.matchFulfilled,
       (state, action) => {
+        console.log('auth email', action.payload)
         if (action.payload.token) {
-          state.verify2FAToken = action.payload.token
+          if (action.payload.twoFactorRequired) {
+            state.verify2FAToken = action.payload.token
+          } else if (action.payload.multiFactorRequired) {
+            // TODO - handle MFA 
+          } else {
+            state.apiToken = action.payload.token
+          }
         }
       },
     )
