@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Button, Col, Input, Typography, Switch, Image } from "antd";
 import IntlMessages from "@crema/helpers/IntlMessages";
 import { useIntl } from "react-intl";
-import { VerticalCenterDiv } from "./index.styled";
+import { StyledQRcodeImage, VerticalCenterDiv } from "./index.styled";
 import { Divider } from "antd";
 import AppCard from "@crema/components/AppCard";
 import {
@@ -10,17 +10,46 @@ import {
   StyledUserProfileGroupBtn,
 } from "../index.styled";
 import FloatLabel from "@crema/modules/components/floatLabel";
+import {
+  useGetMFAQRImageQuery,
+  useUpdateUser2faMutation,
+} from "apps/fancyai-web-client/src/core/api/apiUserSetting";
+import { useAuthUser } from "@crema/hooks/AuthHooks";
+import AppLoader from "@crema/components/AppLoader";
 
 const { Text } = Typography;
 
 const TwoFactorAuthentication = () => {
   const { messages } = useIntl();
+  const { user } = useAuthUser();
 
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [enableTwoFactor, setEnableTwoFactor] = useState(false);
-  const [enableMultiFactor, setEnableMultiFactor] = useState(false);
+  // const [phoneNumber, setPhoneNumber] = useState("");
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(
+    user.twoFactorEnabled
+  );
+  const [multiFactorEnabled, setMultiFactorEnabled] = useState(
+    user.multiFactorEnabled
+  );
 
-  const onFinish = () => {};
+  const [updateUser2fa, { isLoading }] = useUpdateUser2faMutation();
+  const { data: qrcode, isLoading: qrcodeLoading } = useGetMFAQRImageQuery({});
+
+  const onFinish = () => {
+    updateUser2fa?.({
+      twoFactorEnabled,
+      multiFactorEnabled,
+    })
+      .unwrap()
+      .then((result) => {
+        getUser()
+          .unwrap()
+          .catch(() => {
+            dispatch(logout());
+            dispatch(resetStateAction());
+          });
+      })
+      .catch((err) => console.error(err));
+  };
 
   return (
     <>
@@ -28,7 +57,7 @@ const TwoFactorAuthentication = () => {
         <IntlMessages id="userProfile.two_factor" />
       </StyledUserProfileFormTitle>
       <Row gutter={12}>
-        <Col xs={24} md={12} lg={8}>
+        {/* <Col xs={24} md={12} lg={8}>
           <FloatLabel
             label={messages["userProfile.phone_number"]}
             value={phoneNumber}
@@ -40,10 +69,10 @@ const TwoFactorAuthentication = () => {
               }}
             />
           </FloatLabel>
-        </Col>
+        </Col> */}
         <Col xs={24} md={12}>
           <VerticalCenterDiv height={50}>
-            <Switch checked={enableTwoFactor} onChange={setEnableTwoFactor} />
+            <Switch checked={twoFactorEnabled} onChange={setTwoFactorEnabled} />
             <Text>{messages["userProfile.enable_two_factor"]}</Text>
           </VerticalCenterDiv>
         </Col>
@@ -56,30 +85,46 @@ const TwoFactorAuthentication = () => {
           </StyledUserProfileFormTitle>
           <VerticalCenterDiv height={40}>
             <Switch
-              checked={enableMultiFactor}
-              onChange={setEnableMultiFactor}
+              checked={multiFactorEnabled}
+              onChange={setMultiFactorEnabled}
             />
             <Text>{messages["userProfile.enable_multi_factor"]}</Text>
           </VerticalCenterDiv>
         </Col>
         <Col xs={24} md={12}>
           <h3>QR Code</h3>
-          <Image
-            src={
-              "/assets/images/qr-" +
-              (enableMultiFactor ? "enabled.png" : "disabled.png")
-            }
-            preview={false}
-          />
+          {qrcodeLoading ? (
+            <StyledQRcodeImage>
+              <AppLoader />
+            </StyledQRcodeImage>
+          ) : (
+            <Image
+              src={
+                qrcode?.data ??
+                "/assets/images/qr-enabled.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+              }
+              style={{
+                filter: multiFactorEnabled ? "" : "blur(4px)",
+                transition: "all .2s",
+              }}
+              preview={false}
+              width={200}
+            />
+          )}
         </Col>
       </Row>
-      <Row style={{ marginTop: "12px" }}>
+      <Row style={{ marginTop: "24px" }}>
         <Col xs={24} md={24}>
           <StyledUserProfileGroupBtn
             shouldUpdate
             className="user-profile-group-btn"
           >
-            <Button type="primary" onClick={onFinish}>
+            <Button
+              type="primary"
+              onClick={onFinish}
+              loading={isLoading}
+              disabled={isLoading}
+            >
               Save Changes
             </Button>
             <Button>Cancel</Button>
