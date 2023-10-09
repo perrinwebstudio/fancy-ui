@@ -1,4 +1,4 @@
-import { Space, Switch, Table } from 'antd';
+import { Space, Switch, Table, Tooltip } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React, { useMemo, useState } from 'react';
 import { convertNumberToCommaSeparated } from '@crema/helpers';
@@ -59,7 +59,7 @@ const ContentList = ({ type }) => {
       key: 'topi',
       render: (_, {topic, url}) => (
         <>
-          <StyledOneLineText>{topic}</StyledOneLineText>
+          <Tooltip title={topic}><StyledOneLineText>{topic}</StyledOneLineText></Tooltip>
           {url && <UrlHolder maxLine={1} url={url} />}
         </>
       ),
@@ -73,14 +73,6 @@ const ContentList = ({ type }) => {
           <StyledTwoLineText>{primaryKeyword}</StyledTwoLineText>
         </>
       ),
-    },
-    {
-      title: 'MSV',
-      dataIndex: 'monthlySearchVolume',
-      key: 'monthlySearchVolume',
-      render: (_, {monthlySearchVolume}) => {
-        return convertNumberToCommaSeparated(monthlySearchVolume)
-      },
     },
     {
       title: 'Secondary Keyword',
@@ -110,8 +102,16 @@ const ContentList = ({ type }) => {
         </>
       ),
     },
+    // {
+    //   title: 'Monthly Search Traffic',
+    //   dataIndex: 'monthlySearchVolume',
+    //   key: 'monthlySearchVolume',
+    //   render: (_, {monthlySearchVolume}) => {
+    //     return convertNumberToCommaSeparated(monthlySearchVolume)
+    //   },
+    // },
     {
-      title: 'Monthly Search Traffic',
+      title: 'MSV',
       dataIndex: 'monthlySearchVolume',
       key: 'monthlySearchVolume',
       render: (_, {monthlySearchVolume}) => {
