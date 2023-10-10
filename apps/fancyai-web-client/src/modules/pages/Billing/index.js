@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Col, Typography } from "antd";
-import { Skeleton } from 'antd';
+import { Skeleton } from "antd";
 
 import AppRowContainer from "@crema/components/AppRowContainer";
 import AppPageMeta from "@crema/components/AppPageMeta";
@@ -10,44 +10,58 @@ import {
   BillingTable,
   MonthlyPaymentCard,
   PaymentMethod,
-  PayModal
+  PayModal,
 } from "@crema/modules/billing";
 import AppInfoView from "@crema/components/AppInfoView";
 import Card from "antd/es/card/Card";
-import { useAddStripePaymentMethodMutation, useGetCompanyBillingDetailQuery, useGetPaypalLinkMutation } from "apps/fancyai-web-client/src/core/api/apiBilling";
+import {
+  useAddStripePaymentMethodMutation,
+  useGetCompanyBillingDetailQuery,
+  useGetPaypalLinkMutation,
+} from "apps/fancyai-web-client/src/core/api/apiBilling";
 import AppLoader from "@crema/components/AppLoader";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
+import { useAuthUser } from "@crema/hooks/AuthHooks";
 
 const { Title } = Typography;
 
 const Billing = () => {
   const [{ apiData: transactions }] = useGetDataApi("/transactions");
   const [pay, setPay] = React.useState(false);
-  const { selectedCompanyId } = useAppAuth()
-  
-  const { data, isLoading: isLoadingBillingDetail } = useGetCompanyBillingDetailQuery({
-    companyId: selectedCompanyId
-  });
+  const { selectedCompanyId } = useAppAuth();
 
-  const [addPaymentStrip] = useAddStripePaymentMethodMutation()
-  const [addPaymentPaypal] = useGetPaypalLinkMutation()
+  const { data, isLoading: isLoadingBillingDetail } =
+    useGetCompanyBillingDetailQuery({
+      companyId: selectedCompanyId,
+    });
+
+  const [addPaymentStrip] = useAddStripePaymentMethodMutation();
+  const [addPaymentPaypal] = useGetPaypalLinkMutation();
 
   const payment = useMemo(() => {
     if (!data) return null;
-    if (data.data.currentPaymentMethod === 'Stripe' && Object.keys(data.data.stripeDetail || {}.length > 0)) {
+    if (
+      data.data.currentPaymentMethod === "Stripe" &&
+      Object.keys(data.data.stripeDetail || {}.length > 0)
+    ) {
       return {
-        type: 'Stripe',
-        info: data.data.stripeDetail
+        type: "Stripe",
+        info: data.data.stripeDetail,
       };
     }
-    if (data.data.currentPaymentMethod === 'Paypal' && Object.keys(data.data.paypalDetail || {}.length > 0)) {
+    if (
+      data.data.currentPaymentMethod === "Paypal" &&
+      Object.keys(data.data.paypalDetail || {}.length > 0)
+    ) {
       return {
-        type: 'Paypal',
-        info: data.data.paypalDetail
-      }
+        type: "Paypal",
+        info: data.data.paypalDetail,
+      };
     }
-    return null
-  }, [data])
+    return null;
+  }, [data]);
+
+  const { isEmailVerified, setShowEmailConfirmPopup } = useAuthUser();
 
   return (
     <>
@@ -63,8 +77,13 @@ const Billing = () => {
             paymentTypeInfo={payment?.info}
             isLoading={isLoadingBillingDetail}
             onClickChange={() => {
-            setPay(true);
-          }} />
+              if (!isEmailVerified) {
+                setShowEmailConfirmPopup(true);
+                return;
+              }
+              setPay(true);
+            }}
+          />
         </Col>
       </AppRowContainer>
 
@@ -79,26 +98,26 @@ const Billing = () => {
         </AppRowContainer>
       ) : null}
 
-      {
-        pay && <PayModal
+      {pay && (
+        <PayModal
           onSubmitStripe={(id, info) => {
             return addPaymentStrip({
               companyId: selectedCompanyId,
               paymentMethodId: id,
               billingAddress: info,
-              cardHolderName: info.name
-            })
+              cardHolderName: info.name,
+            });
           }}
           onSubmitPaypal={() => {
             return addPaymentPaypal({
-              companyId: selectedCompanyId
-            })
+              companyId: selectedCompanyId,
+            });
           }}
           onClose={() => {
             setPay(false);
           }}
         />
-      }
+      )}
 
       <AppInfoView />
     </>

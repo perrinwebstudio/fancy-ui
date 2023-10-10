@@ -11,11 +11,12 @@ import {
 import AppInfoView from "@crema/components/AppInfoView";
 
 import { StyledWrapperBetween } from "./index.styled";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useGetCompanySitesMutation } from "apps/fancyai-web-client/src/core/api/apiAuth";
 import AppLoader from "@crema/components/AppLoader";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
+import { useAuthUser } from "@crema/hooks/AuthHooks";
 
 const { Title } = Typography;
 
@@ -23,9 +24,11 @@ const Sites = () => {
   const [sites, setSites] = useState([]);
   const [getCompanySites, { isLoading }] = useGetCompanySitesMutation();
   const { selectedCompanyId } = useAppAuth();
+  const navigate = useNavigate();
+  const { isEmailVerified, setShowEmailConfirmPopup } = useAuthUser();
 
   useEffect(() => {
-    console.log('get company sites!!!', selectedCompanyId)
+    console.log("get company sites!!!", selectedCompanyId);
     getCompanySites?.({ companyId: selectedCompanyId })
       .unwrap()
       .then((result) => {
@@ -52,25 +55,41 @@ const Sites = () => {
       .catch(() => {});
   }, [selectedCompanyId]);
 
+  const goToNewSite = () => {
+    if (!isEmailVerified) {
+      setShowEmailConfirmPopup(true);
+      return;
+    }
+    navigate("/pages/sites/add");
+  };
+
+  const goToSitePage = (id) => {
+    if (!isEmailVerified) {
+      setShowEmailConfirmPopup(true);
+      return;
+    }
+    navigate(`/pages/sites/${id}/strategy_plan`);
+  };
+
   return (
     <>
       <AppPageMeta title="Academy Dashboard" />
       <StyledWrapperBetween>
         <Title level={3}>Sites</Title>
-        <Link to="/pages/sites/add">
-          <Button type="primary">Add New Site</Button>
-        </Link>
+        <Button onClick={goToNewSite} type="primary">
+          Add New Site
+        </Button>
       </StyledWrapperBetween>
       {isLoading ? (
         <AppLoader />
       ) : (
         <AppRowContainer>
           <Col xs={24} sm={12} lg={6}>
-            <CreateCourseCategories />
+            <CreateCourseCategories goToNewSite={goToNewSite} />
           </Col>
           {sites.map((data, index) => (
             <Col xs={24} sm={12} lg={6} key={"b" + index}>
-              <CourseCategories course={data} />
+              <CourseCategories course={data} goToSitePage={goToSitePage} />
             </Col>
           ))}
         </AppRowContainer>

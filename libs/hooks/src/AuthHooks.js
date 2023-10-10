@@ -1,13 +1,22 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowEmailConfirmPopup } from "apps/fancyai-web-client/src/core/redux/features/auth/slice";
 
 export const useAuthUser = () => {
+  const dispatch = useDispatch();
+
   const auth = useSelector((state) => state.authSlice);
   const isAuthenticated = !!auth.currentUser;
   const isLoading = false;
+  const isEmailVerified =
+    auth?.currentUser?.signupConfirmed &&
+    auth?.currentUser?.emailChangeConfirmed;
 
   return {
     isLoading,
     isAuthenticated,
+    isEmailVerified,
+    showEmailConfirmPopup: auth.showEmailConfirmPopup,
+    setShowEmailConfirmPopup: (val) => dispatch(setShowEmailConfirmPopup(val)),
     user: auth.currentUser || null,
     companies: auth.companies || [],
     apiToken: auth.apiToken || null,

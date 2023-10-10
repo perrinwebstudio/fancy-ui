@@ -12,6 +12,7 @@ import AppLoader from "@crema/components/AppLoader";
 import EditMemberModal from "./EditMemberModal";
 import { useSiteDetail } from "@crema/modules/siteDetail";
 import RemoveMemberModal from "./RemoveMemberModal";
+import { useAuthUser } from "@crema/hooks/AuthHooks";
 
 const SiteMembers = ({ prop1 }) => {
   const [isShowInviteModal, setIsShowInviteModal] = useState(false);
@@ -26,6 +27,7 @@ const SiteMembers = ({ prop1 }) => {
   });
 
   const siteMembers = data?.data ?? [];
+  const { isEmailVerified, setShowEmailConfirmPopup } = useAuthUser();
 
   const columns = [
     {
@@ -52,6 +54,10 @@ const SiteMembers = ({ prop1 }) => {
           placeholder="Choose Role"
           value={text}
           onChange={(e) => {
+            if (!isEmailVerified) {
+              setShowEmailConfirmPopup(true);
+              return;
+            }
             setEditMemberId(record.id);
             setEditMemberRole(e);
             setIsShowEditModal(true);
@@ -96,17 +102,33 @@ const SiteMembers = ({ prop1 }) => {
   };
 
   const handleOpenEditModal = (memberId) => {
+    if (!isEmailVerified) {
+      setShowEmailConfirmPopup(true);
+      return;
+    }
     setEditMemberId(memberId);
     setIsShowEditModal(true);
   };
 
   const handleOpenDeleteModal = (memberId) => {
+    if (!isEmailVerified) {
+      setShowEmailConfirmPopup(true);
+      return;
+    }
     setEditMemberId(memberId);
     setIsShowDeleteModal(true);
   };
 
   const handleCloseDeleteModal = () => {
     setIsShowDeleteModal(false);
+  };
+
+  const handleShowInviteModal = (val) => {
+    if (!isEmailVerified) {
+      setShowEmailConfirmPopup(true);
+      return;
+    }
+    setIsShowInviteModal(val);
   };
 
   return (
@@ -122,7 +144,7 @@ const SiteMembers = ({ prop1 }) => {
         >
           Site Members
         </Typography>
-        <Button type="primary" onClick={() => setIsShowInviteModal(true)}>
+        <Button type="primary" onClick={() => handleShowInviteModal(true)}>
           Invite Site Member
         </Button>
       </Row>

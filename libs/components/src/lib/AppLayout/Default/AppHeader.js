@@ -7,11 +7,13 @@ import {
   StyledAppHeader,
   StyledAppHeaderSectionDesk,
   StyledAppHeaderSectionMobile,
+  StyledEmailConfirmPopup,
 } from "./index.styled";
-import { Button, Dropdown, Space, Typography } from "antd";
+import { Button, Collapse, Dropdown, Space, Typography } from "antd";
 import { StyledDropdownWrapper } from "../index.styled";
-import UserInfo from '../components/UserInfo';
+import UserInfo from "../components/UserInfo";
 import { MenuOutlined } from "@ant-design/icons";
+import { useAuthUser } from "@crema/hooks/AuthHooks";
 
 const items = [
   { key: 2, label: <AppNotifications /> },
@@ -19,17 +21,23 @@ const items = [
 ];
 
 const AppHeader = ({ isCollapsed, onToggleSidebar }) => {
+  const { showEmailConfirmPopup, setShowEmailConfirmPopup } = useAuthUser();
+
   return (
     <StyledAppHeader>
       <Space align="center">
         <Button
-          style={{padding: '5px'}}
-          type="ghost" onClick={() => {
-          onToggleSidebar(!isCollapsed)
-        }}>
+          style={{ padding: "5px" }}
+          type="ghost"
+          onClick={() => {
+            onToggleSidebar(!isCollapsed);
+          }}
+        >
           <MenuOutlined />
         </Button>
-        <Typography.Title style={{marginBottom: 0}} level={4}>Fancy AI</Typography.Title>
+        <Typography.Title style={{ marginBottom: 0 }} level={4}>
+          Fancy AI
+        </Typography.Title>
       </Space>
       <StyledAppHeaderSectionDesk>
         <AppNotifications />
@@ -52,6 +60,24 @@ const AppHeader = ({ isCollapsed, onToggleSidebar }) => {
           </Dropdown>
         </StyledDropdownWrapper>
       </StyledAppHeaderSectionMobile>
+      {showEmailConfirmPopup && (
+        <StyledEmailConfirmPopup>
+          <Typography>
+            Email Confirm
+            <br />
+            <br />
+            Please confirm your email address to continue. Check your inbox for
+            a confirmation email from us, click the provided link to verify your
+            account and enjoy our platform's features.
+          </Typography>
+          <Button
+            type="primary"
+            onClick={() => setShowEmailConfirmPopup(false)}
+          >
+            Got it
+          </Button>
+        </StyledEmailConfirmPopup>
+      )}
     </StyledAppHeader>
   );
 };
