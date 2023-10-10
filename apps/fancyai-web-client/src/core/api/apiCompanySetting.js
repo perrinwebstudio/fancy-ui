@@ -30,6 +30,23 @@ export const apiCompanySetting = api.injectEndpoints({
         );
       },
     }),
+    createCompanySetting: build.mutation({
+      query: (payload) => ({
+        url: `company`,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: (_result, error, _arg) => {
+        if (!error) return ["AuthUser"];
+        return [];
+      },
+      transformResponse: (response, meta, arg) => {
+        return transformResponseWithNotification(
+          response,
+          "Company settings updated successfully"
+        );
+      },
+    }),
     getS3PresignedUrl: build.mutation({
       query: (params) => ({
         url: `company/presigned-url`,
@@ -43,10 +60,5 @@ export const apiCompanySetting = api.injectEndpoints({
   }),
 });
 
-export const {
-  useFetchCompanyInfoQuery,
-  useUpdateCompanySettingMutation,
-  useUpdateUserPasswordMutation,
-  useUpdateUser2faMutation,
-  useGetMFAQRImageQuery,
-} = apiCompanySetting;
+export const { useFetchCompanyInfoQuery, useUpdateCompanySettingMutation } =
+  apiCompanySetting;
