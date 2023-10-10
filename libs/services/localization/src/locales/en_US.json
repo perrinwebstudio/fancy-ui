@@ -847,5 +847,6 @@
   "userProfile.enable_multi_factor": "Enable Multi-Factor Authentication",
   "member.invite": "Invite",
   "member.remove": "Remove Site Member",
-  "sidebar.billing": "Billing"
+  "sidebar.billing": "Billing",
+  "common.confirm_upload": "Confirm Upload"
 }

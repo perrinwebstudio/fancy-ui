@@ -1,4 +1,4 @@
-import { Avatar, Form } from "antd";
+import { Avatar, Button, Form } from "antd";
 import styled from "styled-components";
 
 export const StyledInputWrapper = styled.div`
@@ -61,4 +61,16 @@ export const StyledInfoUploadBtnView = styled.div`
     height: 30px;
     padding: 3.5px 12px;
   }
+`;
+
+export const StyledDivider = styled.hr`
+  border-width: 1px;
+  opacity: 0.3;
+  margin-bottom: 24px;
+`;
+
+export const StyledFormBtn = styled(Button)`
+  width: 100%;
+  min-height: 42px;
+  margin: 8px 0;
 `;

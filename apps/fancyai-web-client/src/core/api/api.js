@@ -12,6 +12,7 @@ export const api = createApi({
     "AuthUser",
     "Sites",
     "UserSetting",
+    "CompanySetting",
     "SiteMember",
     "TeamMembers",
   ],
