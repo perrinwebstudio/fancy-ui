@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const { Text } = Typography;
 
-const CreateCourseCategories = () => {
+const CreateCourseCategories = ({ goToNewSite }) => {
   return (
     <StyledCourseCategoryCard heightFull className="no-card-space">
       <StyledCenterWrapper>
@@ -20,14 +20,13 @@ const CreateCourseCategories = () => {
           <Text style={{ color: "#626D80", fontWeight: 400 }}>
             Short description
           </Text>
-          <Link to="/pages/sites/add">
-            <Button
-              type="primary"
-              style={{ padding: "12px 24px", height: "40px" }}
-            >
-              Add new site
-            </Button>
-          </Link>
+          <Button
+            type="primary"
+            onClick={goToNewSite}
+            style={{ padding: "12px 24px", height: "40px" }}
+          >
+            Add new site
+          </Button>
         </StyledCourseCategoryContent>
       </StyledCenterWrapper>
     </StyledCourseCategoryCard>
