@@ -22,11 +22,13 @@ import {
 import { useAppAuth } from "@crema/context/AppAuthProvider";
 import AppLoader from "@crema/components/AppLoader";
 import UploadLogoModal from "./UploadLogoModal";
+import { useGetUserMutation } from "apps/fancyai-web-client/src/core/api";
 
 const { Text } = Typography;
 
 const Settings = () => {
   const { selectedCompanyId } = useAppAuth();
+  const [getUser] = useGetUserMutation();
 
   const { data, isLoading: fetching } = useFetchCompanyInfoQuery(
     {
@@ -52,7 +54,11 @@ const Settings = () => {
 
   const onFinish = async (values) => {
     // console.log("Finish:", values);
-    updateCompanySetting?.({ ...values, logo, companyId: selectedCompanyId })
+    updateCompanySetting?.({
+      ...values,
+      logo: companyInfo.logo,
+      companyId: selectedCompanyId,
+    })
       .unwrap()
       .then((result) => {
         getUser()
@@ -60,7 +66,6 @@ const Settings = () => {
           .catch(() => {});
       })
       .catch((err) => console.error(err));
-    setIsUploading(false);
   };
 
   const handleOpenUploadModal = () => {

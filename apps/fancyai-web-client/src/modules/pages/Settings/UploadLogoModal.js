@@ -7,7 +7,10 @@ import { useAppAuth } from "@crema/context/AppAuthProvider";
 import { CloudUploadOutlined, InboxOutlined } from "@ant-design/icons";
 import { useDropzone } from "react-dropzone";
 import { useMemo, useState } from "react";
-import { useGetS3PresignedUrlMutation } from "apps/fancyai-web-client/src/core/api";
+import {
+  useGetS3PresignedUrlMutation,
+  useGetUserMutation,
+} from "apps/fancyai-web-client/src/core/api";
 import { useUpdateCompanySettingMutation } from "apps/fancyai-web-client/src/core/api/apiCompanySetting";
 import axios from "axios";
 
@@ -48,6 +51,7 @@ const UploadLogoModal = ({ isShowModal, handleCloseModal, companyInfo }) => {
   const { selectedCompanyId } = useAppAuth();
   const [getS3PresignedUrl] = useGetS3PresignedUrlMutation();
   const [updateCompanySetting] = useUpdateCompanySettingMutation();
+  const [getUser] = useGetUserMutation();
 
   const [companyImage, setCompanyImage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
