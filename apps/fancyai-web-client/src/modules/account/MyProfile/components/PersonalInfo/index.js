@@ -60,7 +60,7 @@ const PersonalInfo = () => {
 
   const onFinish = async (values) => {
     // console.log("Finish:", values);
-    let avatar = user.photoURL ?? "";
+    let avatar = user.avatar ?? "";
     if (acceptedFiles?.length) {
       const avatarFile = acceptedFiles[0];
       setIsUploading(true);
@@ -103,8 +103,8 @@ const PersonalInfo = () => {
         onFinish={onFinish}
         initialValues={{
           ...user,
-          userImage: user.photoURL
-            ? user.photoURL
+          userImage: user.avatar
+            ? user.avatar
             : "/assets/images/user_avatar_placeholder.jpg",
         }}
         form={form}

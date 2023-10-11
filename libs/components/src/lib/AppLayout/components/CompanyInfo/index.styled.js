@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Avatar, List } from "antd";
+import { Avatar, Button, Form, List } from "antd";
 import { darken } from "polished";
 
 export const StyledDivWrapper = styled.div`
@@ -20,6 +20,13 @@ export const StyledDropdownList = styled(List)`
         darken(0.03, theme.palette.background.paper)};
     }
   }
+`;
+
+export const StyledInputWrapper = styled.div`
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const StyledCrUserInfo = styled.div`
@@ -123,5 +130,87 @@ export const StyledCrUserDesignation = styled.span`
 
   .ant-layout-sider-dark & {
     color: inherit;
+  }
+`;
+
+export const StyledDivider = styled.hr`
+  border-width: 1px;
+  opacity: 0.3;
+  margin-bottom: 24px;
+`;
+
+export const StyledFormBtn = styled(Button)`
+  width: 100%;
+  min-height: 42px;
+  margin: 8px 0;
+`;
+
+export const StyledInfoUpload = styled(Form.Item)`
+  margin-bottom: 20px;
+
+  & .ant-form-item-control-input-content {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const StyledInfoUploadAvatar = styled(Avatar)`
+  margin-right: 16px;
+  width: 50px;
+  height: 50px;
+
+  [dir="rtl"] & {
+    margin-right: 0;
+    margin-left: 16px;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}px) {
+    width: 64px;
+    height: 64px;
+  }
+`;
+
+export const StyledInfoUploadContent = styled.div`
+  flex: 1;
+  font-size: ${({ theme }) => theme.font.size.sm};
+  color: ${({ theme }) => theme.palette.text.secondary};
+
+  & p {
+    margin-bottom: 0;
+  }
+`;
+
+export const StyledInfoUploadBtnView = styled.div`
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+
+  & .dropzone {
+    margin-right: 10px;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 10px;
+    }
+  }
+
+  & .ant-btn {
+    height: 30px;
+    padding: 3.5px 12px;
+  }
+`;
+
+export const StyledUserProfileGroupBtn = styled(Form.Item)`
+  position: relative;
+
+  & .ant-btn {
+    & + .ant-btn {
+      margin-left: 12px;
+
+      [dir="rtl"] & {
+        margin-left: 0;
+        margin-right: 12px;
+      }
+    }
   }
 `;
