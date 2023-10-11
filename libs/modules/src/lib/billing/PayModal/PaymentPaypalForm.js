@@ -3,32 +3,25 @@ import PropTypes from 'prop-types';
 import { Button, Form } from 'antd';
 import PaypalButton from './PaypalButton';
 
-const PaymentPaypalForm = ({ onLoadingChange, onSuccessChange, onCancel }) => {
+const PaymentPaypalForm = ({ onSubmit }) => {
   const [isLoading, setIsLoading] = React.useState(false)
-  const [isSuccess, setIsSuccess] = React.useState(false)
-
-  React.useEffect(() => {
-    console.log('isLoading', isLoading)
-    onLoadingChange && onLoadingChange(isLoading)
-  }, [isLoading])
-
-  React.useEffect(() => {
-    console.log('isSuccess', isSuccess)
-    onSuccessChange && onSuccessChange(isSuccess)
-  }, [isSuccess])
 
   return <Form layout='vertical'>
     <Form.Item label="Connect Paypal">
-      <div style={{marginTop: '10px'}}><PaypalButton /></div>
-    </Form.Item>
-    <Form.Item>
-      <Button type='primary' block onClick={() => {
-        setIsLoading(true)
-        setTimeout(() => {
-          setIsLoading(false)
-          setIsSuccess(true)
-        }, 2000)
-      }}>Pay USD 349.00</Button>
+      <div style={{marginTop: '10px'}}>
+        <PaypalButton
+          loading={isLoading}
+          onClick={async () => {
+            setIsLoading(true)
+            await onSubmit().unwrap().then((rsp) => {
+              setIsLoading(false)
+              location.href = rsp.data
+            }).catch(() => {
+              setIsLoading(false)
+            })
+          }}
+        />
+      </div>
     </Form.Item>
   </Form>
 }

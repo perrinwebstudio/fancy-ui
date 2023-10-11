@@ -97,40 +97,16 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
+  .ant-modal-content {
+    border-radius: 0px !important;
+  }
+
   .text-uppercase {
     text-transform: uppercase;
   }
 
   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #004d83 !important;
-  }
-
-  .ant-btn-primary {
-    background: ${({ theme }) => theme.palette.primary.main} !important;
-    border-color: ${({ theme }) => theme.palette.primary.main} !important;
-
-    &:hover,
-    &:focus {
-      background: ${({ theme }) =>
-        darken(0.08, theme.palette.primary.main)} !important;
-      border-color: ${({ theme }) =>
-        darken(0.08, theme.palette.primary.main)} !important;
-    }
-  }
-
-  .ant-btn-background-ghost.ant-btn-primary {
-    color: ${({ theme }) => theme.palette.primary.main} !important;
-    background: transparent !important;
-    border-color: ${({ theme }) => theme.palette.primary.main} !important;
-
-    &:hover,
-    &:focus {
-      color: ${({ theme }) =>
-        darken(0.08, theme.palette.primary.main)} !important;
-      background: transparent;
-      border-color: ${({ theme }) =>
-        darken(0.08, theme.palette.primary.main)} !important;
-    }
   }
 
   .ant-spin {
@@ -165,7 +141,7 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: ${({ theme }) => theme.font.weight.bold} !important;
   }
 
-  .ant-picker, .ant-btn, .ant-input, .ant-input-affix-wrapper, .ant-select-selector {
+  .ant-picker, .ant-btn, .ant-btn.ant-btn-lg, .ant-input, .ant-input-affix-wrapper, .ant-select-selector {
     border-radius: 0px;
   }
 
@@ -501,6 +477,10 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1;
   }
 
+  .ant-btn-link {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
+
   .ant-picker,
   .ant-picker-calendar-header,
   .ant-picker-panel,
@@ -667,6 +647,10 @@ export const GlobalStyles = createGlobalStyle`
         }
       }
     }
+  }
+
+  .nowrap {
+    white-space: nowrap;
   }
 
   //Framed Layout

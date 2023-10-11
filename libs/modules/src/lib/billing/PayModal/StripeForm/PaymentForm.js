@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements, AddressElement} from '@stripe/react-stripe-js';
 import { Col, Form, Row, theme } from 'antd';
 import StyledStripeForm from './StyledStripeForm';
 import { defaultTheme } from '@crema/constants/defaultConfig';
@@ -62,7 +62,7 @@ const PaymentForm = ({ prop1 }) => {
               </div>
             </fieldset>
           </Form.Item>
-      </Col>
+        </Col>
       </Row>
     </StyledStripeForm>
 }

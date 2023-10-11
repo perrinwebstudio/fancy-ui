@@ -1,9 +1,9 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 import StripeForm from './StripeForm';
 import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
-const PaymentCardForm = forwardRef(({ onLoadingChange, onSuccessChange, onCancel }, ref) => {
+const PaymentCardForm = forwardRef(({ onLoadingChange, onSuccessChange, onCancel, onSubmit }, ref) => {
   useImperativeHandle(ref, () => ({
     submit: () => {
       console.log('submit!!')
@@ -25,24 +25,50 @@ const PaymentCardForm = forwardRef(({ onLoadingChange, onSuccessChange, onCancel
     if(!error){
       try {
         const {id} = paymentMethod
-        return id
+        return {
+          success: true,
+          id,
+        }
       } catch (error) {
-        console.log("Error", error)
+        return {
+          success: false,
+          error: 'Something went wrong'
+        }
       }
     }else {
-      console.log(error.message)
+      return {
+        success: false,
+        error: error.message
+      }
     }
   }
 
   const handleSubmit = async (values) => {
     setIsLoading(true)
-    const id = await handleStripFormSubmit()
-    console.log('id', id)
-    console.log('values', values)
-    setTimeout(() => {
+    const result = await handleStripFormSubmit()
+
+    console.log('result', result)
+    
+    if (result.success) {
+      await onSubmit?.(result.id, values).unwrap().then(() => {
+        setIsLoading(false)
+        setIsSuccess(true)
+      }).catch(() => {
+        setIsLoading(false)
+        setIsSuccess(false)
+      })
+    } else {
+      console.log('notify')
+      notification.open({
+        message: 'Error',
+        description: result.error,
+        type: 'error',
+        onClick: () => {
+          console.log("Notification Clicked!");
+        },
+      })
       setIsLoading(false)
-      setIsSuccess(true)
-    }, 2000)
+    }
   }
 
   const [form] = Form.useForm()
@@ -60,14 +86,14 @@ const PaymentCardForm = forwardRef(({ onLoadingChange, onSuccessChange, onCancel
   return <Form onFinish={handleSubmit} form={form} layout='vertical' >
     <StripeForm />
 
-    <Form.Item label="Card Holder Name">
+    <Form.Item name="name" label="Card Holder Name">
       <Input placeholder='Card Holder Name' />
     </Form.Item>
 
-    <Form.Item style={{marginBottom: '10px'}} name="address1" label="Billing Address">
+    <Form.Item style={{marginBottom: '10px'}} name="line1" label="Billing Address">
       <Input placeholder='Address 1' />
     </Form.Item>
-    <Form.Item style={{marginBottom: '10px'}} name="address2">
+    <Form.Item style={{marginBottom: '10px'}} name="line2">
       <Input placeholder='Address 2' />
     </Form.Item>
     <Form.Item style={{marginBottom: '10px'}} name="country">
@@ -79,12 +105,12 @@ const PaymentCardForm = forwardRef(({ onLoadingChange, onSuccessChange, onCancel
     <Form.Item style={{marginBottom: '10px'}} name="city">
       <Input placeholder='City' />
     </Form.Item>
-    <Form.Item name="post_code">
+    <Form.Item name="postal_code">
       <Input placeholder='Post Code' />
     </Form.Item>
 
     <Form.Item>
-      <Button type='primary' block htmlType='submit'>Pay USD 349.00</Button>
+      <Button type='primary' block htmlType='submit'>Add Payment Method</Button>
     </Form.Item>
     <Form.Item>
       <Button type='ghost' block onClick={() => {

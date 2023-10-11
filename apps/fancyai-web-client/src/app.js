@@ -16,9 +16,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import AppSuspense from '@crema/components/AppSuspense';  
 import VerifyAuthTokenWrapper from './modules/auth/VerifyAuthTokenWrapper';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { environment } from './environments/environment';
 
 const App = () => (    
-  <GoogleOAuthProvider clientId="542245319481-obe8uphlakm8u8e8bg78m1j8djh9cflu.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId={environment.googleClientId}>
     <AppContextProvider>
       <Provider store={store}>
         <AppSuspense>

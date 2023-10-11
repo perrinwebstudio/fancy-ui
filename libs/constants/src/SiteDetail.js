@@ -1,35 +1,12 @@
 export const SITE_DETAIL_MENU_CONFIG = {
-  site_configuration: {
-    key: "site_configuration",
-    text: "Site Configuration",
-    defaultSubMenu: "general",
-    subMenu: {
-      general: {
-        key: "general",
-        text: "General Site / Business Information",
-      },
-      billing: {
-        key: "billing",
-        text: "Service Billing / Plan",
-      },
-      connections: {
-        key: "connections",
-        text: "Site Connections",
-      },
-      members: {
-        key: "members",
-        text: "Site Members",
-      },
-    },
-  },
   strategy_plan: {
     key: "strategy_plan",
     text: "Strategy Plan",
-    defaultSubMenu: "how_it_work",
+    defaultSubMenu: "overview",
     subMenu: {
-      how_it_work: {
-        key: "how_it_work",
-        text: "How It Works",
+      overview: {
+        key: "overview",
+        text: "Overview",
         icon: "how-it-work",
       },
       keyword_short_term: {
@@ -109,6 +86,29 @@ export const SITE_DETAIL_MENU_CONFIG = {
         key: "user_performance",
         text: "User Performance",
         icon: "user-add",
+      },
+    },
+  },
+  site_configuration: {
+    key: "site_configuration",
+    text: "Site Configuration",
+    defaultSubMenu: "general",
+    subMenu: {
+      general: {
+        key: "general",
+        text: "General Site / Business Information",
+      },
+      billing: {
+        key: "billing",
+        text: "Service Billing / Plan",
+      },
+      connections: {
+        key: "connections",
+        text: "Site Connections",
+      },
+      members: {
+        key: "members",
+        text: "Site Members",
       },
     },
   },

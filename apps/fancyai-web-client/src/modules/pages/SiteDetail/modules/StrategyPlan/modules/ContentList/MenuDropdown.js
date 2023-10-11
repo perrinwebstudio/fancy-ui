@@ -5,16 +5,26 @@ import { CircleMenuButton } from '../../shared.styled';
 import { MdMoreVert } from 'react-icons/md';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
-const MenuDropdown = ({ prop1 }) => {
+const MenuDropdown = ({ onEdit, onRemove, type }) => {
   const [open, setOpen] = useState(false);
 
   return <Popover
     content={<Space direction='vertical'>
-      <Button block style={{
+      <Button
+        onClick={() => {
+          onEdit?.()
+          setOpen(false)
+        }}
+        block style={{
         padding: '0 5px',
         textAlign: 'left',
-      }} primary type="link" icon={<EditOutlined />}>Edit</Button>
-      <Button block style={{
+      }} primary type="link" icon={<EditOutlined />}>{type === 'new' ? 'Edit' : 'Edit Scheduled Date'}</Button>
+      <Button
+        onClick={() => {
+          onRemove?.()
+          setOpen(false)
+        }}
+        block style={{
         padding: '0 5px',
         textAlign: 'left',
       }} danger type="text" icon={<DeleteOutlined />}>Remove</Button>

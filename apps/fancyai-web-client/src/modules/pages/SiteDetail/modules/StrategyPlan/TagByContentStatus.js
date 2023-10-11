@@ -1,7 +1,7 @@
 import { defaultTheme } from '@crema/constants/defaultConfig';
 import { Tag } from 'antd';
 import React, { useMemo } from 'react';
-import { StyledKeywordRankTag, StyledRankTag } from './shared.styled';
+import { StyledKeywordRankTag, StyledTag } from './shared.styled';
 import { CONTENT_STATUSES, getRankColor } from '@crema/constants';
 
 const TagByContentStatus = ({ status, isKeyword }) => {
@@ -10,7 +10,7 @@ const TagByContentStatus = ({ status, isKeyword }) => {
   const text = CONTENT_STATUSES[status]?.text || status
 
   if (!isKeyword) {
-    return <StyledRankTag style={{color: colorText, backgroundColor: colorBg}}>{text}</StyledRankTag>
+    return <StyledTag style={{color: colorText, backgroundColor: colorBg}}>{text}</StyledTag>
   }
 
   return <StyledKeywordRankTag style={{color: colorText, backgroundColor: colorBg}}>{text}</StyledKeywordRankTag>

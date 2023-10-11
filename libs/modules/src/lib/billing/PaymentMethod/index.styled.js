@@ -12,6 +12,7 @@ export const StyledPaymentMethodCard = styled(Card)`
 
   & .ant-card-body {
     flex: 1;
+    width: 100%;
   }
 
   & .ant-card {

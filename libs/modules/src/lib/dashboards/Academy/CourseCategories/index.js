@@ -23,7 +23,7 @@ const settings = {
   slidesToScroll: 1,
 };
 
-const CourseCategories = ({ course }) => {
+const CourseCategories = ({ course, goToSitePage }) => {
   const { images, title, desc, notifications, id } = course;
 
   return (
@@ -45,9 +45,9 @@ const CourseCategories = ({ course }) => {
             <IoMdNotifications />
             {notifications} Items for review
           </StyledCourseCategoryBadge>
-          <Link to={`/pages/sites/${id}/site_configuration`}>
-            <Button type="primary">Open</Button>
-          </Link>
+          <Button type="primary" onClick={() => goToSitePage(id)}>
+            Open
+          </Button>
         </StyledCourseCategoryFooter>
       </StyledCourseCategoryContent>
     </StyledCourseCategoryCard>

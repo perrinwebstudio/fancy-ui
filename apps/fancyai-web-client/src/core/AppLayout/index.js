@@ -19,11 +19,12 @@ import routesConfig from "../AppRoutes/routeConfig";
 import AuthWrapper from "./AuthWrapper";
 import { ReactNotifications } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
+import { Modal } from "antd";
 
 const AppLayout = () => {
   const { navStyle } = useLayoutContext();
 
-  const { user, isAuthenticated } = useAuthUser();
+  const { user, isAuthenticated, companies } = useAuthUser();
   const { updateNavStyle } = useLayoutActionsContext();
   const { updateMenuStyle, setSidebarBgImage } = useSidebarActionsContext();
   const AppLayout = Layouts[navStyle];
@@ -49,16 +50,18 @@ const AppLayout = () => {
     setSidebarBgImage,
   ]);
 
+  console.log('companies', companies)
+
   return (
     <>
       <ReactNotifications />
-      {isAuthenticated ? (
-        <AppLayout routes={routes} routesConfig={routesConfig} />
-      ) : (
-        <AuthWrapper>
-          <AppContentView routes={routes} />
-        </AuthWrapper>
-      )}
+      { isAuthenticated && !companies?.[0] && <Modal footer={<></>} open>
+        <div>Handle first company creation here</div>
+      </Modal> }
+      { isAuthenticated && companies?.[0] && <AppLayout routes={routes} routesConfig={routesConfig} /> }
+      { !isAuthenticated && <AuthWrapper>
+        <AppContentView routes={routes} />
+      </AuthWrapper> }
     </>
   );
 };

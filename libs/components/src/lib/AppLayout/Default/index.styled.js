@@ -1,5 +1,5 @@
 import AppScrollbar from "../../AppScrollbar";
-import { Input, Layout } from "antd";
+import { Card, Input, Layout } from "antd";
 import styled from "styled-components";
 import MainSidebar from "../components/MainSidebar";
 
@@ -346,5 +346,21 @@ export const StyledAppLayoutMain = styled(Layout)`
 
   @media screen and (min-width: 1200px) and (max-width: 1300px) {
     width: calc(100% - 15rem) !important;
+  }
+`;
+
+export const StyledEmailConfirmPopup = styled(Card)`
+  position: absolute;
+  top: 65px;
+  right: 30px;
+  width: calc(100% - 60px);
+  max-width: 400px;
+  & article {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  & button {
+    margin-top: 24px;
+    min-width: 100px;
   }
 `;

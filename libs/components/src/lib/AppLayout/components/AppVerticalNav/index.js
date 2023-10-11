@@ -24,7 +24,7 @@ const AppVerticalNav = ({ routesConfig }) => {
       setTimeout(() => {
         document
           .getElementById(pathname)
-          .scrollIntoView({ behavior: "smooth", block: "center" });
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
       }, 1);
     }
   }, [pathname]);

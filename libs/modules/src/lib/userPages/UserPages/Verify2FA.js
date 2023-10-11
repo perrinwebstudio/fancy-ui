@@ -41,7 +41,7 @@ const Signin = ({
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const {apiToken} = useAuthUser();
+  const {verify2FAToken: apiToken} = useAuthUser();
 
   const goToSignin = () => {
     navigate("/signin");

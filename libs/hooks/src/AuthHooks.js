@@ -1,18 +1,26 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowEmailConfirmPopup } from "apps/fancyai-web-client/src/core/redux/features/auth/slice";
 
 export const useAuthUser = () => {
+  const dispatch = useDispatch();
+
   const auth = useSelector((state) => state.authSlice);
   const isAuthenticated = !!auth.currentUser;
   const isLoading = false;
+  const isEmailVerified =
+    auth?.currentUser?.signupConfirmed &&
+    auth?.currentUser?.emailChangeConfirmed;
 
   return {
     isLoading,
     isAuthenticated,
+    isEmailVerified,
+    showEmailConfirmPopup: auth.showEmailConfirmPopup,
+    setShowEmailConfirmPopup: (val) => dispatch(setShowEmailConfirmPopup(val)),
     user: auth.currentUser || null,
     companies: auth.companies || [],
-    apiToken:
-      auth.apiToken ||
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlYW5kcm9AZmFuY3lhd2Vzb21lLmNvbSIsImlkIjoiNjUxYjE4MGRiYTliZTgwMDA4YmY4OTI0IiwidHdvRmFjdG9yUmVxdWlyZWQiOmZhbHNlLCJpYXQiOjE2OTYzNTExMDYsImV4cCI6MTY5ODA0ODM1ODAwOX0.N3afFAifZY2ADmTyR7lIe2WcXKX3QTZInQDtsrlTm1w",
+    apiToken: auth.apiToken || null,
+    verify2FAToken: auth.verify2FAToken || null,
   };
 };
 

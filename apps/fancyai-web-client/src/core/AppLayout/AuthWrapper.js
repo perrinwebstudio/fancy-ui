@@ -15,7 +15,7 @@ const AuthWrapper = ({ children }) => {
       <StyledMainAuthScrollbar>
         <AppAnimateGroup
           type="scale"
-          animateStyle={{ flex: 1 }}
+          // animateStyle={{ flex: 1 }}
           delay={0}
           style={{ height: "100%" }}
           interval={10}

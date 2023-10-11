@@ -14,11 +14,15 @@ import {
 } from "./index.styled";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
 import { CheckOutlined } from "@ant-design/icons";
+import CreateCompanyModal from "./CreateCompanyModal";
 
 const CompanyInfo = () => {
   const { themeMode } = useThemeContext();
   const { companies } = useAuthUser();
   const { selectedCompanyId, setSelectedCompanyId } = useAppAuth();
+
+  const [isShowCreateCompanyModal, setIsShowCreateCompanyModal] =
+    useState(false);
 
   const onClick = ({ key }) => {
     if (companies?.[key]?.id && companies?.[key]?.id !== selectedCompanyId) {
@@ -37,10 +41,7 @@ const CompanyInfo = () => {
             <StyledDivWrapper>
               <Image
                 width={40}
-                src={
-                  item.image_url ??
-                  "/assets/images/company_placeholder_logo.jpg"
-                }
+                src={item.logo ?? "/assets/images/company_placeholder_logo.jpg"}
                 style={{
                   border:
                     selectedCompanyId === item.id
@@ -66,7 +67,7 @@ const CompanyInfo = () => {
     arr.push({
       key: companies.length,
       label: (
-        <StyledDivWrapper>
+        <StyledDivWrapper onClick={() => setIsShowCreateCompanyModal(true)}>
           <Image
             width={40}
             src="/assets/images/add_company.png"
@@ -91,10 +92,7 @@ const CompanyInfo = () => {
         <StyledDivWrapper>
           <Image
             width={40}
-            src={
-              selected.image_url ??
-              "/assets/images/company_placeholder_logo.jpg"
-            }
+            src={selected.logo ?? "/assets/images/company_placeholder_logo.jpg"}
             preview={false}
           />
           {selected.name}
@@ -130,6 +128,10 @@ const CompanyInfo = () => {
             </StyledCrUserInfoContent>
           </StyledCrUserInfoInner>
         </Dropdown>
+        <CreateCompanyModal
+          isShowModal={isShowCreateCompanyModal}
+          handleCloseModal={() => setIsShowCreateCompanyModal(false)}
+        />
       </StyledCrUserInfo>
     </>
   );

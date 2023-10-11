@@ -28,10 +28,14 @@ import {
 } from "../index.styled";
 import { useNavigate } from "react-router-dom";
 import FloatLabel from "@crema/modules/components/floatLabel";
+import { initialUrl } from "@crema/constants";
 
 const Signin = ({
   loginEmail,
   isLoggingIn,
+  loginGoogle,
+  loginGithub,
+  loginMicrosoft
 }) => {
   const { messages } = useIntl();
   const navigate = useNavigate();
@@ -42,7 +46,11 @@ const Signin = ({
 
   const onFinish = (values) => {
     loginEmail?.(values).unwrap().then((result) => {
-      navigate('/verify-2fa');
+      if (result.twoFactorRequired) {
+        navigate('/verify-2fa');
+      } else {
+        navigate(initialUrl);
+      }
     })
     .catch(() => {});
   };
@@ -122,16 +130,16 @@ const Signin = ({
                 <IntlMessages id="common.orLoginWith" />
               </span>
               <StyledUserSocialLink>
-                <Button>
+                <Button onClick={loginGoogle}>
                   <GoogleOutlined />
                 </Button>
                 {/* <Button>
                   <LinkedinFilled />
                 </Button> */}
-                <Button>
+                <Button onClick={loginGithub}>
                   <GithubOutlined />
                 </Button>
-                <Button>
+                <Button onClick={loginMicrosoft}>
                   <BsMicrosoft />
                 </Button>
               </StyledUserSocialLink>

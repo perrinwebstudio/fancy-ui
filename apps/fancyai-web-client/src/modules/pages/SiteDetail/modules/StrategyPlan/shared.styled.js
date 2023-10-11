@@ -1,5 +1,35 @@
-import { Button } from "antd";
+import { Button, Card, Modal } from "antd";
 import styled from "styled-components";
+
+export const StyledStrategyPlanCard = styled(Card)`
+  margin-bottom: 20px;
+
+  h5 {
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+`
+
+export const StyledUpdateModal = styled(Modal)`
+  .ant-modal-content {
+    background: #fafafa;
+    padding: 40px;
+  }
+
+  .ant-picker-large input {
+    font-size: ${({ theme }) => {
+      return theme.font.size.base
+    }};
+  }
+
+  .ant-divider {
+    margin: 15px 0px 30px 0px;
+    border-color: ${({ theme }) => {
+      console.log('theme', theme)
+      return theme.palette.gray[400]
+    }};
+  }
+`
 
 export const CircleMenuButton = styled(Button)`
   box-shadow: 0px 4px 8px 0px #00000014 !important;
@@ -7,7 +37,7 @@ export const CircleMenuButton = styled(Button)`
   border: none;
 `
 
-export const StyledRankTag = styled.span`
+export const StyledTag = styled.span`
   padding: 5px 15px;
   border-radius: 5px;
   display: inline-block;
@@ -19,9 +49,9 @@ export const StyledKeywordRankTag = styled.span`
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
-  display: -webkit-box;
-  max-width: 100%;
-  min-width: 200px;
+  // display: -webkit-box;
+  // max-width: 100%;
+  // min-width: 200px;
   -webkit-line-clamp: 3; /* number of lines to show */
           line-clamp: 3; 
   -webkit-box-orient: vertical;
@@ -30,11 +60,14 @@ export const StyledKeywordRankTag = styled.span`
 export const StyledUrlHolder = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 100px;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
-          line-clamp: 2; 
+  -webkit-line-clamp: ${(props => props.maxLine)}; /* number of lines to show */
+          line-clamp: ${(props => props.maxLine)}; 
   -webkit-box-orient: vertical;
+
+  & a {
+    word-break: break-all
+  }
 `
 
 export const StyledOneLineText = styled.div`

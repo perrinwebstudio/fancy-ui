@@ -1,64 +1,74 @@
 import { Modal, Form, Input } from "antd";
 import FloatLabel from "@crema/modules/components/floatLabel";
-import { StyledDivider, StyledFormBtn, StyledSelect } from "./index.styled";
+import {
+  StyledDivider,
+  StyledFormBtn,
+  StyledSelect,
+  StyledFormTitle,
+  StyledMemberInformation,
+} from "./index.styled";
 import IntlMessages from "@crema/helpers/IntlMessages";
-import { useInviteTeamMemberMutation } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
+import { useTeamMemberChangeRoleMutation } from "apps/fancyai-web-client/src/core/api/apiTeamMembers";
+import { useEffect, useState } from "react";
 import { useAppAuth } from "@crema/context/AppAuthProvider";
 
-const EditMemberModal = ({ isShowModal, handleCloseModal, member }) => {
+const EditMemberModal = ({
+  isShowModal,
+  handleCloseModal,
+  member,
+  handleSuccess,
+  editRole,
+}) => {
   const [form] = Form.useForm();
-  const name = Form.useWatch("name", form);
-  const email = Form.useWatch("email", form);
-  const role = Form.useWatch("role", form);
   const { selectedCompanyId } = useAppAuth();
 
-  const [inviteTeamMember, { isLoading }] = useInviteTeamMemberMutation();
+  const [teamMemberChangeRole, { isLoading }] =
+    useTeamMemberChangeRoleMutation();
 
-  const handleInviteMember = (values) => {
-    // inviteTeamMember?.({ ...values, companyId: selectedCompanyId })
-    //   ?.unwrap()
-    //   .then((result) => {
-    //     console.log(result);
-    //   });
+  const handleEditMember = (values) => {
+    teamMemberChangeRole?.({
+      ...values,
+      companyId: selectedCompanyId,
+      userId: member?.id,
+    })
+      ?.unwrap()
+      .then((result) => {
+        handleSuccess?.();
+        handleCloseModal();
+      })
+      .catch((err) => console.error(err));
   };
+
+  useEffect(() => {
+    form.setFieldsValue({
+      role: editRole ?? member?.role,
+    });
+  }, [member?.role, editRole]);
 
   return (
     <Modal
-      title="Edit Team Member"
+      title={editRole ? "Role change confirmation" : "Edit Team Member"}
       open={isShowModal}
       onCancel={handleCloseModal}
       okButtonProps={{ style: { display: "none" } }}
       cancelButtonProps={{ style: { display: "none" } }}
     >
       <StyledDivider />
+      {editRole}
       <Form
-        name="invite_member"
-        initialValues={{
-          name: member?.name,
-          email: member?.email,
-          role: member?.role,
-        }}
-        onFinish={handleInviteMember}
+        name="edit_member"
+        initialValues={{}}
+        onFinish={handleEditMember}
         form={form}
       >
-        <FloatLabel label="Member Full Name" value={name}>
-          <Form.Item
-            name="name"
-            className="form-field"
-            rules={[{ required: true, message: "Please input member name!" }]}
-          >
-            <Input />
-          </Form.Item>
-        </FloatLabel>
-        <FloatLabel label="Member Email" value={email}>
-          <Form.Item
-            name="email"
-            className="form-field"
-            rules={[{ required: true, message: "Please input member email!" }]}
-          >
-            <Input />
-          </Form.Item>
-        </FloatLabel>
+        <StyledFormTitle>Member</StyledFormTitle>
+
+        <StyledMemberInformation>
+          <b>{member?.name}</b> / {member?.email}
+        </StyledMemberInformation>
+
+        <StyledFormTitle>Role</StyledFormTitle>
+
         <Form.Item
           name="role"
           className="form-field"

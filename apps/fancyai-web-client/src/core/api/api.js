@@ -7,7 +7,15 @@ export const REDUCER_KEY_USER_API = "splitApi";
 export const api = createApi({
   reducerPath: REDUCER_KEY_USER_API,
   baseQuery: apiUserBaseQuery,
-  tagTypes: ["Users", "AuthUser", "Sites", "UserSetting", "SiteMember"],
+  tagTypes: [
+    "Users",
+    "AuthUser",
+    "Sites",
+    "UserSetting",
+    "CompanySetting",
+    "SiteMember",
+    "TeamMembers",
+  ],
   endpoints: (builder) => ({
     getUser: builder.mutation({
       query: () => {
@@ -20,7 +28,21 @@ export const api = createApi({
       },
       providesTags: ["AuthUser"],
     }),
+    getS3PresignedUrl: builder.mutation({
+      query: (params) => ({
+        url: `user/presigned-url`,
+        method: "GET",
+        params,
+      }),
+      transformResponse: (response, meta, arg) => {
+        return response;
+      },
+    }),
   }),
 });
 
-export const { useGetUserMutation, useFetchUserQuery } = api;
+export const {
+  useGetUserMutation,
+  useFetchUserQuery,
+  useGetS3PresignedUrlMutation,
+} = api;

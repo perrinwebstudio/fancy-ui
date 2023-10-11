@@ -50,5 +50,5 @@ export const formatCurrency = (value, currencyFormat, decimalDigits) => {
 };
 
 export const convertNumberToCommaSeparated = (value) => {
-  return new Intl.NumberFormat('en-IN').format(value);
+  return new Intl.NumberFormat('en-GB').format(value);
 }

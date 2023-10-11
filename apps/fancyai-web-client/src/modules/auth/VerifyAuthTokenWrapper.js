@@ -16,6 +16,7 @@ export default function VerifyAuthTokenWrapper({ children }) {
 
   useEffect(() => {
     const init = async () => {
+      console.log('called init')
       setIsInitializing(true)
       if (apiToken && currentUser == null) {
         await getUser()
@@ -28,14 +29,7 @@ export default function VerifyAuthTokenWrapper({ children }) {
       setIsInitializing(false)
     }
     init()
-    // if (urlPath !== '/verify-2fa' && urlPath !== '/signin') {
-    //   init()
-    //     .then(() => {
-    //       setIsInitializing(false)
-    //     })
-    //     .catch(() => {})
-    // }
-  }, [])
+  }, [apiToken])
 
   if (isLoading || isInitializing) {
     return <AppLoader />
