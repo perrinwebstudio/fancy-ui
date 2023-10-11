@@ -15,8 +15,9 @@ import {
 import { useAppAuth } from "@crema/context/AppAuthProvider";
 import { CheckOutlined } from "@ant-design/icons";
 import CreateCompanyModal from "./CreateCompanyModal";
+import CompanyLogo from "./CompanyLogo";
 
-const CompanyInfo = () => {
+const CompanyInfo = ({ isCollapsed }) => {
   const { themeMode } = useThemeContext();
   const { companies } = useAuthUser();
   const { selectedCompanyId, setSelectedCompanyId } = useAppAuth();
@@ -39,26 +40,20 @@ const CompanyInfo = () => {
           key: index,
           label: (
             <StyledDivWrapper>
-              <Image
-                width={40}
-                src={item.logo ?? "/assets/images/company_placeholder_logo.jpg"}
-                style={{
-                  border:
-                    selectedCompanyId === item.id
-                      ? "1px solid #28BC37"
-                      : "1px solid #CDCDCD",
-                  borderRadius: "50%",
-                }}
-                preview={false}
+              <CompanyLogo
+                name={item.name}
+                url={item.logo}
+                selected={selectedCompanyId === item.id}
               />
+              
               {item.name}
-              <CheckOutlined
+              {selectedCompanyId === item.id && <CheckOutlined
                 style={{
                   color: "#28BC37",
                   marginLeft: "auto",
                   marginRight: "4px",
                 }}
-              />
+              />}
             </StyledDivWrapper>
           ),
         };
@@ -83,24 +78,25 @@ const CompanyInfo = () => {
       ),
     });
     return arr;
-  }, [companies]);
+  }, [companies, selectedCompanyId]);
 
   const currentCompany = useMemo(() => {
     let selected = companies?.filter((itm) => itm.id === selectedCompanyId)[0];
     if (selected) {
       return (
         <StyledDivWrapper>
-          <Image
-            width={40}
-            src={selected.logo ?? "/assets/images/company_placeholder_logo.jpg"}
-            preview={false}
-          />
-          {selected.name}
+          <div style={{ cursor: 'pointer' }}>
+            <CompanyLogo
+              name={selected.name}
+              url={selected.logo}
+            />
+          </div>
+          {isCollapsed ? '' : selected.name}
         </StyledDivWrapper>
       );
     }
     return <></>;
-  }, [selectedCompanyId]);
+  }, [selectedCompanyId, isCollapsed, companies]);
 
   return (
     <>
@@ -119,14 +115,14 @@ const CompanyInfo = () => {
           }}
           arrow
         >
-          <StyledCrUserInfoInner className="ant-dropdown-link">
+          {isCollapsed ? currentCompany : <StyledCrUserInfoInner className="ant-dropdown-link">
             <StyledCrUserInfoContent className="cr-user-info-content">
               <StyledUsernameInfo>{currentCompany}</StyledUsernameInfo>
               <StyledUserArrow className="cr-user-arrow">
                 <FaChevronDown />
               </StyledUserArrow>
             </StyledCrUserInfoContent>
-          </StyledCrUserInfoInner>
+          </StyledCrUserInfoInner>}
         </Dropdown>
         <CreateCompanyModal
           isShowModal={isShowCreateCompanyModal}

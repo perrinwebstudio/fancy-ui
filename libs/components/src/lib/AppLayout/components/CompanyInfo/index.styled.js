@@ -2,6 +2,20 @@ import styled from "styled-components";
 import { Avatar, Button, Form, List } from "antd";
 import { darken } from "polished";
 
+export const StyledCompanyTextLogo = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.palette.orange[6]};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  line-height: 20px;
+  color: ${({ theme }) => theme.palette.white};
+  font-family: system-ui;
+`
+
 export const StyledDivWrapper = styled.div`
   display: flex;
   justify-content: start;

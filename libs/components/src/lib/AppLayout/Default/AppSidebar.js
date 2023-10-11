@@ -22,7 +22,7 @@ const AppSidebar = ({ isCollapsed, routesConfig }) => {
       breakpoint='xl'
       collapsed={isCollapsed}
     >
-      <CompanyInfo />
+      <CompanyInfo isCollapsed={isCollapsed} />
       <StyledAppSidebarScrollbar scrollToTop={false}>
         <AppVerticalMenu routesConfig={routesConfig} />
       </StyledAppSidebarScrollbar>
