@@ -53,12 +53,12 @@ export const BACKLINK_OPPORTUNITY_STATUSES = {
     txtColor: '#006EBD',
     bgColor: '#DFEFFF'
   },
-  'accepted': {
-    key: 'accepted',
-    text: 'Live',
-    txtColor: '#067F12',
-    bgColor: '#D7FADA'
-  },
+  // 'accepted': {
+  //   key: 'accepted',
+  //   text: 'Live',
+  //   txtColor: '#067F12',
+  //   bgColor: '#D7FADA'
+  // },
   'live': {
     key: 'live',
     text: 'Live',
