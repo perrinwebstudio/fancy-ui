@@ -10,7 +10,7 @@ const BacklinkStatus = ({ status }) => {
   return <StyledTag style={{
     backgroundColor: _status.bgColor,
     color: _status.txtColor,
-    fontWeight: 600
+    fontWeight: 600,
   }} >{_status.text || status}</StyledTag>
 }
 

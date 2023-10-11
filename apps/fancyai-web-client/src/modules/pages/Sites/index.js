@@ -73,7 +73,7 @@ const Sites = () => {
 
   return (
     <>
-      <AppPageMeta title="Academy Dashboard" />
+      <AppPageMeta title="Sites" />
       <StyledWrapperBetween>
         <Title level={3}>Sites</Title>
         <Button onClick={goToNewSite} type="primary">
