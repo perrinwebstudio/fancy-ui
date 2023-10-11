@@ -14,13 +14,17 @@ const MenuDropdown = ({ keyword, onRemove }) => {
   const onChange = useCallback((type, checked) => {
     if (checked) {
       setType({
+        siteId: keyword.site,
         keywordId: keyword._id,
-        keywordType: type
+        keywordType: type,
+        showNotification: true
       })
     } else {
       setType({
+        siteId: keyword.site,
         keywordId: keyword._id,
-        keywordType: KEYWORD_TYPE_NONE
+        keywordType: KEYWORD_TYPE_NONE,
+        showNotification: true
       })
     }
   }, [keyword])

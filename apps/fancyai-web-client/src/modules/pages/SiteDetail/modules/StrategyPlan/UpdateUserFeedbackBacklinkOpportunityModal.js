@@ -28,6 +28,7 @@ const UpdateUserFeedbackBacklinkOpportunityModal = ({ open, onClose, backlink })
       onClick={() => {
         update({
           backlinkId: backlink._id,
+          siteId: backlink.site,
           showNotification: true,
           updates: {
             userFeedback: userFeedback

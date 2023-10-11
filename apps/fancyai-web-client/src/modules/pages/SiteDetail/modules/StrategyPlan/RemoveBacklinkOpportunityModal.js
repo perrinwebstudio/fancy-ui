@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button, Divider, Form, Modal, Typography, theme } from 'antd';
-import { useRejectKeywordMutation } from 'apps/fancyai-web-client/src/core/api/apiKeyword';
-import UrlHolder from './UrlHolder';
+import { Button, Divider, Form, Typography, theme } from 'antd';
 import { useUpdateBacklinkOpportunityMutation } from 'apps/fancyai-web-client/src/core/api/apiBacklink';
 import { StyledUpdateModal } from './shared.styled';
 
@@ -29,6 +27,7 @@ const RemoveBacklinkOpportunityModal = ({ open, onClose, backlink }) => {
         onClick={() => {
           update({
             backlinkId: backlink._id,
+            siteId: backlink.site,
             showNotification: 'Backlink opportunity removed successfully',
             updates: {
               status: 'rejected'

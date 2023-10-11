@@ -25,6 +25,7 @@ const BacklinkConfig = ({ prop1 }) => {
     if (data?.data?._id) {
       update({
         backlinkConfigId: data?.data?._id,
+        siteId: id,
         updates: {
           monthlyPaidContentBudget: value
         },

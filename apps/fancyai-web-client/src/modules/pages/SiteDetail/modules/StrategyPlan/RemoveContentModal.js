@@ -19,6 +19,7 @@ const RemoveContentModal = ({ open, onClose, content, type }) => {
       loading={isLoading}
       onClick={() => {
         reject({
+          siteId: content.site,
           contentId: content._id
         }).unwrap().then(() => {
           onClose()

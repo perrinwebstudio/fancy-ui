@@ -5,28 +5,28 @@ export const apiKeyword = api.injectEndpoints({
   endpoints: (build) => ({
     getResearchKeywords: build.query({
       query: ({ siteId }) => ({
-        url: `keywords?siteId=${siteId}`,
+        url: `keywords/list/${siteId}`,
         method: "GET",
       }),
       providesTags: ['Keywords']
     }),
     getLongTermKeywords: build.query({
       query: ({ siteId }) => ({
-        url: `keywords/longterm?siteId=${siteId}`,
+        url: `keywords/longterm/${siteId}`,
         method: "GET",
       }),
       providesTags: ['Keywords']
     }),
     getShortTermsKeywords: build.query({
       query: ({ siteId }) => ({
-        url: `keywords/shortterm?siteId=${siteId}`,
+        url: `keywords/shortterm/${siteId}`,
         method: "GET",
       }),
       providesTags: ['Keywords']
     }),
     rejectKeyword: build.mutation({
-      query: ({ keywordId }) => ({
-        url: `keywords/${keywordId}/reject`,
+      query: ({ siteId, keywordId }) => ({
+        url: `keywords/reject/${siteId}/${keywordId}`,
         method: "PATCH",
       }),
       invalidatesTags: (_result, error, _arg) => {
@@ -38,8 +38,8 @@ export const apiKeyword = api.injectEndpoints({
       },
     }),
     setKeywordType: build.mutation({
-      query: ({ keywordId, keywordType }) => ({
-        url: `keywords/${keywordId}/settype`,
+      query: ({ siteId, keywordId, keywordType }) => ({
+        url: `keywords/settype/${siteId}/${keywordId}`,
         method: "PATCH",
         body: {
           keywordType,

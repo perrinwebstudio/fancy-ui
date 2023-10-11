@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
-import { Button, DatePicker, Divider, Form, Modal, Typography, theme } from 'antd';
-import { useRejectKeywordMutation } from 'apps/fancyai-web-client/src/core/api/apiKeyword';
+import { Button, DatePicker, Divider, Form, Typography } from 'antd';
 import { useUpdateContentMutation } from 'apps/fancyai-web-client/src/core/api/apiContent';
 import dayjs from 'dayjs';
 import { StyledUpdateModal } from './shared.styled';
 import TextArea from 'antd/es/input/TextArea';
 
 const UpdateContentScheduleDateModal = ({ open, onClose, content, type }) => {
-  console.log('content', content)
-
   const [update, { isLoading }] = useUpdateContentMutation()
   const [date, setDate] = React.useState(dayjs(content.scheduledFor, "M/D/YYYY"))
   const [topic, setTopic] = React.useState(content.topic)
@@ -48,6 +45,7 @@ const UpdateContentScheduleDateModal = ({ open, onClose, content, type }) => {
       disabled={topic === content.topic && date.isSame(dayjs(content.scheduledFor, "M/D/YYYY"))}
       onClick={() => {
         update({
+          siteId: content.site,
           contentId: content._id,
           showNotification: true,
           updates: {

@@ -16,8 +16,8 @@ export const apiBacklink = api.injectEndpoints({
       },
     }),
     updateBacklinkConfig: build.mutation({
-      query: ({ backlinkConfigId, updates }) => ({
-        url: `backlinkconfig/${backlinkConfigId}`, // @TODO: use a separate endpoint instead 
+      query: ({ siteId, backlinkConfigId, updates }) => ({
+        url: `backlinkconfig/${siteId}/${backlinkConfigId}`, // @TODO: use a separate endpoint instead 
         method: "PATCH",
         body: {
           updates
@@ -37,14 +37,14 @@ export const apiBacklink = api.injectEndpoints({
     }),
     getBacklinkOpportunities: build.query({
       query: ({ siteId }) => ({
-        url: `backlinks?siteId=${siteId}`,
+        url: `backlinks/${siteId}`,
         method: "GET",
       }),
       providesTags: ['Backlink']
     }),
     updateBacklinkOpportunity: build.mutation({
-      query: ({ backlinkId, updates }) => ({
-        url: `backlinks/${backlinkId}`,
+      query: ({ siteId, backlinkId, updates }) => ({
+        url: `backlinks/${siteId}/${backlinkId}`,
         method: "PATCH",
         body: {
           updates

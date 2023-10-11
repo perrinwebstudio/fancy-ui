@@ -22,12 +22,6 @@ export const apiAuth = api.injectEndpoints({
         method: "POST",
         body,
       }),
-      transformResponse: (response) => {
-        return transformResponseWithNotification(
-          response,
-          "Login successfully"
-        );
-      },
     }),
     emailLogin: build.mutation({
       query: (body) => ({
@@ -35,12 +29,6 @@ export const apiAuth = api.injectEndpoints({
         method: "POST",
         body,
       }),
-      transformResponse: (response) => {
-        return transformResponseWithNotification(
-          response,
-          "Login successfully"
-        );
-      },
     }),
 
     userSignup: build.mutation({

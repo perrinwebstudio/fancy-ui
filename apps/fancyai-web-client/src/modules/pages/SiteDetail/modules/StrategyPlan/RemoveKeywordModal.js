@@ -27,6 +27,7 @@ const RemoveKeywordModal = ({ open, onClose, keyword }) => {
       loading={isLoading}
       onClick={() => {
         reject({
+          siteId: keyword.site,
           keywordId: keyword._id
         }).unwrap().then(() => {
           onClose()

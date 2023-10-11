@@ -5,21 +5,21 @@ export const apiContent = api.injectEndpoints({
   endpoints: (build) => ({
     getNewContents: build.query({
       query: ({ siteId }) => ({
-        url: `content/new?siteId=${siteId}`,
+        url: `content/${siteId}/new`,
         method: "GET",
       }),
       providesTags: ['Contents']
     }),
     getContentUpdates: build.query({
       query: ({ siteId }) => ({
-        url: `content/updates?siteId=${siteId}`,
+        url: `content/${siteId}/updates`,
         method: "GET",
       }),
       providesTags: ['Contents']
     }),
     updateContent: build.mutation({
-      query: ({ contentId, updates }) => ({
-        url: `content/${contentId}`,
+      query: ({ siteId, contentId, updates }) => ({
+        url: `content/${siteId}/${contentId}`,
         method: "PATCH",
         body: {
           updates,
@@ -34,8 +34,8 @@ export const apiContent = api.injectEndpoints({
       }),
     }),
     rejectContent: build.mutation({
-      query: ({ contentId }) => ({
-        url: `content/${contentId}/reject`,
+      query: ({ siteId, contentId }) => ({
+        url: `content/reject/${siteId}/${contentId}`,
         method: "PATCH",
       }),
       invalidatesTags: (_result, error, _arg) => {
