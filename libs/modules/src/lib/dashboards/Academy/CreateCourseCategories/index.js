@@ -18,7 +18,7 @@ const CreateCourseCategories = ({ goToNewSite }) => {
           <FaPager size={46} color="#626d80"></FaPager>
           <Text strong>+ Add new site</Text>
           <Text style={{ color: "#626D80", fontWeight: 400 }}>
-            Short description
+            Superpower a new site with AI
           </Text>
           <Button
             type="primary"
