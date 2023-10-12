@@ -4,7 +4,7 @@ import {
   StyledAnalysisPane,
   StyledAnalysisTitle,
 } from "./index.styled";
-import { Card } from "antd";
+import { Card, Row } from "antd";
 import AppCard from "@crema/components/AppCard";
 import { useFetchStrageticAnalysisQuery } from "apps/fancyai-web-client/src/core/api/apiPerformanceReport";
 import { useSiteDetail } from "@crema/modules/siteDetail";
@@ -30,7 +30,9 @@ const StrategicAnalysis = ({ prop1 }) => {
       style={{ marginBottom: "12px", padding: "18px 12px" }}
     >
       {isLoading ? (
-        <AppLoader />
+        <Row style={{ minHeight: 400 }}>
+          <AppLoader />
+        </Row>
       ) : (
         <>
           <Title level={5}>Strategic Analysis</Title>
