@@ -7,11 +7,19 @@ export const StyledTitle = styled(Title)`
   margin-bottom: 0px !important;
 `;
 
+export const StyledHeaderCard = styled(AppCard)`
+  & .ant-card-body {
+    padding: 16px 20px !important;
+  }
+  margin-bottom: 20px;
+`;
+
 export const StyledCard = styled(AppCard)`
   & .ant-card-body {
     padding: 16px 20px !important;
   }
   margin-bottom: 20px;
+  min-height: 160px;
 `;
 
 export const StyledVisitorCard = styled(AppCard)`
@@ -20,6 +28,7 @@ export const StyledVisitorCard = styled(AppCard)`
     margin-top: 12px !important;
     flex: 1;
   }
+  min-height: 200px;
 `;
 
 export const StyledVisitorCardAmount = styled(Typography)`

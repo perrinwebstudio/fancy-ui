@@ -6,55 +6,60 @@ import {
 } from "./index.styled";
 import { Card } from "antd";
 import AppCard from "@crema/components/AppCard";
+import { useFetchStrageticAnalysisQuery } from "apps/fancyai-web-client/src/core/api/apiPerformanceReport";
+import { useSiteDetail } from "@crema/modules/siteDetail";
+import AppLoader from "@crema/components/AppLoader";
 
 const StrategicAnalysis = ({ prop1 }) => {
+  const { id: siteId } = useSiteDetail();
+
+  const { data, isLoading } = useFetchStrageticAnalysisQuery(
+    {
+      siteId,
+    },
+    {
+      skip: !Boolean(siteId),
+    }
+  );
+
+  const analysisData = data?.data;
+
   return (
-    <AppCard bordered={false}>
-      <Title level={5}>Strategic Analysis</Title>
-      <StyledAnalysisPane>
-        <StyledAnalysisTitle>Long-Term Analysis</StyledAnalysisTitle>
-        <StyledAnalysisBody>
-          Discover an all-in-one SEO platform equipped with a user-friendly
-          landing page and web application. Harness the power of AI to
-          effortlessly boost your website's visibility and rankings, providing
-          an edge in the competitive digital landscape. Elevate your online
-          presence with intelligent SEO tools that optimize content, keywords,
-          and strategy, all within a seamless and intuitive platform.
-        </StyledAnalysisBody>
-      </StyledAnalysisPane>
-      <StyledAnalysisPane>
-        <StyledAnalysisTitle>Short-Term Analysis</StyledAnalysisTitle>
-        <StyledAnalysisBody>
-          Discover an all-in-one SEO platform equipped with a user-friendly
-          landing page and web application. Harness the power of AI to
-          effortlessly boost your website's visibility and rankings, providing
-          an edge in the competitive digital landscape. Elevate your online
-          presence with intelligent SEO tools that optimize content, keywords,
-          and strategy, all within a seamless and intuitive platform.
-        </StyledAnalysisBody>
-      </StyledAnalysisPane>
-      <StyledAnalysisPane>
-        <StyledAnalysisTitle>Market Analysis</StyledAnalysisTitle>
-        <StyledAnalysisBody>
-          Discover an all-in-one SEO platform equipped with a user-friendly
-          landing page and web application. Harness the power of AI to
-          effortlessly boost your website's visibility and rankings, providing
-          an edge in the competitive digital landscape. Elevate your online
-          presence with intelligent SEO tools that optimize content, keywords,
-          and strategy, all within a seamless and intuitive platform.
-        </StyledAnalysisBody>
-      </StyledAnalysisPane>
-      <StyledAnalysisPane>
-        <StyledAnalysisTitle>Recommendations</StyledAnalysisTitle>
-        <StyledAnalysisBody>
-          Discover an all-in-one SEO platform equipped with a user-friendly
-          landing page and web application. Harness the power of AI to
-          effortlessly boost your website's visibility and rankings, providing
-          an edge in the competitive digital landscape. Elevate your online
-          presence with intelligent SEO tools that optimize content, keywords,
-          and strategy, all within a seamless and intuitive platform.
-        </StyledAnalysisBody>
-      </StyledAnalysisPane>
+    <AppCard
+      bordered={false}
+      style={{ marginBottom: "12px", padding: "18px 12px" }}
+    >
+      {isLoading ? (
+        <AppLoader />
+      ) : (
+        <>
+          <Title level={5}>Strategic Analysis</Title>
+          <StyledAnalysisPane>
+            <StyledAnalysisTitle>Long-Term Analysis</StyledAnalysisTitle>
+            <StyledAnalysisBody>
+              {analysisData?.longTermAnalysis}
+            </StyledAnalysisBody>
+          </StyledAnalysisPane>
+          <StyledAnalysisPane>
+            <StyledAnalysisTitle>Short-Term Analysis</StyledAnalysisTitle>
+            <StyledAnalysisBody>
+              {analysisData?.shortTermAnalysis}
+            </StyledAnalysisBody>
+          </StyledAnalysisPane>
+          <StyledAnalysisPane>
+            <StyledAnalysisTitle>Market Analysis</StyledAnalysisTitle>
+            <StyledAnalysisBody>
+              {analysisData?.marketAnalysis}
+            </StyledAnalysisBody>
+          </StyledAnalysisPane>
+          <StyledAnalysisPane>
+            <StyledAnalysisTitle>Recommendations</StyledAnalysisTitle>
+            <StyledAnalysisBody>
+              {analysisData?.recommendations}
+            </StyledAnalysisBody>
+          </StyledAnalysisPane>
+        </>
+      )}
     </AppCard>
   );
 };

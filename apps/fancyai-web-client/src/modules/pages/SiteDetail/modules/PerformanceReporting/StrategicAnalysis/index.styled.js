@@ -24,4 +24,5 @@ export const StyledAnalysisBody = styled.div`
   font-weight: 400;
   padding: 12px;
   border: 1px solid #c2c2c2;
+  min-height: 80px;
 `;

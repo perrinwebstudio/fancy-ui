@@ -7,6 +7,8 @@ import StrategicAnalysis from "./StrategicAnalysis";
 import OverallPerformance from "./OverallPerformance";
 import KeywordPerformance from "./KeywordPerformance";
 import SitePerformance from "./SitePerformance";
+import SearchPerformance from "./SearchPerformance";
+import UserPerformance from "./UserPerformance";
 
 const SitePerformanceReporting = ({ prop1 }) => {
   const { id, subMenu } = useSiteDetail();
@@ -21,6 +23,8 @@ const SitePerformanceReporting = ({ prop1 }) => {
         {subMenu === "overall_performance" && <OverallPerformance />}
         {subMenu === "keyword_performance" && <KeywordPerformance />}
         {subMenu === "site_performance" && <SitePerformance />}
+        {subMenu === "search_performance" && <SearchPerformance />}
+        {subMenu === "user_performance" && <UserPerformance />}
       </Col>
     </Row>
   );

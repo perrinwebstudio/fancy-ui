@@ -4,10 +4,14 @@ import {
   StyledVisitorAction,
   StyledStateText,
   StyledTitle,
+  StyledHeaderCard,
 } from "./index.styled";
 import { Row, Col } from "antd";
 import StatGraphs from "./StatGraphs";
 import AppSelect from "@crema/components/AppSelect";
+import { useSiteDetail } from "@crema/modules/siteDetail";
+import { useFetchSitePerformanceQuery } from "apps/fancyai-web-client/src/core/api/apiPerformanceReport";
+import { parseLineChartData } from "../Utils";
 
 const stateData = [
   { name: "Jan", "Past 12 mo": 150, "Previous 12 mo": 270 },
@@ -25,11 +29,22 @@ const stateData = [
 ];
 
 const SitePerformance = ({ prop1 }) => {
+  const { id: siteId } = useSiteDetail();
+
+  const { data, isLoading } = useFetchSitePerformanceQuery(
+    {
+      siteId,
+    },
+    {
+      skip: !Boolean(siteId),
+    }
+  );
+
   return (
     <>
-      <StyledCard bordered={false}>
-        <StyledTitle level={10}>Total ranked keywords</StyledTitle>
-      </StyledCard>
+      <StyledHeaderCard bordered={false}>
+        <StyledTitle level={10}>Site Performance</StyledTitle>
+      </StyledHeaderCard>
       <Row gutter={18}>
         <Col xs={24} md={24} lg={12}>
           <StyledVisitorCard
@@ -52,17 +67,11 @@ const SitePerformance = ({ prop1 }) => {
                     Previous 12 mo
                   </div>
                 </div>
-
-                <AppSelect
-                  menus={["Past Year", "Last 3 Years", "Last 5 Years"]}
-                  defaultValue="Past Year"
-                  // onChange={handleSelectionType}
-                />
               </StyledVisitorAction>
             }
           >
             <StatGraphs
-              data={stateData}
+              data={parseLineChartData(data?.data, "rankedKeywords")}
               XKey="Past 12 mo"
               YKey="Previous 12 mo"
             />
@@ -89,17 +98,11 @@ const SitePerformance = ({ prop1 }) => {
                     Previous 12 mo
                   </div>
                 </div>
-
-                <AppSelect
-                  menus={["Past Year", "Last 3 Years", "Last 5 Years"]}
-                  defaultValue="Past Year"
-                  // onChange={handleSelectionType}
-                />
               </StyledVisitorAction>
             }
           >
             <StatGraphs
-              data={stateData}
+              data={parseLineChartData(data?.data, "impressions")}
               XKey="Past 12 mo"
               YKey="Previous 12 mo"
             />
@@ -128,17 +131,11 @@ const SitePerformance = ({ prop1 }) => {
                     Previous 12 mo
                   </div>
                 </div>
-
-                <AppSelect
-                  menus={["Past Year", "Last 3 Years", "Last 5 Years"]}
-                  defaultValue="Past Year"
-                  // onChange={handleSelectionType}
-                />
               </StyledVisitorAction>
             }
           >
             <StatGraphs
-              data={stateData}
+              data={parseLineChartData(data?.data, "newUsers")}
               XKey="Past 12 mo"
               YKey="Previous 12 mo"
             />
@@ -165,17 +162,11 @@ const SitePerformance = ({ prop1 }) => {
                     Previous 12 mo
                   </div>
                 </div>
-
-                <AppSelect
-                  menus={["Past Year", "Last 3 Years", "Last 5 Years"]}
-                  defaultValue="Past Year"
-                  // onChange={handleSelectionType}
-                />
               </StyledVisitorAction>
             }
           >
             <StatGraphs
-              data={stateData}
+              data={parseLineChartData(data?.data, "sessions")}
               XKey="Past 12 mo"
               YKey="Previous 12 mo"
             />
@@ -204,17 +195,11 @@ const SitePerformance = ({ prop1 }) => {
                     Previous 12 mo
                   </div>
                 </div>
-
-                <AppSelect
-                  menus={["Past Year", "Last 3 Years", "Last 5 Years"]}
-                  defaultValue="Past Year"
-                  // onChange={handleSelectionType}
-                />
               </StyledVisitorAction>
             }
           >
             <StatGraphs
-              data={stateData}
+              data={parseLineChartData(data?.data, "avgSessionDuration")}
               XKey="Past 12 mo"
               YKey="Previous 12 mo"
             />
@@ -241,17 +226,11 @@ const SitePerformance = ({ prop1 }) => {
                     Previous 12 mo
                   </div>
                 </div>
-
-                <AppSelect
-                  menus={["Past Year", "Last 3 Years", "Last 5 Years"]}
-                  defaultValue="Past Year"
-                  // onChange={handleSelectionType}
-                />
               </StyledVisitorAction>
             }
           >
             <StatGraphs
-              data={stateData}
+              data={parseLineChartData(data?.data, "sessionPerUser")}
               XKey="Past 12 mo"
               YKey="Previous 12 mo"
             />
@@ -280,17 +259,11 @@ const SitePerformance = ({ prop1 }) => {
                     Previous 12 mo
                   </div>
                 </div>
-
-                <AppSelect
-                  menus={["Past Year", "Last 3 Years", "Last 5 Years"]}
-                  defaultValue="Past Year"
-                  // onChange={handleSelectionType}
-                />
               </StyledVisitorAction>
             }
           >
             <StatGraphs
-              data={stateData}
+              data={parseLineChartData(data?.data, "conversions")}
               XKey="Past 12 mo"
               YKey="Previous 12 mo"
             />
@@ -317,17 +290,11 @@ const SitePerformance = ({ prop1 }) => {
                     Previous 12 mo
                   </div>
                 </div>
-
-                <AppSelect
-                  menus={["Past Year", "Last 3 Years", "Last 5 Years"]}
-                  defaultValue="Past Year"
-                  // onChange={handleSelectionType}
-                />
               </StyledVisitorAction>
             }
           >
             <StatGraphs
-              data={stateData}
+              data={parseLineChartData(data?.data, "revenue")}
               XKey="Past 12 mo"
               YKey="Previous 12 mo"
             />

@@ -4,8 +4,15 @@ import AppCard from "@crema/components/AppCard";
 import Title from "antd/es/typography/Title";
 
 export const StyledTitle = styled(Title)`
-  font-size: 14px;
+  font-size: 16px !important;
   margin-bottom: 0px !important;
+`;
+
+export const StyledHeaderCard = styled(AppCard)`
+  & .ant-card-body {
+    padding: 16px 20px !important;
+  }
+  margin-bottom: 20px;
 `;
 
 export const StyledCard = styled(AppCard)`
