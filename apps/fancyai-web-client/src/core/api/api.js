@@ -15,6 +15,7 @@ export const api = createApi({
     "CompanySetting",
     "SiteMember",
     "TeamMembers",
+    "MFA",
   ],
   endpoints: (builder) => ({
     getUser: builder.mutation({

@@ -16,12 +16,14 @@ import {
 } from "apps/fancyai-web-client/src/core/api/apiUserSetting";
 import { useAuthUser } from "@crema/hooks/AuthHooks";
 import AppLoader from "@crema/components/AppLoader";
+import { useGetUserMutation } from "apps/fancyai-web-client/src/core/api";
 
 const { Text } = Typography;
 
 const TwoFactorAuthentication = () => {
   const { messages } = useIntl();
   const { user } = useAuthUser();
+  const [getUser] = useGetUserMutation();
 
   // const [phoneNumber, setPhoneNumber] = useState("");
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(
@@ -32,7 +34,12 @@ const TwoFactorAuthentication = () => {
   );
 
   const [updateUser2fa, { isLoading }] = useUpdateUser2faMutation();
-  const { data: qrcode, isLoading: qrcodeLoading } = useGetMFAQRImageQuery({});
+  const { data: qrcode, isLoading: qrcodeLoading } = useGetMFAQRImageQuery(
+    {},
+    {
+      skip: !Boolean(user?.multiFactorEnabled),
+    }
+  );
 
   const onFinish = () => {
     updateUser2fa?.({
@@ -79,7 +86,7 @@ const TwoFactorAuthentication = () => {
       </Row>
       <Divider style={{ marginTop: 0 }} />
       <Row gutter={12}>
-        <Col xs={24} md={12} lg={8}>
+        <Col xs={24} md={12} xl={8}>
           <StyledUserProfileFormTitle>
             <IntlMessages id="userProfile.multi_factor" />
           </StyledUserProfileFormTitle>
@@ -92,24 +99,26 @@ const TwoFactorAuthentication = () => {
           </VerticalCenterDiv>
         </Col>
         <Col xs={24} md={12}>
-          <h3>QR Code</h3>
-          {qrcodeLoading ? (
-            <StyledQRcodeImage>
-              <AppLoader />
-            </StyledQRcodeImage>
+          {user?.multiFactorEnabled && multiFactorEnabled ? (
+            <>
+              <h3>QR Code</h3>
+              {qrcodeLoading ? (
+                <StyledQRcodeImage>
+                  <AppLoader />
+                </StyledQRcodeImage>
+              ) : (
+                <Image
+                  src={
+                    qrcode?.data ??
+                    "/assets/images/qr-enabled.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                  }
+                  preview={false}
+                  width={200}
+                />
+              )}
+            </>
           ) : (
-            <Image
-              src={
-                qrcode?.data ??
-                "/assets/images/qr-enabled.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-              }
-              style={{
-                filter: multiFactorEnabled ? "" : "blur(4px)",
-                transition: "all .2s",
-              }}
-              preview={false}
-              width={200}
-            />
+            ""
           )}
         </Col>
       </Row>
