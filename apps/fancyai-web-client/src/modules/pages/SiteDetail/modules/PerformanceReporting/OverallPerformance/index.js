@@ -7,10 +7,23 @@ import {
   StyledVisitorCardAmount,
   StyledVisitorCardDescription,
   StyledTitle,
+  StyledHeaderCard,
 } from "./index.styled";
 import { Row, Col } from "antd";
 import StatGraphs from "./StatGraphs";
 import BarGraphs from "./BarGraphs";
+import { useSiteDetail } from "@crema/modules/siteDetail";
+import {
+  useFetchConversionsRevenueQuery,
+  useFetchRevenueDataQuery,
+  useFetchSearchImpressionClickQuery,
+} from "apps/fancyai-web-client/src/core/api/apiPerformanceReport";
+import {
+  parse15MonthLineChartData,
+  parseBarChartData,
+  parseLineChartData,
+} from "../Utils";
+import AppLoader from "@crema/components/AppLoader";
 
 const stateData = [
   { name: "Jan", Clicks: 150, Impressions: 270 },
@@ -26,45 +39,81 @@ const stateData = [
   { name: "Nov", Clicks: 250, Impressions: 240 },
   { name: "Dec", Clicks: 400, Impressions: 270 },
 ];
-const barData = [
-  { name: "Jan", amt: 150 },
-  { name: "Feb", amt: 250 },
-  { name: "Mar", amt: 180 },
-  { name: "Apr", amt: 278 },
-  { name: "May", amt: 250 },
-  { name: "Jun", amt: 350 },
-  { name: "Jul", amt: 280 },
-  { name: "Aug", amt: 340 },
-  { name: "Sep", amt: 280 },
-  { name: "Oct", amt: 400 },
-  { name: "Nov", amt: 250 },
-  { name: "Dec", amt: 400 },
-];
 const OverallPerformance = ({ prop1 }) => {
+  const { id: siteId } = useSiteDetail();
+
+  const { data, isLoading: revenueDataLoading } = useFetchRevenueDataQuery(
+    {
+      siteId,
+    },
+    {
+      skip: !Boolean(siteId),
+    }
+  );
+
+  const revenueData = data?.data;
+
+  const {
+    data: searchImpressionClickData,
+    isLoading: searchImpressionClickLoading,
+  } = useFetchSearchImpressionClickQuery(
+    {
+      siteId,
+    },
+    {
+      skip: !Boolean(siteId),
+    }
+  );
+
+  const { data: conversionsRevenueData, isLoading: conversionsRevenueLoading } =
+    useFetchConversionsRevenueQuery(
+      {
+        siteId,
+      },
+      {
+        skip: !Boolean(siteId),
+      }
+    );
+
   return (
     <>
-      <StyledCard bordered={false}>
+      <StyledHeaderCard bordered={false}>
         <StyledTitle level={5}>Overall Performance</StyledTitle>
-      </StyledCard>
+      </StyledHeaderCard>
       <StyledCard bordered={false}>
-        <Row gutter={18}>
-          <Col xs={24} md={24} lg={12}>
-            <StyledTitle level={5}>Revenue Gained</StyledTitle>
-            <StyledVisitorCardAmount>$149</StyledVisitorCardAmount>
-            <StyledVisitorCardDescription>
-              $101 Yesterday
-            </StyledVisitorCardDescription>
-            <BarGraphs data={barData} keys="amt" />
-          </Col>
-          <Col xs={24} md={24} lg={12}>
-            <StyledTitle level={5}>Est. Revenue Gain (10 Year)</StyledTitle>
-            <StyledVisitorCardAmount>$24.149</StyledVisitorCardAmount>
-            <StyledVisitorCardDescription>
-              $10,101 Last Year
-            </StyledVisitorCardDescription>
-            <BarGraphs data={barData} keys="amt" />
-          </Col>
-        </Row>
+        {revenueDataLoading ? (
+          <AppLoader />
+        ) : (
+          <Row gutter={18}>
+            <Col xs={24} md={24} lg={12}>
+              <StyledTitle level={5}>Revenue Gained</StyledTitle>
+              <StyledVisitorCardAmount>
+                ${revenueData?.revenueToday?.toLocaleString() ?? 0}
+              </StyledVisitorCardAmount>
+              <StyledVisitorCardDescription>
+                ${revenueData?.revenueYesterday?.toLocaleString() ?? 0}{" "}
+                Yesterday
+              </StyledVisitorCardDescription>
+              <BarGraphs
+                data={parseBarChartData(revenueData?.thisYearData, "revenue")}
+                keys="amt"
+              />
+            </Col>
+            <Col xs={24} md={24} lg={12}>
+              <StyledTitle level={5}>Est. Revenue Gain (10 Year)</StyledTitle>
+              <StyledVisitorCardAmount>
+                ${revenueData?.tenYearRevenue?.toLocaleString() ?? 0}
+              </StyledVisitorCardAmount>
+              <StyledVisitorCardDescription>
+                ${revenueData?.lastYearRevenue?.toLocaleString() ?? 0} Last Year
+              </StyledVisitorCardDescription>
+              <BarGraphs
+                data={parseBarChartData(revenueData?.lastYearData, "revenue")}
+                keys="amt"
+              />
+            </Col>
+          </Row>
+        )}
       </StyledCard>
       <StyledVisitorCard
         title="Search Impressions & Clicks"
@@ -90,7 +139,21 @@ const OverallPerformance = ({ prop1 }) => {
           </StyledVisitorAction>
         }
       >
-        <StatGraphs data={stateData} XKey="Clicks" YKey="Impressions" />
+        {searchImpressionClickLoading ? (
+          <AppLoader />
+        ) : (
+          <StatGraphs
+            data={parse15MonthLineChartData(
+              searchImpressionClickData?.data,
+              "searchImpressions",
+              "searchClicks",
+              "Impressions",
+              "Clicks"
+            )}
+            XKey="Clicks"
+            YKey="Impressions"
+          />
+        )}
       </StyledVisitorCard>
       <StyledVisitorCard
         title="Conversions & Revenue"
@@ -116,7 +179,21 @@ const OverallPerformance = ({ prop1 }) => {
           </StyledVisitorAction>
         }
       >
-        <StatGraphs data={stateData} XKey="Clicks" YKey="Impressions" />
+        {conversionsRevenueLoading ? (
+          <AppLoader />
+        ) : (
+          <StatGraphs
+            data={parse15MonthLineChartData(
+              conversionsRevenueData?.data,
+              "revenue",
+              "conversions",
+              "Revenue",
+              "Conversions"
+            )}
+            XKey="Revenue"
+            YKey="Conversions"
+          />
+        )}
       </StyledVisitorCard>
     </>
   );
