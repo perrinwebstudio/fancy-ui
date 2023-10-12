@@ -80,12 +80,14 @@ const TeamMembers = () => {
           >
             Edit
           </StyledEditButton>
-          <StyledEditButton
-            onClick={() => handleOpenDeleteModal(record.id)}
-            danger
-          >
-            Delete
-          </StyledEditButton>
+          {record.role != "CompanyOwner" && (
+            <StyledEditButton
+              onClick={() => handleOpenDeleteModal(record.id)}
+              danger
+            >
+              Delete
+            </StyledEditButton>
+          )}
         </Space>
       ),
     },
