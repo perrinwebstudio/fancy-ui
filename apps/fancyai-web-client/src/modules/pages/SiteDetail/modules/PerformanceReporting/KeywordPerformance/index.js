@@ -5,8 +5,11 @@ import {
   StyledAnalysisPane,
   StyledAnalysisTitle,
 } from "./index.styled";
-import { Card, Space, Table, Tag } from "antd";
+import { Card, Pagination, Row, Space, Table, Tag } from "antd";
 import AppCard from "@crema/components/AppCard";
+import { useSiteDetail } from "@crema/modules/siteDetail";
+import { useFetchKeywordPerfomanceQuery } from "apps/fancyai-web-client/src/core/api/apiPerformanceReport";
+import { useState } from "react";
 
 const columns = [
   {
@@ -15,7 +18,7 @@ const columns = [
     key: "keyword",
     render: (text, record) => {
       const value =
-        ((record?.original_rank ?? 0) + (record?.current_rank ?? 0)) / 2;
+        ((record?.originalRank ?? 0) + (record?.currentSiteRank ?? 0)) / 2;
       const opacity = Math.round(
         Math.max(20, Math.min(value ? 100 - Math.log(value) * 16 : 20, 255)) *
           1.6
@@ -32,19 +35,19 @@ const columns = [
   },
   {
     title: "Search Intent",
-    dataIndex: "search_intent",
-    key: "search_intent",
+    dataIndex: "searchIntentType",
+    key: "searchIntentType",
   },
   {
     title: "Monthly Volume",
-    dataIndex: "monthly_volume",
-    key: "monthly_volume",
+    dataIndex: "monthlyVolume",
+    key: "monthlyVolume",
     render: (text) => text?.toLocaleString(),
   },
   {
     title: "Original Rank",
-    dataIndex: "original_rank",
-    key: "original_rank",
+    dataIndex: "originalRank",
+    key: "originalRank",
     render: (text) => {
       if (!text) return "";
       const value = parseInt(text);
@@ -64,8 +67,8 @@ const columns = [
   },
   {
     title: "Current Rank",
-    dataIndex: "current_rank",
-    key: "current_rank",
+    dataIndex: "currentSiteRank",
+    key: "currentSiteRank",
     render: (text) => {
       if (!text) return "";
       const value = parseInt(text);
@@ -85,27 +88,30 @@ const columns = [
   },
   {
     title: "3 Month Change",
-    dataIndex: "three_month_change",
-    key: "three_month_change",
-    render: (text) => (
-      <Tag
-        color={text >= 0 ? "#067F12" : "#CE1717"}
-        style={{ minWidth: "50px", textAlign: "center" }}
-      >
-        {text >= 0 ? "+" : ""} {text.toFixed(2)}
-      </Tag>
-    ),
+    dataIndex: "rank3MonthsAgo",
+    key: "rank3MonthsAgo",
+    render: (text) =>
+      text ? (
+        <Tag
+          color={text >= 0 ? "#067F12" : "#CE1717"}
+          style={{ minWidth: "50px", textAlign: "center" }}
+        >
+          {text >= 0 ? "+" : ""} {text.toFixed(2)}
+        </Tag>
+      ) : (
+        ""
+      ),
   },
   {
     title: "Potential Revenue",
-    dataIndex: "potential_revenue",
-    key: "potential_revenue",
+    dataIndex: "potentialRevenueGains",
+    key: "potentialRevenueGains",
     render: (text) => `$${text?.toLocaleString()}`,
   },
   {
     title: "Page",
-    dataIndex: "page",
-    key: "page",
+    dataIndex: "pageURL",
+    key: "pageURL",
     render: (text) => (
       <Space>
         🔗 <a href={text}>{text}</a>
@@ -114,51 +120,45 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    keyword: "Yoga",
-    original_rank: 64,
-    current_rank: 55,
-    three_month_change: 2.0,
-    search_intent: "Transactional",
-    monthly_volume: 32000,
-    potential_revenue: 125000,
-    page: "www.yoga.com/homepage",
-  },
-  {
-    key: "2",
-    keyword: "Yoga",
-    original_rank: 12,
-    current_rank: 8,
-    three_month_change: -1.7,
-    search_intent: "Informational",
-    monthly_volume: 24000,
-    potential_revenue: 67000,
-    page: "www.yoga.com/homepage",
-  },
-  {
-    key: "3",
-    keyword: "Yoga",
-    original_rank: 1,
-    current_rank: 3,
-    three_month_change: 2.7,
-    search_intent: "Transactional",
-    monthly_volume: 12000,
-    potential_revenue: 185000,
-    page: "www.yoga.com/homepage",
-  },
-];
-
 const KeywordPerformance = ({ prop1 }) => {
+  const [searchPeriod, setSearchPeriod] = useState("month");
+  const [searchVal, setSearchVal] = useState("");
+  const [pageNum, setPageNum] = useState(0);
+  const [orderBy, setOrderBy] = useState("name");
+  const [order, setOrder] = useState(1);
+
+  const { id: siteId } = useSiteDetail();
+
+  const { data, isLoading } = useFetchKeywordPerfomanceQuery(
+    {
+      siteId,
+      searchPeriod,
+      searchVal,
+      pageNum,
+      countPerPage: 10,
+      orderBy,
+      order,
+    },
+    {
+      skip: !Boolean(siteId),
+    }
+  );
+
   return (
     <AppCard bordered={false}>
       <StyledTitle level={5}>Keyword Performance</StyledTitle>
       <Table
         columns={columns}
-        pagination={{ position: ["none", "bottomCenter"] }}
-        dataSource={data}
+        pagination={{ position: ["none", "none"] }}
+        dataSource={data?.data}
       />
+      <Row justify="center" style={{ margin: "16px" }}>
+        <Pagination
+          current={pageNum}
+          total={Math.ceil((data?.totalCount ?? 0) / 10)}
+          onChange={(page) => setPageNum(pageNum)}
+        />
+      </Row>
     </AppCard>
   );
 };
