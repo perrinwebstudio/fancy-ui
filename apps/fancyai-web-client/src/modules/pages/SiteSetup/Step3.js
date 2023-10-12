@@ -1,10 +1,10 @@
 import React from 'react';
-import SEOPlanPicker from './SEOPlanPicker';
 import StyledSiteSetupTitle from './StyledSiteSetupStepTitle';
 import { Form, theme } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
+import SEOPlanPicker from '../../billing/SEOPlanPicker';
 
-const SiteSetupStep3 = ({ validated }) => {
+const SiteSetupStep3 = ({ validated, subscriptionPlans }) => {
   const {token} = theme.useToken()
   return <>
     <StyledSiteSetupTitle level={4}  id='step3'>{validated && <CheckOutlined

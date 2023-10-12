@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { SEOPlanItem } from '@crema/modules/billing'
-import { Typography } from 'antd';
+import { Skeleton, Typography } from 'antd';
+import { useGetSiteSubscriptionPlansQuery } from 'apps/fancyai-web-client/src/core/api/apiBilling';
 
 export const SEO_PLANS = [
   {
     plan: 'SEO Lite',
-    planCode: 'LITE',
+    planCode: 'Lite',
     pricingComponent: <>Site Information</>,
     features: [
       'All features from previous plan',
@@ -20,7 +21,7 @@ export const SEO_PLANS = [
   },
   {
     plan:'SEO Pro',
-    planCode:'PRO',
+    planCode:'Pro',
     pricingComponent:<>
       <><Typography.Title style={{marginBottom: '0px'}} level={4}>$349</Typography.Title>/month</>
     </>,
@@ -37,7 +38,7 @@ export const SEO_PLANS = [
   },
   {
     plan:'SEO Business',
-    planCode:'BUSINESS',
+    planCode:'Business',
     pricingComponent:<>
         <><Typography.Title style={{marginBottom: '0px'}} level={4}>$349</Typography.Title>/month</>
     </>,
@@ -54,7 +55,7 @@ export const SEO_PLANS = [
   },
   {
     plan:'SEO Enterprise',
-    planCode:'ENTERPR',
+    planCode:'Enterprise',
     pricingComponent:<>
         <><Typography.Title style={{marginBottom: '0px'}} level={4}>$349</Typography.Title>/month</>
     </>,
@@ -72,6 +73,25 @@ export const SEO_PLANS = [
 ]
 
 const SEOPlanPicker = ({ onChange, value, viewMode, buttonLabel }) => {
+  const { data, isLoading } = useGetSiteSubscriptionPlansQuery()
+
+  const plans = useMemo(() => {
+    return (data?.data || []).map(plan => {
+      const _plan = SEO_PLANS.find(p => p.planCode === plan.plan)
+      const rs = {
+        ..._plan,
+      }
+      if (rs?.planCode !== 'Lite') {
+        rs.pricingComponent = <><Typography.Title style={{marginBottom: '0px'}} level={4}>${plan.price}</Typography.Title>/month</>
+      }
+      return rs
+    }).filter(p => !!p.planCode)
+  }, [data])
+
+  if (isLoading) {
+    return <Skeleton active />
+  }
+  
   return <div style={{
     display: 'flex',
     flexDirection: 'row',
@@ -80,7 +100,7 @@ const SEOPlanPicker = ({ onChange, value, viewMode, buttonLabel }) => {
     flexWrap: 'wrap',
   }}>
     {
-      SEO_PLANS.map((plan) => {
+      plans.map((plan) => {
         return <SEOPlanItem
           viewMode={viewMode}
           key={plan.planCode}

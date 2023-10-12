@@ -1,7 +1,6 @@
 import React from "react";
-import { SEOPlanPicker } from "@crema/modules/siteSetup";
+import SEOPlanPicker from "../../../../../../billing/SEOPlanPicker";
 import { Button, Card, Divider, Form, Space } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   useGetSiteQuery,
   useUpdateSiteMutation,

@@ -35,6 +35,18 @@ export const apiBilling = api.injectEndpoints({
         url: `billing/paypal/checkout/return?token=${token}`,
         method: "GET",
       }),
+    }),
+    getCompanyNextBillingAmount: build.mutation({
+      query: ({ companyId }) => ({
+        url: `company/${companyId}/billing/amount`,
+        method: "GET",
+      }),
+    }),
+    getSiteSubscriptionPlans: build.query({
+      query: () => ({
+        url: `billing/billing-plan/`,
+        method: "GET",
+      }),
     })
   }),
 });
@@ -43,5 +55,7 @@ export const {
   useGetCompanyBillingDetailQuery,
   useAddStripePaymentMethodMutation,
   useGetPaypalLinkMutation,
-  useSubmitPaypalTokenMutation
+  useSubmitPaypalTokenMutation,
+  useGetCompanyNextBillingAmountMutation,
+  useGetSiteSubscriptionPlansQuery
 } = apiBilling;

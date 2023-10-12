@@ -37,7 +37,7 @@ export const apiSite = api.injectEndpoints({
         },
       }),
       invalidatesTags: (_result, error, _arg) => {
-        if (!error) return ['Sites']
+        if (!error) return ['Sites', 'BillingAmount']
         return []
       },
       transformResponse: (response, meta, arg) => {
@@ -84,7 +84,14 @@ export const apiSite = api.injectEndpoints({
           method: "GET",
         }
       },
-    })
+    }),
+    getStrategyPlanOverview: build.query({
+      query: ({ siteId }) => ({
+        url: `site/${siteId}/strategyPlanOverview`,
+        method: "GET",
+      }),
+      providesTags: ['Keywords', 'Contents', 'Backlink', 'Optimizations']
+    }),
   }),
 });
 
@@ -95,5 +102,6 @@ export const {
   useUpdateSiteMutation,
   useConnectGoogleServiceMutation,
   useGetGSCSitesMutation,
-  useGetGAAccountsMutation
+  useGetGAAccountsMutation,
+  useGetStrategyPlanOverviewQuery,
 } = apiSite;

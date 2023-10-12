@@ -17,6 +17,7 @@ import Card from "antd/es/card/Card";
 import {
   useAddStripePaymentMethodMutation,
   useGetCompanyBillingDetailQuery,
+  useGetCompanyNextBillingAmountMutation,
   useGetPaypalLinkMutation,
 } from "apps/fancyai-web-client/src/core/api/apiBilling";
 import AppLoader from "@crema/components/AppLoader";
@@ -34,6 +35,8 @@ const Billing = () => {
     useGetCompanyBillingDetailQuery({
       companyId: selectedCompanyId,
     });
+
+  const [getBillingAmount, { isLoading: isLoadingAmount }] = useGetCompanyNextBillingAmountMutation()
 
   const [addPaymentStrip] = useAddStripePaymentMethodMutation();
   const [addPaymentPaypal] = useGetPaypalLinkMutation();
@@ -69,7 +72,12 @@ const Billing = () => {
       <Title level={4}>Billing and Payment Method</Title>
       <AppRowContainer>
         <Col xs={24} sm={24} lg={12}>
-          <MonthlyPaymentCard isLoading={isLoadingBillingDetail} />
+          <MonthlyPaymentCard
+            getAmount={() => getBillingAmount({
+              companyId: selectedCompanyId
+            })}
+            isLoading={isLoadingAmount}
+          />
         </Col>
         <Col xs={24} sm={24} lg={12}>
           <PaymentMethod

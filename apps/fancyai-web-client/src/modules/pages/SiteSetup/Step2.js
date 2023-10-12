@@ -2,9 +2,9 @@ import React from 'react';
 import StyledSiteSetupTitle from './StyledSiteSetupStepTitle';
 import { Form, Input, theme } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import CompetitorListForm from './CompetitorListForm';
 import StepFormWrapper from './StepFormWrapper';
 import { CheckOutlined } from '@ant-design/icons';
+import { CompetitorListForm } from '@crema/modules/siteSetup';
 
 const SiteSetupStep2 = ({ validated, showNumber }) => {
   const {token} = theme.useToken()

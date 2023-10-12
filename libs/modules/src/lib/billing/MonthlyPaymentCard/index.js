@@ -5,8 +5,21 @@ import AppRowContainer from '@crema/components/AppRowContainer';
 import { StyledMonthlyPaymentCard } from './index.styled';
 import Title from 'antd/es/typography/Title';
 import Text from 'antd/es/typography/Text';
+import dayjs from 'dayjs';
 
-const MonthlyPaymentCard = ({ isLoading, paymentType, paymentAmount, nextPayment }) => {
+const MonthlyPaymentCard = ({ isLoading, getAmount }) => {
+  const [amount, setAmount] = React.useState(0);
+
+  React.useEffect(() => {
+    if (getAmount) {
+      getAmount().unwrap().then((res) => {
+        setAmount(res.data)
+      }).catch((err) => {});
+    }
+  }, [])
+
+  const daysUntilLastMonth = dayjs().daysInMonth() - dayjs().date() + 1;
+
   return <StyledMonthlyPaymentCard bordered={false} title="Monthly Payment">
     <AppRowContainer>
       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -14,7 +27,7 @@ const MonthlyPaymentCard = ({ isLoading, paymentType, paymentAmount, nextPayment
           {isLoading ? <Skeleton active /> : <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} lg={12}>
               <div>
-                <Space><Title level={3}>$456</Title><Text type='secondary'>/month</Text></Space>
+                <Space><Title level={3}>${amount || 0}</Title><Text type='secondary'>/month</Text></Space>
               </div>
               <div
                 style={{
@@ -28,7 +41,7 @@ const MonthlyPaymentCard = ({ isLoading, paymentType, paymentAmount, nextPayment
                   paddingRight: 10,
                 }}
               >
-                3 days until next payment
+                {daysUntilLastMonth} days until next payment
               </div>
             </Col>
             <Col xs={24} sm={24} lg={12}>

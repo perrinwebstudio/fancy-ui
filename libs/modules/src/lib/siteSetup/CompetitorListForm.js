@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button, Col, Form, Input, Row } from 'antd';
 
 const CompetitorListForm = ({ onChange, value, validated }) => {
@@ -46,13 +45,5 @@ const CompetitorListForm = ({ onChange, value, validated }) => {
     </div>
   </>
 }
-
-CompetitorListForm.defaultProps = {
-  prop1: ''
-};
-
-CompetitorListForm.propTypes = {
-  prop1: PropTypes.string
-};
 
 export default CompetitorListForm

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button, Card, Divider, Form } from "antd";
-import { Step1, Step2, Step4 } from "@crema/modules/siteSetup";
 import {
   useGetSiteQuery,
   useUpdateSiteMutation,
@@ -10,6 +9,9 @@ import { useSiteDetail } from "@crema/modules/siteDetail";
 import AppLoader from "@crema/components/AppLoader";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useAuthUser } from "@crema/hooks/AuthHooks";
+import SiteSetupStep1 from "apps/fancyai-web-client/src/modules/pages/SiteSetup/Step1";
+import SiteSetupStep2 from "apps/fancyai-web-client/src/modules/pages/SiteSetup/Step2";
+import SiteSetupStep3 from "apps/fancyai-web-client/src/modules/pages/SiteSetup/Step3";
 
 const SiteGeneral = ({ prop1 }) => {
   const { id } = useSiteDetail();
@@ -35,9 +37,9 @@ const SiteGeneral = ({ prop1 }) => {
         layout="vertical"
         initialValues={data?.data || {}}
       >
-        <Step1 />
-        <Step2 />
-        <Step4 />
+        <SiteSetupStep1 />
+        <SiteSetupStep2 />
+        <SiteSetupStep3 />
       </Form>
 
       <Divider />

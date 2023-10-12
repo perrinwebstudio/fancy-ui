@@ -4,9 +4,7 @@ import { Button, Form, Space, Typography, theme } from 'antd';
 import StepFormWrapper from './StepFormWrapper';
 import StyledInstructionWrapper from './StyledInstructionWrapper';
 import { CheckOutlined } from '@ant-design/icons';
-import SiteGoogleGAServiceConnect from '../siteGoogle/GoogleGAServiceConnect';
-import { useSiteGoogle } from '../siteGoogle';
-import SiteGoogleGscServiceConnect from '../siteGoogle/GoogleGSCServiceConnect';
+import { SiteGoogleGAServiceConnect, SiteGoogleGscServiceConnect, useSiteGoogle } from '@crema/modules/siteGoogle';
 
 const SiteSetupStep5 = ({ validated, showNumber }) => {
   const {token} = theme.useToken()

@@ -1,10 +1,17 @@
 import React from 'react';
-
-import { Button, Form, notification } from "antd";
-import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8, StepFormWrapper } from '@crema/modules/siteSetup';
+import { Button } from "antd";
 import StyledSpaceOnCompleted from './StyledSpaceOnCompleted';
 import { useNavigate } from 'react-router-dom';
 import AppSiteGoogleProvider from '../../providers/AppSiteGoogleProvider';
+import StepFormWrapper from './StepFormWrapper';
+import SiteSetupStep1 from './Step1';
+import SiteSetupStep2 from './Step2';
+import SiteSetupStep3 from './Step3';
+import SiteSetupStep4 from './Step4';
+import SiteSetupStep5 from './Step5';
+import SiteSetupStep6 from './Step6';
+import SiteSetupStep7 from './Step7';
+import SiteSetupStep8 from './Step8';
 
 export const validateStep = (step, formData, downloadedWpPlugin = false, installedShopifyApp = false) => {
   switch (step) {
@@ -34,14 +41,14 @@ export const validateStep = (step, formData, downloadedWpPlugin = false, install
 }
 
 const MAP_STEP_TO_FORM = {
-  0: Step1,
-  1: Step2,
-  2: Step3,
-  3: Step4,
-  4: Step5,
-  5: Step6,
-  6: Step7,
-  7: Step8
+  0: SiteSetupStep1,
+  1: SiteSetupStep2,
+  2: SiteSetupStep3,
+  3: SiteSetupStep4,
+  4: SiteSetupStep5,
+  5: SiteSetupStep6,
+  6: SiteSetupStep7,
+  7: SiteSetupStep8
 }
 
 export const CAN_SKIP_STEPS = [4]
