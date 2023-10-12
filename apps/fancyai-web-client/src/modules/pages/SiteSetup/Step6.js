@@ -1,30 +1,69 @@
 import React from 'react';
 import StyledSiteSetupTitle from './StyledSiteSetupStepTitle';
 import StepFormWrapper from './StepFormWrapper';
-import { Button, Form, Input, Typography, theme } from 'antd';
-import StyledInstructionWrapper from './StyledInstructionWrapper';
+import { Button, Collapse, Form, Input, Typography, theme } from 'antd';
+import StyledInstructionWrapper, { StyledInstructionText } from './StyledInstructionWrapper';
 import { CheckOutlined } from '@ant-design/icons';
+import { FaShopify, FaWordpressSimple } from 'react-icons/fa';
+import { MdOutlineSpaceDashboard } from 'react-icons/md';
+
 
 const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setInstalledShopifyApp, showNumber }) => {
-  const {token} = theme.useToken()
+  const WordpressInstruction = [
+    {
+      key: '1',
+      label: 'Instructions',
+      children: <>
+        <p>
+          In your WordPress dashboard, choose Plugins > Add new.
+        </p>
+        <StyledInstructionText>1. Search for a plugin with the search bar in the top right corner. A number of results will appear.</StyledInstructionText>
+        <StyledInstructionText>2. After finding the plugin in the results, click Install Now. You can also click the plugin name to view more details about it.</StyledInstructionText>
+        <StyledInstructionText>3. To use the plugin, you’ll need to activate it. When the installation is finished (this usually takes a couple seconds), click Activate.</StyledInstructionText>
+      </>
+    }
+  ];
+  const OtherInstruction = [
+    {
+      key: '1',
+      label: 'Instructions',
+      children: <>
+        <p>
+          There will be instruction for Other Platform.
+        </p>
+        <StyledInstructionText>1. Search for a plugin with the search bar in the top right corner. A number of results will appear.</StyledInstructionText>
+        <StyledInstructionText>2. After finding the plugin in the results, click Install Now. You can also click the plugin name to view more details about it.</StyledInstructionText>
+        <StyledInstructionText>3. To use the plugin, you’ll need to activate it. When the installation is finished (this usually takes a couple seconds), click Activate.</StyledInstructionText>
+      </>
+    }
+  ];
+  const { token } = theme.useToken()
   return <StepFormWrapper className='form-section'>
-    <StyledSiteSetupTitle level={4}  id='step6'>{validated && <CheckOutlined
-      style={{marginRight: '10px', color: token.colorSuccess}}
+    <StyledSiteSetupTitle level={4} id='step6'>{validated && <CheckOutlined
+      style={{ marginRight: '10px', color: token.colorSuccess }}
     />} {showNumber && <span>6.</span>} App / Plugin Installation</StyledSiteSetupTitle>
     {(!sitePlatform || sitePlatform === 'shopify') && <>
-      <Form.Item name="shopifySiteUrl" style={{marginBottom: '10px'}} label="Shopify site URL">
+      <Form.Item name="shopifySiteUrl" style={{ marginBottom: '10px' }} label="Shopify site URL">
         <Input />
       </Form.Item>
       <Form.Item>
-        <Button disabled={false} onClick={() => {
-          setInstalledShopifyApp?.(true)
-          window.open('https://google.com?q=shopify-plugin', "_blank", "noreferrer");
-        }} type='primary' block>Install App</Button>
+        <Button
+          disabled={false}
+          onClick={() => {
+            setInstalledShopifyApp?.(true)
+            window.open('https://google.com?q=shopify-plugin', "_blank", "noreferrer");
+          }}
+          type='primary'
+          block
+          style={{ display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center' }}
+        >
+          <FaShopify />
+          Install App
+        </Button>
       </Form.Item>
     </>}
-    {(!sitePlatform || sitePlatform === 'wordpress') && <Form.Item style={{marginBottom: '10px'}} label="Wordpress site">
+    {(!sitePlatform || sitePlatform === 'wordpress') && <Form.Item style={{ marginBottom: '10px' }} label="Wordpress site">
       <Button
-        style={{marginBottom: '20px'}}
         disabled={false}
         type='primary'
         block
@@ -32,27 +71,27 @@ const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setIns
           setDownloadedWpPlugin?.(true)
           window.open('https://fancy-ai-data.s3.us-east-2.amazonaws.com/public/testwp.zip', "_blank", "noreferrer");
         }}
-      >Download Plugin</Button>
-      <StyledInstructionWrapper direction='vertical'>
-        <Typography.Text strong type='secondary'>Instructions</Typography.Text>
-        <Typography.Text type='secondary'>
-          1. In your Wordpress dashboard, choose Plugins {'>'} Add new
-        </Typography.Text>
-        <Typography.Text type='secondary'>
-          2. After finding the plugin in the results, click Install now.
-        </Typography.Text>
-      </StyledInstructionWrapper>
+        style={{ display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}
+      >
+        <FaWordpressSimple />
+        Download Plugin
+      </Button>
+      <Collapse accordion expandIconPosition='end' bordered={false} items={WordpressInstruction} style={{ marginBottom: '20px' }} />
     </Form.Item>}
-    {(!sitePlatform || sitePlatform === 'other') && <Form.Item style={{marginBottom: '10px'}} label="Other platforms">
-      <StyledInstructionWrapper direction='vertical'>
-        <Typography.Text strong type='secondary'>Instructions</Typography.Text>
-        <Typography.Text type='secondary'>
-          1. There will be instruction for other.
-        </Typography.Text>
-        <Typography.Text type='secondary'>
-          2. <a href="https://search.google.com/search-console/welcome" target="_blank">Open Search Console</a>, then <a href='https://support.google.com/webmasters/answer/34592' target='_blank'>add and verify ownership of your site</a>. You'll need to prove that you are the owner of your website, because Search Console shows information about your site that only site owners should see, and allows you to make changes that can affect how your site appears on Google.
-        </Typography.Text>
-      </StyledInstructionWrapper>
+    {(!sitePlatform || sitePlatform === 'other') && <Form.Item style={{ marginBottom: '10px' }} label="Other platforms">
+      <Collapse accordion expandIconPosition='end' bordered={false} items={OtherInstruction} style={{ marginBottom: '20px' }} />
+      <Button
+        disabled={false}
+        type='primary'
+        block
+        onClick={() => {
+          
+        }}
+        style={{ display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}
+      >
+        <MdOutlineSpaceDashboard />
+        Download sample file
+      </Button>
     </Form.Item>}
   </StepFormWrapper>
 }

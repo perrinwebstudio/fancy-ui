@@ -6,4 +6,9 @@ const StyledInstructionWrapper = styled(Space)`
   margin-bottom: 20px;
 `
 
+export const StyledInstructionText = styled.p`
+  margin-bottom: 4px;
+  padding: 0 8px;
+`;
+
 export default StyledInstructionWrapper
