@@ -133,8 +133,8 @@ const StrategyOverview = ({ prop1 }) => {
           middleLabel=""
           rightValue={formatCurrencyUS(backlinkBudget.monthlyPaidContentBudgetUsed || 0)}
           rightLabel={"Used"}
-          leftValue={formatCurrencyUS(backlinkBudget.monthlyPaidContentBudget || 0)}
-          leftLabel={"Total"}
+          leftValue={formatCurrencyUS((backlinkBudget.monthlyPaidContentBudget || 0) - (backlinkBudget.monthlyPaidContentBudgetUsed || 0))}
+          leftLabel={"Unused"}
           progress={getProgress(backlinkBudget.monthlyPaidContentBudgetUsed, backlinkBudget.monthlyPaidContentBudget)}
         />
       </Col>
