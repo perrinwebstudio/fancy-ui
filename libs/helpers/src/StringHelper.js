@@ -49,6 +49,13 @@ export const formatCurrency = (value, currencyFormat, decimalDigits) => {
   }).format(value);
 };
 
+export const formatCurrencyUS = (value) => {
+  return formatCurrency(value, {
+    language: 'en-US',
+    currency: 'USD',
+  }, 0)
+}
+
 export const convertNumberToCommaSeparated = (value) => {
   return new Intl.NumberFormat('en-GB').format(value);
 }

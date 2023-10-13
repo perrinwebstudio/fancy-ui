@@ -5,60 +5,7 @@ import ProgressCard from './ProgressCard';
 import Title from 'antd/es/typography/Title';
 import { useSiteDetail } from '@crema/modules/siteDetail';
 import { useGetStrategyPlanOverviewQuery } from 'apps/fancyai-web-client/src/core/api';
-
-// "data": {
-//   "shortTermKeywords": {
-//       "allShortTermKeywords": 25,
-//       "completedShortTermKeywords": 9,
-//       "targetShorTermKeywords": 16
-//   },
-//   "longTermKeywords": {
-//       "allLongTermKeywords": 11,
-//       "completedLongTermKeywords": 7,
-//       "targetLongTermKeywords": 4
-//   },
-//   "keywordsResearch": {
-//       "totalResearchKeywords": 57,
-//       "activeResearchKeywords": 50
-//   },
-//   "contentUpdates": {
-//       "allUpdateContent": 33,
-//       "completedUpdateContent": 8,
-//       "plannedUpdateContent": 25
-//   },
-//   "contentCreation": {
-//       "allNewContent": 36,
-//       "completedNewContent": 12,
-//       "plannedNewContent": 24
-//   },
-//   "siteOptimisations": {
-//       "allSiteOptimisations": 51,
-//       "completedSiteOptimisations": 0,
-//       "plannedSiteOptimisations": 51
-//   },
-//   "backlinkOpportunities": {
-//       "allBacklinkOpportunities": 0,
-//       "liveBacklinkOpportunities": 0
-//   },
-//   "articleBudgetUtilisation": {
-//       "_id": "6523d3c8a3fa730008c25673",
-//       "monthlyPaidContentBudget": 200,
-//       "recommendedMonthlyPaidContentBudget": 10000,
-//       "monthlyProfileLinks": 4,
-//       "paidContentOpportunities": 4,
-//       "unlinkedMentionOpportunities": 4,
-//       "profileOpportunities": 4,
-//       "reviewRoundupOpportunities": 4,
-//       "helpReporterOpportunities": 2,
-//       "industryPartnerOpportunities": 3,
-//       "directoryListingOpportunities": 4,
-//       "localCitationOpportunities": 3,
-//       "site": "651830bc0ffac50008d99bad",
-//       "createdAt": "2023-10-09T10:19:52.486Z",
-//       "updatedAt": "2023-10-11T13:05:55.058Z",
-//       "__v": 0
-//   }
-// }
+import { formatCurrency, formatCurrencyUS, getProgress } from '@crema/helpers';
 
 const StrategyOverview = ({ prop1 }) => {
   const { id } = useSiteDetail()
@@ -70,27 +17,125 @@ const StrategyOverview = ({ prop1 }) => {
     return data?.data || {}
   }, [data])
 
+  const {
+    shortTerm,
+    longTerm,
+    research,
+    contentCreation,
+    contentUpdate,
+    siteOptimization,
+    backlinks,
+    backlinkBudget
+  } = useMemo(() => {
+    return {
+      shortTerm: overviewData?.shortTermKeywords || {},
+      longTerm: overviewData?.longTermKeywords || {},
+      research: overviewData?.keywordsResearch || {},
+      contentUpdate: overviewData?.contentUpdates || {},
+      contentCreation: overviewData?.contentCreation || {},
+      siteOptimization: overviewData?.siteOptimisations || {},
+      backlinks: overviewData?.backlinkOpportunities || {},
+      backlinkBudget: overviewData?.articleBudgetUtilisation || {}
+    }
+  })
+
   return <>
     <Title level={5}>Overview</Title>
     <Row style={{marginTop: '10px'}} gutter={[20, 20]}>
       <Col xs={24} sm={24} md={12} lg={8} xl={6}>
         <ProgressCard
           title={"Keyword Priorities (Short Term)"}
-          unit={"Items"}
-          completed={overviewData?.shortTermKeywords?.completedShortTermKeywords || 0}
-          completedLabel={"Completed"}
-          targeted={overviewData?.shortTermKeywords?.targetShorTermKeywords || 0}
-          targetedLabel={"Targeted"}
+          middleValue={shortTerm.allShortTermKeywords || 0}
+          middleLabel="Items"
+          rightValue={shortTerm.completedShortTermKeywords || 0}
+          rightLabel={"Completed"}
+          leftValue={shortTerm.targetShorTermKeywords || 0}
+          leftLabel={"Targeted"}
+          progress={getProgress(shortTerm.completedShortTermKeywords, overviewData?.shortTermKeywords?.allShortTermKeywords)}
         />
       </Col>
       <Col xs={24} sm={24} md={12} lg={8} xl={6}>
         <ProgressCard
           title={"Keyword Priorities (Long Term)"}
-          unit={"Items"}
-          completed={overviewData?.longTermKeywords?.completedLongTermKeywords || 0}
-          completedLabel={"Completed"}
-          targeted={overviewData?.longTermKeywords?.targetLongTermKeywords || 0}
-          targetedLabel={"Targeted"}
+          middleValue={longTerm.allLongTermKeywords || 0}
+          middleLabel="Items"
+          rightValue={longTerm.completedLongTermKeywords || 0}
+          rightLabel={"Completed"}
+          leftValue={longTerm.targetLongTermKeywords || 0}
+          leftLabel={"Targeted"}
+          progress={getProgress(longTerm.completedLongTermKeywords, longTerm.allLongTermKeywords)}
+        />
+      </Col>
+      <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+        <ProgressCard
+          title={"Keyword Research"}
+          middleValue={research.totalResearchKeywords || 0}
+          middleLabel="Items"
+          leftValue={(research.totalResearchKeywords || 0) - (research.activeResearchKeywords || 0)}
+          leftLabel={"Inactive"}
+          rightValue={research.activeResearchKeywords || 0}
+          rightLabel={"Active"}
+          progress={getProgress(research.activeResearchKeywords, research.totalResearchKeywords)}
+        />
+      </Col>
+      <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+        <ProgressCard
+          title={"Content Update"}
+          middleValue={contentUpdate.allUpdateContent || 0}
+          middleLabel="Items"
+          rightValue={contentUpdate.completedUpdateContent || 0}
+          rightLabel={"Completed"}
+          leftValue={contentUpdate.plannedUpdateContent || 0}
+          leftLabel={"Planned"}
+          progress={getProgress(contentUpdate.completedUpdateContent, contentUpdate.allUpdateContent)}
+        />
+      </Col>
+      <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+        <ProgressCard
+          title={"Content Creation"}
+          middleValue={contentCreation.allNewContent || 0}
+          middleLabel="Items"
+          rightValue={contentCreation.completedNewContent || 0}
+          rightLabel={"Completed"}
+          leftValue={contentCreation.plannedNewContent || 0}
+          leftLabel={"Planned"}
+          progress={getProgress(contentCreation.completedNewContent, contentCreation.allNewContent)}
+        />
+      </Col>
+      <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+        <ProgressCard
+          title={"Site Optimizations"}
+          middleValue={siteOptimization.allSiteOptimisations || 0}
+          middleLabel="Items"
+          rightValue={siteOptimization.completedSiteOptimisations || 0}
+          rightLabel={"Completed"}
+          leftValue={siteOptimization.plannedSiteOptimisations || 0}
+          leftLabel={"Planned"}
+          progress={getProgress(siteOptimization.completedSiteOptimisations, siteOptimization.allSiteOptimisations)}
+        />
+      </Col>
+      <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+        <ProgressCard
+          title={"Backlink Opportunities"}
+          middleValue={backlinks.allBacklinkOpportunities || 0}
+          middleLabel="Items"
+          rightValue={backlinks.liveBacklinkOpportunities || 0}
+          rightLabel={"Live"}
+          leftValue={(backlinks.allBacklinkOpportunities || 0)}
+          leftLabel={"Found"}
+          progress={getProgress(backlinks.liveBacklinkOpportunities, backlinks.allBacklinkOpportunities)}
+        />
+      </Col>
+      <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+        <ProgressCard
+          title={"Paid Content Budget Utilization"}
+          middleValue={formatCurrencyUS(backlinkBudget.monthlyPaidContentBudget || 0)}
+          middleLabel=""
+          rightValue={formatCurrencyUS(backlinkBudget.monthlyPaidContentBudgetUsed || 0)}
+          rightLabel={"Used"}
+          leftValue={formatCurrencyUS(backlinkBudget.monthlyPaidContentBudget || 0)}
+          leftLabel={"Total"}
+          progress={getProgress(backlinkBudget.monthlyPaidContentBudgetUsed, backlinkBudget.monthlyPaidContentBudget)}
         />
       </Col>
     </Row>

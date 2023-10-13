@@ -120,3 +120,8 @@ export const capitalizeFirstLetter = (string) => {
   if (!string) return string;
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export const getProgress = (value, total) => {
+  if (!total) return 0;
+  return Math.round(((value || 0) / total) * 100);
+}

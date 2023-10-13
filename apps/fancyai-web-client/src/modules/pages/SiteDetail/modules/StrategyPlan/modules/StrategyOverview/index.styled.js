@@ -4,6 +4,10 @@ export const StyledProgressCard = styled.div`
   background-color: ${({theme}) => theme.palette.background.default};
   padding: 10px 20px;
   border-radius: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   & .title {
     font-weight: 600;

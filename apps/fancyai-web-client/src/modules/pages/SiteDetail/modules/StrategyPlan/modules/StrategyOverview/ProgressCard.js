@@ -2,13 +2,8 @@ import React, { useMemo } from 'react';
 import { StyledProgressCard } from './index.styled';
 import { Col, Progress, Row, Typography, theme } from 'antd';
 
-const ProgressCard = ({ title, unit, completed, completedLabel, targeted, targetedLabel }) => {
+const ProgressCard = ({ title, progress, middleValue, middleLabel, rightValue, rightLabel, leftValue, leftLabel }) => {
   const {token} = theme.useToken();
-
-  const percent = useMemo(() => {
-    if ((completed || 0) + (targeted || 0) === 0) return 0
-    return Math.round(completed / (targeted + completed) * 100)
-  }, [completed, targeted])
 
   return <StyledProgressCard>
     <div className='title'>{title}</div>
@@ -16,34 +11,31 @@ const ProgressCard = ({ title, unit, completed, completedLabel, targeted, target
       <Progress
         strokeColor={token.colorPrimary}
         type='circle'
-        percent={percent}
+        percent={progress}
         format={percent => <div className='chart-text-wrapper'>
           <div className='chart-text'>
-            <Typography.Title level={4}>{completed}</Typography.Title>
+            <Typography.Title level={4}>{middleValue}</Typography.Title>
           </div>
           <div className='chart-text chart-text-subtitle'>
-            <Typography.Text type='secondary'>Items</Typography.Text>
+            <Typography.Text type='secondary'>{middleLabel}</Typography.Text>
           </div>
         </div>}
       />
     </div>
     <div className='stat-wrapper'>
       <Row>
-        <Col span={1}></Col>
-        <Col span={10}>
-          <div className='stat-number'>{targeted}</div>
+        <Col span={12}>
+          <div className='stat-number'>{leftValue}</div>
           <div className='stat-number-subtitle'>
-            <Typography.Text type='secondary'>{targetedLabel}</Typography.Text>
+            <Typography.Text type='secondary'>{leftLabel}</Typography.Text>
           </div>
         </Col>
-        <Col span={2}></Col>
-        <Col span={10}>
-          <div className='stat-number'>{completed}</div>
+        <Col span={12}>
+          <div className='stat-number'>{rightValue}</div>
           <div className='stat-number-subtitle'>
-            <Typography.Text type='secondary'>{completedLabel}</Typography.Text>
+            <Typography.Text type='secondary'>{rightLabel}</Typography.Text>
           </div>
         </Col>
-        <Col span={1}></Col>
       </Row>
     </div>
   </StyledProgressCard>
