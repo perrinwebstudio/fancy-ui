@@ -1,10 +1,8 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDownloadOptimizationCsvByTypeMutation, useGetOptimizationSummaryQuery, useGetOptimizationsQuery } from 'apps/fancyai-web-client/src/core/api/apiOptimization';
+import {useGetOptimizationSummaryQuery } from 'apps/fancyai-web-client/src/core/api/apiOptimization';
 import { useSiteDetail } from '@crema/modules/siteDetail';
-import { Button, Table } from 'antd';
+import { Table } from 'antd';
 import Title from 'antd/es/typography/Title';
-import { StyledTag } from '../../shared.styled';
 import PercentChange from './PercentChange';
 import DownloadOptimizationButton from './DownloadOptimizationButton';
 
@@ -17,9 +15,6 @@ const SiteOptimizations = ({ prop1 }) => {
   const summryData = useMemo(() => {
     return data?.data || []
   }, [data])
-
-  
-  
 
   const columns = useMemo(() => {
     return [
