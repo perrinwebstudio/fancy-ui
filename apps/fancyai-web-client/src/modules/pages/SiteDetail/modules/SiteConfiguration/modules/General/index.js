@@ -38,9 +38,9 @@ const SiteGeneral = ({ prop1 }) => {
         layout="vertical"
         initialValues={data?.data || {}}
       >
-        <SiteSetupStep1 />
-        <SiteSetupStep2 />
-        <SiteSetupStep4 />
+        <SiteSetupStep1 big />
+        <SiteSetupStep2 big />
+        <SiteSetupStep4 big />
       </Form>
 
       <Divider />

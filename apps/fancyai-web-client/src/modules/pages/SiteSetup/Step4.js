@@ -5,7 +5,7 @@ import TextArea from 'antd/es/input/TextArea';
 import StepFormWrapper from './StepFormWrapper';
 import { CheckOutlined } from '@ant-design/icons';
 
-const SiteSetupStep4 = ({validated, showNumber}) => {
+const SiteSetupStep4 = ({validated, showNumber, big}) => {
   const {token} = theme.useToken()
 
   const validateProps = {
@@ -13,7 +13,7 @@ const SiteSetupStep4 = ({validated, showNumber}) => {
     validateStatus: validated ? 'success' : '',
   }
 
-  return <StepFormWrapper className='form-section'>
+  return <StepFormWrapper big={big} className='form-section'>
     <StyledSiteSetupTitle level={4}  id='step4'>{validated && <CheckOutlined
       style={{marginRight: '10px', color: token.colorSuccess}}
     />} {showNumber && <span>4.</span>} Service Specific Information</StyledSiteSetupTitle>

@@ -38,7 +38,7 @@ const SiteConnections = ({ prop1 }) => {
         initialValues={data?.data || {}}
       >
         <AppSiteGoogleProvider selectedGaAccount={gaAccountId} siteId={id}>
-          <SiteSetupStep5 />
+          <SiteSetupStep5 big />
         </AppSiteGoogleProvider>
         <SiteSetupStep6 sitePlatform={data?.data?.platform} />
       </Form>

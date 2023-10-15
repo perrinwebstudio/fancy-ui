@@ -37,7 +37,7 @@ const GoogleAnalyticsInstructionItems = [
   }
 ];
 
-const SiteSetupStep5 = ({ validated, showNumber }) => {
+const SiteSetupStep5 = ({ validated, showNumber, big }) => {
   const { token } = theme.useToken()
 
   const { site: siteData } = useSiteGoogle()
@@ -45,7 +45,7 @@ const SiteSetupStep5 = ({ validated, showNumber }) => {
     console.log(key);
   };
 
-  return <StepFormWrapper className='form-section'>
+  return <StepFormWrapper big={big} className='form-section'>
     <StyledSiteSetupTitle level={4} id='step5'>{validated && <CheckOutlined
       style={{ marginRight: '10px', color: token.colorSuccess }}
     />} {showNumber && <span>5.</span>} Google Services Connections</StyledSiteSetupTitle>
