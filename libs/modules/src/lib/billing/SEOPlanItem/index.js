@@ -6,12 +6,22 @@ import { CheckOutlined } from '@ant-design/icons';
 import StyledSEOPlanItemPricing from './StyledSEOPlanItemPricing';
 import {StyledActivePlan, StyledActivePlanWrapper} from './StyledActivePlan';
 import CircleIcon from './CircleIcon';
+import { StyledSEOPlanItemCard, StyledSEOPlanItemWrapper } from './index.styled';
 
-const SEOPlanItem = ({ viewMode, onClick, plan, planCode, pricingComponent, active, features, buttonLabel, color }) => {
+const SEOPlanItem = ({ viewMode, onClick, plan, planCode, planShortCode, pricingComponent, active, features, buttonLabel, color }) => {
   const {token} = theme.useToken()
   
-  return <Badge.Ribbon color={color} text={planCode}>
-    <Card
+  return <StyledSEOPlanItemWrapper>
+    <span
+      className='tag'
+      style={{
+        backgroundColor: color,
+        color: 'white',
+      }}
+    >
+      {planShortCode || planCode}
+    </span>
+    <StyledSEOPlanItemCard
       style={{
       minWidth: '250px',
       maxWidth: '250px',
@@ -32,6 +42,7 @@ const SEOPlanItem = ({ viewMode, onClick, plan, planCode, pricingComponent, acti
             color: active ? 'black' : 'white',
             marginTop: '15px',
             width: '100%',
+            borderWidth: '0px',
             borderColor: active ? token.colorPrimary : undefined,
           }}>
           {active && <CheckOutlined style={{ color: token.colorSuccess }} /> }{active ? 'Selected' : buttonLabel}
@@ -47,8 +58,9 @@ const SEOPlanItem = ({ viewMode, onClick, plan, planCode, pricingComponent, acti
           }
         </Space>
       </Space>
-    </Card>
-  </Badge.Ribbon>
+    </StyledSEOPlanItemCard>
+  </StyledSEOPlanItemWrapper>
+  // </Badge.Ribbon><Badge.Ribbon color={color} text={planCode}>
 }
 
 SEOPlanItem.defaultProps = {

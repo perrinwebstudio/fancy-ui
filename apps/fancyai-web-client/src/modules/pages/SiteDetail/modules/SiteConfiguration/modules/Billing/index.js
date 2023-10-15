@@ -34,7 +34,7 @@ const SiteBilling = () => {
           initialValues={data?.data || {}}
         >
           <Form.Item name="billingPlan">
-            <SEOPlanPicker buttonLabel={"Try Now"} />
+            <SEOPlanPicker buttonLabel={"Switch Plan"} />
           </Form.Item>
         </Form>
 
