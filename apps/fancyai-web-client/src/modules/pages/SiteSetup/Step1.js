@@ -18,13 +18,13 @@ const SiteSetupStep1 = ({ validated, showNumber }) => {
       style={{marginRight: '10px', color: token.colorSuccess}}
     />} {showNumber && <span>1.</span>} Site Information</StyledSiteSetupTitle>
     
-    <Form.Item name="name" label="Webiste Name" {...validateProps}>
+    <Form.Item name="name" label="Website Name" {...validateProps}>
       <Input placeholder='Apple' suffix={<span />} />
     </Form.Item>
-    <Form.Item name="url" label="Webiste URL" {...validateProps}>
+    <Form.Item name="url" label="Website URL" {...validateProps}>
       <Input placeholder='apple.com' suffix={<span />} />
     </Form.Item>
-    <Form.Item name="platform" label="Site Platform" {...validateProps}>
+    <Form.Item name="platform" label="CMS / Platform" {...validateProps}>
       <Select placeholder='Shopify' suffix={<span />}>
         <Select.Option value='shopify'>Shopify</Select.Option>
         <Select.Option value='wordpress'>WordPress</Select.Option>

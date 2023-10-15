@@ -27,7 +27,7 @@ const SiteSetupStep2 = ({ validated, showNumber }) => {
       <TextArea rows={3} />
     </Form.Item>
     <Form.Item name="targetCustomer" label="Target Market / Target Customer"  {...validateProps}>
-      <Input />
+      <TextArea rows={3} />
     </Form.Item>
     <Form.Item name="brandVoiceDescription" label="Band Voice Description"  {...validateProps}>
       <TextArea rows={3} />

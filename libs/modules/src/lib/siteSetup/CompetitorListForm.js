@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Col, Form, Input, Row } from 'antd';
+import { AddMoreCompetitorButton } from './index.styled';
 
 const CompetitorListForm = ({ onChange, value, validated }) => {
   const [valueState, setValueState] = React.useState(value || [{name: '', url: ''}]);
@@ -39,9 +40,9 @@ const CompetitorListForm = ({ onChange, value, validated }) => {
       })
     }
     <div>
-      <Button onClick={() => {
+      <AddMoreCompetitorButton onClick={() => {
         onAddMore();
-      }} type='primary' block ghost>+ Add More</Button>
+      }} type='primary' block ghost>+ Add More</AddMoreCompetitorButton>
     </div>
   </>
 }

@@ -12,6 +12,7 @@ import { useAuthUser } from "@crema/hooks/AuthHooks";
 import SiteSetupStep1 from "apps/fancyai-web-client/src/modules/pages/SiteSetup/Step1";
 import SiteSetupStep2 from "apps/fancyai-web-client/src/modules/pages/SiteSetup/Step2";
 import SiteSetupStep3 from "apps/fancyai-web-client/src/modules/pages/SiteSetup/Step3";
+import SiteSetupStep4 from "apps/fancyai-web-client/src/modules/pages/SiteSetup/Step4";
 
 const SiteGeneral = ({ prop1 }) => {
   const { id } = useSiteDetail();
@@ -24,7 +25,7 @@ const SiteGeneral = ({ prop1 }) => {
 
   if (isLoading) return <AppLoader />;
   return (
-    <Card>
+    <Card style={{maxWidth: '700px', margin: '0px auto'}}>
       <Form
         form={form}
         onFinish={() => {
@@ -39,7 +40,7 @@ const SiteGeneral = ({ prop1 }) => {
       >
         <SiteSetupStep1 />
         <SiteSetupStep2 />
-        <SiteSetupStep3 />
+        <SiteSetupStep4 />
       </Form>
 
       <Divider />

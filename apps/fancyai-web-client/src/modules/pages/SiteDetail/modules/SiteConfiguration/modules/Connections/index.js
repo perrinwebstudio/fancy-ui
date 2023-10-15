@@ -24,7 +24,7 @@ const SiteConnections = ({ prop1 }) => {
 
   if (isLoading) return <AppLoader />;
   return (
-    <Card>
+    <Card style={{maxWidth: '700px', margin: '0px auto'}}>
       <Form
         onFinish={() => {
           update({
