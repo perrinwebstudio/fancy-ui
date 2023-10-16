@@ -10,7 +10,7 @@ import {
 } from "@crema/modules/dashboards/Academy";
 import AppInfoView from "@crema/components/AppInfoView";
 
-import { StyledWrapperBetween } from "./index.styled";
+import { StyledCreateSiteButton, StyledWrapperBetween } from "./index.styled";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useGetCompanySitesMutation } from "apps/fancyai-web-client/src/core/api/apiAuth";
@@ -36,17 +36,18 @@ const Sites = () => {
           setSites(
             result.data.map((e) => {
               return {
-                images: [
+                images: e.images ?? [
                   {
-                    title: "test",
+                    title: "placeholder",
                     image:
-                      "https://ant-cra.cremawork.com/assets/images/dashboard/academy/development.jpg",
+                      "/assets/images/site_logo_placeholder.png",
                   },
                 ],
                 title: e.name,
                 desc: e.description,
                 notifications: 0,
                 id: e.id,
+                url: e.url,
               };
             })
           );
@@ -76,9 +77,9 @@ const Sites = () => {
       <AppPageMeta title="Sites" />
       <StyledWrapperBetween>
         <Title level={3}>Sites</Title>
-        <Button onClick={goToNewSite} type="primary">
+        <StyledCreateSiteButton onClick={goToNewSite} type="primary">
           Add New Site
-        </Button>
+        </StyledCreateSiteButton>
       </StyledWrapperBetween>
       {isLoading ? (
         <AppLoader />

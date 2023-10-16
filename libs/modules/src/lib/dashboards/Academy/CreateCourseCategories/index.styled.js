@@ -7,6 +7,7 @@ export const StyledCenterWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #E1ECFB;
 `;
 
 export const StyledCourseCategoryCard = styled(AppCard)`
