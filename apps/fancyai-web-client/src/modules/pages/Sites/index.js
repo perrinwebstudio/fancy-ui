@@ -46,7 +46,7 @@ const Sites = () => {
                 title: e.name,
                 desc: e.description,
                 notifications: 0,
-                id: e._id,
+                id: e.id,
               };
             })
           );

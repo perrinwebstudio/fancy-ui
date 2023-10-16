@@ -6,15 +6,21 @@ import {
   StyledNotifyListItem,
   StyledNotifyMsgAvatar,
 } from './NotificationItem.styled';
+import { useNavigate } from 'react-router-dom';
 
 const NotificationItem = (props) => {
   const { item } = props;
+  const navigate = useNavigate();
+
+  const handleClickNotification = () => {
+    navigate(`/pages/sites/${item.siteId}/review_center/`);
+  }
+
   return (
-    <StyledNotifyListItem className='item-hover'>
+    <StyledNotifyListItem className='item-hover' onClick={handleClickNotification}>
       <List.Item.Meta
-        avatar={<StyledNotifyMsgAvatar src={item.image} alt={item.name} />}
-        title={item.name}
-        description={item.message}
+        avatar={<StyledNotifyMsgAvatar src={item.image ?? '/assets/images/site_logo_placeholder.png'} alt={item.siteName} />}
+        description={`${item.count} unread notifications on ${item.siteName}`}
       />
     </StyledNotifyListItem>
   );

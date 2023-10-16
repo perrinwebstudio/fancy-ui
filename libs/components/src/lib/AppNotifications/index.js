@@ -1,5 +1,4 @@
 import React from 'react';
-import { notification } from '@crema/fakedb/data';
 import { Dropdown } from 'antd';
 
 import IntlMessages from '@crema/helpers/IntlMessages';
@@ -14,43 +13,40 @@ import {
   StyledNotifyScrollSubmenu,
   StyledNotifyText,
 } from './index.styled';
+import { useAuthUser } from '@crema/hooks/AuthHooks';
 
-const items = [
-  {
-    key: 1,
-    label: (
-      <span className='header'>
-        <IntlMessages id='common.notifications' />({notification.length})
-      </span>
-    ),
-  },
-  {
-    key: 2,
-    label: (
-      <StyledNotifyScrollSubmenu>
-        <StyledNotifyList
-          dataSource={notification}
-          renderItem={(item) => {
-            return <NotificationItem key={item.id} item={item} />;
-          }}
-        />
-      </StyledNotifyScrollSubmenu>
-    ),
-  },
-  {
-    key: 3,
-    label: (
-      <StyledNotifyButtonAll type='primary'>
-        <IntlMessages id='common.viewAll' />
-      </StyledNotifyButtonAll>
-    ),
-  },
-];
 const AppNotifications = () => {
+
+  const { notifications } = useAuthUser();
+
+  const notificationItems = [
+    {
+      key: 1,
+      label: (
+        <span className='header'>
+          <IntlMessages id='common.notifications' /> ({notifications?.length ?? 0})
+        </span>
+      ),
+    },
+    {
+      key: 2,
+      label: (
+        <StyledNotifyScrollSubmenu>
+          <StyledNotifyList
+            dataSource={notifications}
+            renderItem={(item) => {
+              return <NotificationItem key={item.id} item={item} />;
+            }}
+          />
+        </StyledNotifyScrollSubmenu>
+      ),
+    },
+  ];
+
   return (
     <StyledDrowdownWrapper>
       <Dropdown
-        menu={{ items }}
+        menu={{ items: notificationItems }}
         className='dropdown'
         overlayClassName='header-notify-messages'
         getPopupContainer={(triggerNode) => triggerNode}

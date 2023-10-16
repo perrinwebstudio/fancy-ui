@@ -11,6 +11,7 @@ const initialState = {
   actAsUserId: undefined,
   authInit: false,
   companies: [],
+  notifications: [],
   showEmailConfirmPopup: false,
 };
 
@@ -44,6 +45,7 @@ export const authSlice = createSlice({
             ...action.payload.data.user,
           };
           state.companies = action.payload.data.companies;
+          state.notifications = action.payload.data.notifications;
         }
       })
       .addMatcher(
