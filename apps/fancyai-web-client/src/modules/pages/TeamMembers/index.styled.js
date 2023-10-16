@@ -2,11 +2,15 @@ import { Select, Button, Typography } from "antd";
 import styled from "styled-components";
 
 export const StyledSelect = styled(Select)`
+  height: 50px !important;
+  
   & .ant-select-selector {
     border-radius: 0;
     padding: 8px 14px !important;
-    height: 50px !important;
     min-width: 140px;
+  }
+  &.ant-select-disabled .ant-select-arrow {
+    display: none;
   }
 `;
 

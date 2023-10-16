@@ -50,6 +50,7 @@ const TeamMembers = () => {
         <StyledSelect
           placeholder="Choose Role"
           value={text}
+          disabled={text == "CompanyOwner"}
           onChange={(e) => {
             if (!isEmailVerified) {
               setShowEmailConfirmPopup(true);
@@ -77,17 +78,17 @@ const TeamMembers = () => {
           <StyledEditButton
             type="primary"
             onClick={() => handleOpenEditModal(record.id)}
+            disabled={record.role == "CompanyOwner"}
           >
             Edit
           </StyledEditButton>
-          {record.role != "CompanyOwner" && (
-            <StyledEditButton
-              onClick={() => handleOpenDeleteModal(record.id)}
-              danger
-            >
-              Delete
-            </StyledEditButton>
-          )}
+          <StyledEditButton
+            onClick={() => handleOpenDeleteModal(record.id)}
+            danger
+            disabled={record.role == "CompanyOwner"}
+          >
+            Delete
+          </StyledEditButton>
         </Space>
       ),
     },
