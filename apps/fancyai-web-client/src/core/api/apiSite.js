@@ -8,7 +8,7 @@ export const apiSite = api.injectEndpoints({
         url: `site/${companyId}`,
         method: "GET",
       }),
-      providesTags: ['Sites']
+      providesTags: ['Sites', 'AllSites']
     }),
     getSite: build.query({
       query: ({ siteId }) => ({
@@ -45,6 +45,19 @@ export const apiSite = api.injectEndpoints({
           return transformResponseWithNotification(response, 'Site updated successfully');
         }
         return response
+      },
+    }),
+    deleteSite: build.mutation({
+      query: ({ siteId }) => ({
+        url: `site/${siteId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_result, error, _arg) => {
+        if (!error) return ['AllSites', 'BillingAmount']
+        return []
+      },
+      transformResponse: (response, meta, arg) => {
+        return transformResponseWithNotification(response, 'Site deleted successfully');
       },
     }),
     connectGoogleService: build.mutation({
@@ -104,4 +117,5 @@ export const {
   useGetGSCSitesMutation,
   useGetGAAccountsMutation,
   useGetStrategyPlanOverviewQuery,
+  useDeleteSiteMutation
 } = apiSite;

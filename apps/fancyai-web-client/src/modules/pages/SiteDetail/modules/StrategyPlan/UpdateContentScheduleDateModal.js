@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Button, DatePicker, Divider, Form, Typography } from 'antd';
 import { useUpdateContentMutation } from 'apps/fancyai-web-client/src/core/api/apiContent';
 import dayjs from 'dayjs';
-import { StyledUpdateModal } from './shared.styled';
 import TextArea from 'antd/es/input/TextArea';
+import AppNotificationModal from 'libs/components/src/lib/AppNotificationModal';
 
 const UpdateContentScheduleDateModal = ({ open, onClose, content, type }) => {
   const [update, { isLoading }] = useUpdateContentMutation()
@@ -16,7 +16,7 @@ const UpdateContentScheduleDateModal = ({ open, onClose, content, type }) => {
 
   if (!content) return null
 
-  return <StyledUpdateModal width={450} closable={false} footer={<></>} open={open} destroyOnClose onCancel={onClose}>
+  return <AppNotificationModal width={450} closable={false} footer={<></>} open={open} destroyOnClose onCancel={onClose}>
     <Typography.Title level={5}>{type === 'new' ? 'New Content Edits' : 'Content Update Edits'}</Typography.Title>
     <Divider />
     <Form layout='vertical'>
@@ -64,7 +64,7 @@ const UpdateContentScheduleDateModal = ({ open, onClose, content, type }) => {
         onClick={onClose}
         block type='ghost'>Cancel</Button>
     </div>
-  </StyledUpdateModal>
+  </AppNotificationModal>
 }
 
 

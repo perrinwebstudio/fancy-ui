@@ -40,7 +40,7 @@ const SiteConnections = ({ prop1 }) => {
         <AppSiteGoogleProvider selectedGaAccount={gaAccountId} siteId={id}>
           <SiteSetupStep5 big />
         </AppSiteGoogleProvider>
-        <SiteSetupStep6 sitePlatform={data?.data?.platform} />
+        <SiteSetupStep6 big sitePlatform={data?.data?.platform} />
       </Form>
       <Divider />
 
@@ -65,7 +65,7 @@ const SiteConnections = ({ prop1 }) => {
             setEdit(false);
           }}
         >
-          Save
+          Save Changes
         </Button>
       </div>
     </Card>

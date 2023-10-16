@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Divider, Form, Modal, Typography, theme } from 'antd';
 import { useRejectContentMutation } from 'apps/fancyai-web-client/src/core/api/apiContent';
-import { StyledUpdateModal } from './shared.styled';
+import AppNotificationModal from 'libs/components/src/lib/AppNotificationModal';
 
 const RemoveContentModal = ({ open, onClose, content, type }) => {
   const {token} = theme.useToken()
   const [reject, { isLoading }] = useRejectContentMutation()
 
-  return <StyledUpdateModal closable={false} footer={<></>} open={open} onCancel={onClose}>
+  return <AppNotificationModal closable={false} footer={<></>} open={open} onCancel={onClose}>
     <Typography.Title level={4}>Do you want to Remove?</Typography.Title>
     <Divider />
     <div style={{marginBottom: '30px'}}>
@@ -33,7 +33,7 @@ const RemoveContentModal = ({ open, onClose, content, type }) => {
         onClick={onClose}
         block type='ghost'>Cancel</Button>
     </div>
-  </StyledUpdateModal>
+  </AppNotificationModal>
 }
 
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import StyledSiteSetupTitle from './StyledSiteSetupStepTitle';
-import { Form, Input, Select, theme } from 'antd';
+import { Button, Form, Input, Popover, Select, theme } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import StepFormWrapper from './StepFormWrapper';
-import { CheckOutlined } from '@ant-design/icons';
+import { CheckOutlined, MenuOutlined, MoreOutlined } from '@ant-design/icons';
+import { MdMoreVert } from 'react-icons/md';
 
 const SiteSetupStep1 = ({ validated, showNumber, showDelete, big }) => {
   const {token} = theme.useToken()
@@ -14,9 +15,13 @@ const SiteSetupStep1 = ({ validated, showNumber, showDelete, big }) => {
   }
 
   return <StepFormWrapper big={big} className='form-section'>
-    <StyledSiteSetupTitle level={4} id='step1'>{validated && <CheckOutlined
-      style={{marginRight: '10px', color: token.colorSuccess}}
-    />} {showNumber && <span>1.</span>} Site Information</StyledSiteSetupTitle>
+    <StyledSiteSetupTitle level={4} id='step1'>
+      {validated && <CheckOutlined
+        style={{marginRight: '10px', color: token.colorSuccess}}
+      />
+      }
+      { showNumber && <span>1.</span>} Site Information
+    </StyledSiteSetupTitle>
     
     <Form.Item name="name" label="Website Name" {...validateProps}>
       <Input placeholder='Apple' suffix={<span />} />
