@@ -60,8 +60,8 @@ export const apiAuth = api.injectEndpoints({
         method: "PUT",
         body,
       }),
-      transformResponse: (response) => {
-        return transformResponseWithNotification(response, response.msg);
+      transformResponse: (response, meta, args) => {
+        return transformResponseWithNotification(response, args?.successMessage || response.msg);
       },
     }),
     loginSocial: build.mutation({

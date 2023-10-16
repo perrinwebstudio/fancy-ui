@@ -1,6 +1,7 @@
 import React from "react";
 import Verify2FaPage from "../../modules/auth/2FA";
 import SocialTokenCallback from "../../modules/auth/SocialTokenCallback";
+import AcceptInvitation from "../../modules/auth/AcceptInvitation";
 
 const Signin = React.lazy(() => import("../../modules/auth/Signin"));
 const Signup = React.lazy(() => import("../../modules/auth/Signup"));
@@ -49,4 +50,8 @@ export const authRouteConfig = [
     path: "/oauth-redirect",
     element: <SocialTokenCallback />,
   },
+  {
+    path: "accept-invitation",
+    element: <AcceptInvitation />
+  }
 ];
