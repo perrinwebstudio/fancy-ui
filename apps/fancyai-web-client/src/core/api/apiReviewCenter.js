@@ -26,7 +26,7 @@ export const apiReviewCenter = api.injectEndpoints({
         },
       }),
       invalidatesTags: (_result, error, _arg) => {
-        if (!error) return ['ReviewCenterList']
+        if (!error) return ['ReviewCenterList', 'AuthUser']
         return []
       },
       transformResponse: (response, meta, arg) => {

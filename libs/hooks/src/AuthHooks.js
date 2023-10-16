@@ -19,6 +19,7 @@ export const useAuthUser = () => {
     setShowEmailConfirmPopup: (val) => dispatch(setShowEmailConfirmPopup(val)),
     user: auth.currentUser || null,
     companies: auth.companies || [],
+    notifications: auth.notifications || [],
     apiToken: auth.apiToken || null,
     verify2FAToken: auth.verify2FAToken || null,
   };
