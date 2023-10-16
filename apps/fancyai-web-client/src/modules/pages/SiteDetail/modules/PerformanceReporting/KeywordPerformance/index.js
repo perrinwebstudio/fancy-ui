@@ -10,6 +10,7 @@ import AppCard from "@crema/components/AppCard";
 import { useSiteDetail } from "@crema/modules/siteDetail";
 import { useFetchKeywordPerfomanceQuery } from "apps/fancyai-web-client/src/core/api/apiPerformanceReport";
 import { useState } from "react";
+import AppLoader from "@crema/components/AppLoader";
 
 const columns = [
   {
@@ -147,18 +148,26 @@ const KeywordPerformance = ({ prop1 }) => {
   return (
     <AppCard bordered={false}>
       <StyledTitle level={5}>Keyword Performance</StyledTitle>
-      <Table
-        columns={columns}
-        pagination={{ position: ["none", "none"] }}
-        dataSource={data?.data}
-      />
-      <Row justify="center" style={{ margin: "16px" }}>
-        <Pagination
-          current={pageNum}
-          total={Math.ceil((data?.totalCount ?? 0) / 10)}
-          onChange={(page) => setPageNum(pageNum)}
-        />
-      </Row>
+      {isLoading ? (
+        <Row style={{ minHeight: 200 }}>
+          <AppLoader />
+        </Row>
+      ) : (
+        <>
+          <Table
+            columns={columns}
+            pagination={{ position: ["none", "none"] }}
+            dataSource={data?.data}
+          />
+          <Row justify="center" style={{ margin: "16px" }}>
+            <Pagination
+              current={pageNum}
+              total={Math.ceil((data?.totalCount ?? 0) / 10)}
+              onChange={(page) => setPageNum(pageNum)}
+            />
+          </Row>
+        </>
+      )}
     </AppCard>
   );
 };

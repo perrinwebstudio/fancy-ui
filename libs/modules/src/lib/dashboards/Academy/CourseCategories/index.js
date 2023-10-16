@@ -13,7 +13,7 @@ import {
 
 import { Button } from "antd";
 import { IoMdNotifications } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const settings = {
   dots: true,
@@ -25,6 +25,12 @@ const settings = {
 
 const CourseCategories = ({ course, goToSitePage }) => {
   const { images, title, desc, notifications, id } = course;
+
+  const navigate = useNavigate();
+
+  const goToReviewCenter = () => {
+    navigate(`/pages/sites/${id}/review_center/`);
+  };
 
   return (
     <StyledCourseCategoryCard heightFull className="no-card-space">
@@ -40,9 +46,16 @@ const CourseCategories = ({ course, goToSitePage }) => {
         <p>{desc}</p>
         <StyledCourseCategoryFooter>
           <StyledCourseCategoryBadge
-            style={{ backgroundColor: "#E7F4FC", color: "#259BE0" }}
+            style={{
+              backgroundColor: "#E9FFEB",
+              color: "#078514",
+              fontWeight: 800,
+              padding: "4px 12px",
+              cursor: "pointer",
+            }}
+            onClick={goToReviewCenter}
           >
-            <IoMdNotifications />
+            <IoMdNotifications style={{ marginRight: 4 }} />
             {notifications} Items for review
           </StyledCourseCategoryBadge>
           <Button type="primary" onClick={() => goToSitePage(id)}>

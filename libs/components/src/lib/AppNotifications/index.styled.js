@@ -43,7 +43,9 @@ export const StyledDrowdownWrapper = styled.div`
 `;
 
 export const StyledNotifyScrollSubmenu = styled(AppScrollbar)`
+  margin: 0 16px;
   height: 200px;
+  width: auto;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.xxl}px) {
     height: 380px;

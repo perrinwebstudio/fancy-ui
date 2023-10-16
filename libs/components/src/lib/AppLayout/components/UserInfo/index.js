@@ -95,9 +95,7 @@ const UserInfo = ({ hasColor, hideDropDown, propsUser }) => {
                 </StyledCrUserInfoAvatar>
               )}
               <StyledCrUserInfoContent
-                className={`cr-user-info-content ${
-                  hideDropDown && "full-width"
-                }`}
+                className="cr-user-info-content full-width"
               >
                 <StyledUsernameInfo>
                   <StyledUsername

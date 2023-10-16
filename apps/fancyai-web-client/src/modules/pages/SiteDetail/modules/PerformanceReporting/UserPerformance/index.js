@@ -302,7 +302,9 @@ const UserPerformance = ({ prop1 }) => {
         </Col>
       </Row>
       {isLoading ? (
-        <AppLoader />
+        <Row style={{ minHeight: 200 }}>
+          <AppLoader />
+        </Row>
       ) : (
         <Table
           columns={columns}
