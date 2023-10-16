@@ -38,3 +38,4 @@ export * from './lib/AppSuspense';
 export * from './lib/AppTableContainer';
 export * from './lib/AppThemeSetting';
 export * from './lib/AuthRoutes';
+export * from './lib/AppNotificationModal'

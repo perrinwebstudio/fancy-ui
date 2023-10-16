@@ -24,7 +24,7 @@ const SiteConnections = ({ prop1 }) => {
 
   if (isLoading) return <AppLoader />;
   return (
-    <Card>
+    <Card style={{maxWidth: '700px', margin: '0px auto'}}>
       <Form
         onFinish={() => {
           update({
@@ -38,9 +38,9 @@ const SiteConnections = ({ prop1 }) => {
         initialValues={data?.data || {}}
       >
         <AppSiteGoogleProvider selectedGaAccount={gaAccountId} siteId={id}>
-          <SiteSetupStep5 />
+          <SiteSetupStep5 big />
         </AppSiteGoogleProvider>
-        <SiteSetupStep6 sitePlatform={data?.data?.platform} />
+        <SiteSetupStep6 big sitePlatform={data?.data?.platform} />
       </Form>
       <Divider />
 
@@ -65,7 +65,7 @@ const SiteConnections = ({ prop1 }) => {
             setEdit(false);
           }}
         >
-          Save
+          Save Changes
         </Button>
       </div>
     </Card>

@@ -7,8 +7,7 @@ import { CheckOutlined } from '@ant-design/icons';
 import { FaShopify, FaWordpressSimple } from 'react-icons/fa';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
 
-
-const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setInstalledShopifyApp, showNumber }) => {
+const SiteSetupStep6 = ({ big, sitePlatform, validated, setDownloadedWpPlugin, setInstalledShopifyApp, showNumber }) => {
   const WordpressInstruction = [
     {
       key: '1',
@@ -38,7 +37,7 @@ const SiteSetupStep6 = ({ sitePlatform, validated, setDownloadedWpPlugin, setIns
     }
   ];
   const { token } = theme.useToken()
-  return <StepFormWrapper className='form-section'>
+  return <StepFormWrapper big={big} className='form-section'>
     <StyledSiteSetupTitle level={4} id='step6'>{validated && <CheckOutlined
       style={{ marginRight: '10px', color: token.colorSuccess }}
     />} {showNumber && <span>6.</span>} App / Plugin Installation</StyledSiteSetupTitle>

@@ -34,7 +34,7 @@ const SiteBilling = () => {
           initialValues={data?.data || {}}
         >
           <Form.Item name="billingPlan">
-            <SEOPlanPicker buttonLabel={"Try Now"} />
+            <SEOPlanPicker buttonLabel={"Switch Plan"} />
           </Form.Item>
         </Form>
 
@@ -61,7 +61,7 @@ const SiteBilling = () => {
               form.submit();
             }}
           >
-            Confirm Changes
+            Save Changes
           </Button>
         </div>
       </Card>

@@ -7,6 +7,11 @@ export const StyledNotifyListItem = styled(List.Item)`
 
   & .ant-list-item-meta {
     align-items: center;
+    padding: 0 8px;
+  }
+
+  & .ant-list-item-meta-description {
+    background: transparent !important;
   }
 
   & .ant-list-item-meta-avatar {

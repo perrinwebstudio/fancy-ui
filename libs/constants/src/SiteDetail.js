@@ -96,7 +96,7 @@ export const SITE_DETAIL_MENU_CONFIG = {
     subMenu: {
       general: {
         key: "general",
-        text: "General Site / Business Information",
+        text: "Site / Business Information",
       },
       billing: {
         key: "billing",

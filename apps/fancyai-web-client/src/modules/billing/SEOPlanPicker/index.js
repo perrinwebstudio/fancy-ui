@@ -16,7 +16,7 @@ export const SEO_PLANS = [
       '2 Site admin accounts',
       '5 Site admins/authors',
     ],
-    buttonLabel: 'Start Trial',
+    buttonLabel: 'Select',
     color: '#F94F4F',
   },
   {
@@ -33,7 +33,7 @@ export const SEO_PLANS = [
       '2 Site admin accounts',
       '5 Site admins/authors',
     ],
-    buttonLabel:'Start Trial',
+    buttonLabel:'Select',
     color: "#0078CC"
   },
   {
@@ -50,12 +50,13 @@ export const SEO_PLANS = [
       '2 Site admin accounts',
       '5 Site admins/authors',
     ],
-    buttonLabel:'Start Trial',
+    buttonLabel:'Select',
     color:'#9364D4',
   },
   {
     plan:'SEO Enterprise',
     planCode:'Enterprise',
+    planShortCode:'Enterpr',
     pricingComponent:<>
         <><Typography.Title style={{marginBottom: '0px'}} level={4}>$349</Typography.Title>/month</>
     </>,
@@ -67,7 +68,7 @@ export const SEO_PLANS = [
       '2 Site admin accounts',
       '5 Site admins/authors',
     ],
-    buttonLabel:'Start Trial',
+    buttonLabel:'Select',
     color:'#5DD8D3'
   }
 ]
@@ -81,9 +82,7 @@ const SEOPlanPicker = ({ onChange, value, viewMode, buttonLabel }) => {
       const rs = {
         ..._plan,
       }
-      if (rs?.planCode !== 'Lite') {
-        rs.pricingComponent = <><Typography.Title style={{marginBottom: '0px'}} level={4}>${plan.price}</Typography.Title>/month</>
-      }
+      rs.pricingComponent = <><Typography.Title style={{marginBottom: '0px'}} level={4}>${plan.price}</Typography.Title>/month</>
       return rs
     }).filter(p => !!p.planCode)
   }, [data])
@@ -102,7 +101,7 @@ const SEOPlanPicker = ({ onChange, value, viewMode, buttonLabel }) => {
     {
       plans.map((plan) => {
         return <SEOPlanItem
-          viewMode={viewMode}
+          viewMode={value === plan.planCode}
           key={plan.planCode}
           {...plan}
           buttonLabel={buttonLabel || plan.buttonLabel}

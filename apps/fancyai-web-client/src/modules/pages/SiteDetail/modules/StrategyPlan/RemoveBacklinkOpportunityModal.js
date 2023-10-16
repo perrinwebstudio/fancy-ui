@@ -1,13 +1,14 @@
 import React from 'react';
 import { Button, Divider, Form, Typography, theme } from 'antd';
 import { useUpdateBacklinkOpportunityMutation } from 'apps/fancyai-web-client/src/core/api/apiBacklink';
-import { StyledUpdateModal } from './shared.styled';
+import { StyledAppNotificationModal } from '@crema/components'
+import AppNotificationModal from 'libs/components/src/lib/AppNotificationModal';
 
 const RemoveBacklinkOpportunityModal = ({ open, onClose, backlink }) => {
   const {token} = theme.useToken()
   const [update, { isLoading }] = useUpdateBacklinkOpportunityMutation()
 
-  return <StyledUpdateModal closable={false} footer={<></>} open={open} onCancel={onClose}>
+  return <AppNotificationModal closable={false} footer={<></>} open={open} onCancel={onClose}>
     <Typography.Title level={4}>Do you want to remove Backlink Opportunity?</Typography.Title>
     <Divider />
     <Form layout='vertical'>
@@ -45,7 +46,7 @@ const RemoveBacklinkOpportunityModal = ({ open, onClose, backlink }) => {
         onClick={onClose}
         block type='ghost'>Cancel</Button>
     </div>
-  </StyledUpdateModal>
+  </AppNotificationModal>
 }
 
 

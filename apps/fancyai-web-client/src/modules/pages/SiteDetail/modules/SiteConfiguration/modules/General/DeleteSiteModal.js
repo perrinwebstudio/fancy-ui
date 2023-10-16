@@ -1,11 +1,14 @@
 import React from 'react';
-import { Button, Divider, Form, Modal, Space, Typography, theme } from 'antd';
-import { useRejectKeywordMutation } from 'apps/fancyai-web-client/src/core/api/apiKeyword';
+import { Button, Divider, Typography, theme } from 'antd';
 import AppNotificationModal from 'libs/components/src/lib/AppNotificationModal';
+import { useDeleteSiteMutation } from 'apps/fancyai-web-client/src/core/api';
+import { useNavigate } from 'react-router-dom';
+import { initialUrl } from '@crema/constants';
 
-const RemoveKeywordModal = ({ open, onClose, keyword }) => {
+const DeleteSiteModal = ({ site, onClose, open }) => {
+  const navigate = useNavigate()
   const {token} = theme.useToken()
-  const [reject, { isLoading }] = useRejectKeywordMutation()
+  const [remove, { isLoading }] = useDeleteSiteMutation()
 
   return <AppNotificationModal closable={false} footer={<></>} open={open} onCancel={onClose}>
     <Typography.Title level={4}>Do you want to Remove?</Typography.Title>
@@ -18,19 +21,24 @@ const RemoveKeywordModal = ({ open, onClose, keyword }) => {
     </Form> */}
 
     <div style={{marginBottom: '30px'}}>
-      <div><Typography.Text strong style={{fontSize: '15px'}}>Keyword</Typography.Text></div>
-      <div style={{marginTop: '5px'}}><Typography.Text style={{color: token.colorPrimary}}>{keyword?.keyword}</Typography.Text></div>
+      <div><Typography.Text strong style={{fontSize: '15px'}}>Site</Typography.Text></div>
+      <div style={{marginTop: '5px'}}><Typography.Text style={{color: token.colorPrimary}}>{site?.name}</Typography.Text></div>
+    </div>
+
+    <div style={{marginBottom: '30px'}}>
+      <div><Typography.Text strong style={{fontSize: '15px'}}>Site Url</Typography.Text></div>
+      <div style={{marginTop: '5px'}}><Typography.Text style={{color: token.colorPrimary}}>{site?.url}</Typography.Text></div>
     </div>
 
     <Button
       size='large'
       loading={isLoading}
       onClick={() => {
-        reject({
-          siteId: keyword.site,
-          keywordId: keyword._id
+        remove({
+          siteId: site._id,
         }).unwrap().then(() => {
           onClose()
+          navigate(initialUrl)
         }).catch(() => {})
       }}
       type="primary" danger block>Remove</Button>
@@ -45,4 +53,4 @@ const RemoveKeywordModal = ({ open, onClose, keyword }) => {
 }
 
 
-export default RemoveKeywordModal
+export default DeleteSiteModal

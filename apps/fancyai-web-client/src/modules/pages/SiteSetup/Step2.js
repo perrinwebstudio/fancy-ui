@@ -6,14 +6,14 @@ import StepFormWrapper from './StepFormWrapper';
 import { CheckOutlined } from '@ant-design/icons';
 import { CompetitorListForm } from '@crema/modules/siteSetup';
 
-const SiteSetupStep2 = ({ validated, showNumber }) => {
+const SiteSetupStep2 = ({ validated, showNumber, big }) => {
   const {token} = theme.useToken()
   const validateProps = {
     hasFeedback: true,
     validateStatus: validated ? 'success' : '',
   }
 
-  return <StepFormWrapper className='form-section'>
+  return <StepFormWrapper big={big} className='form-section'>
     <StyledSiteSetupTitle level={4} id='step2'>{validated && <CheckOutlined
       style={{marginRight: '10px', color: token.colorSuccess}}
     />} {showNumber && <span>2.</span>} Business Information</StyledSiteSetupTitle>
@@ -27,7 +27,7 @@ const SiteSetupStep2 = ({ validated, showNumber }) => {
       <TextArea rows={3} />
     </Form.Item>
     <Form.Item name="targetCustomer" label="Target Market / Target Customer"  {...validateProps}>
-      <Input />
+      <TextArea rows={3} />
     </Form.Item>
     <Form.Item name="brandVoiceDescription" label="Band Voice Description"  {...validateProps}>
       <TextArea rows={3} />
