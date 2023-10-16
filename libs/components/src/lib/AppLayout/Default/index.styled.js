@@ -1,5 +1,5 @@
 import AppScrollbar from "../../AppScrollbar";
-import { Card, Input, Layout } from "antd";
+import { Card, Input, Layout, Space } from "antd";
 import styled from "styled-components";
 import MainSidebar from "../components/MainSidebar";
 
@@ -363,4 +363,8 @@ export const StyledEmailConfirmPopup = styled(Card)`
     margin-top: 24px;
     min-width: 100px;
   }
+`;
+
+export const StyledHeaderSpace = styled(Space)`
+  row-gap: 0;
 `;
