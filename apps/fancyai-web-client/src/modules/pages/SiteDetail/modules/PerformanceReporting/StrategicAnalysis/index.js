@@ -39,25 +39,25 @@ const StrategicAnalysis = ({ prop1 }) => {
           <StyledAnalysisPane>
             <StyledAnalysisTitle>Long-Term Analysis</StyledAnalysisTitle>
             <StyledAnalysisBody>
-              {analysisData?.longTermAnalysis}
+              {analysisData?.longTermAnalysis ? analysisData?.longTermAnalysis : "Your site and industry are being analyzed and your analysis will be available within the next few days"}
             </StyledAnalysisBody>
           </StyledAnalysisPane>
           <StyledAnalysisPane>
             <StyledAnalysisTitle>Short-Term Analysis</StyledAnalysisTitle>
             <StyledAnalysisBody>
-              {analysisData?.shortTermAnalysis}
+              {analysisData?.shortTermAnalysis ? analysisData?.shortTermAnalysis : "Your site and industry are being analyzed and your analysis will be available within the next few days"}
             </StyledAnalysisBody>
           </StyledAnalysisPane>
           <StyledAnalysisPane>
             <StyledAnalysisTitle>Market Analysis</StyledAnalysisTitle>
             <StyledAnalysisBody>
-              {analysisData?.marketAnalysis}
+              {analysisData?.marketAnalysis ? analysisData?.marketAnalysis : "Your site and industry are being analyzed and your analysis will be available within the next few days"}
             </StyledAnalysisBody>
           </StyledAnalysisPane>
           <StyledAnalysisPane>
             <StyledAnalysisTitle>Recommendations</StyledAnalysisTitle>
             <StyledAnalysisBody>
-              {analysisData?.recommendations}
+              {analysisData?.recommendations ? analysisData?.recommendations : "Your site and industry are being analyzed and your analysis will be available within the next few days"}
             </StyledAnalysisBody>
           </StyledAnalysisPane>
         </>
