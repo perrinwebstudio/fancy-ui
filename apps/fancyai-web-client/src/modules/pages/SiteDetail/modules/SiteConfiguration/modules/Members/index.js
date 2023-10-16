@@ -53,7 +53,8 @@ const SiteMembers = ({ prop1 }) => {
         <StyledSelect
           placeholder="Choose Role"
           value={text}
-          onChange={(e) => {
+            disabled={record.companyUser}
+            onChange={(e) => {
             if (!isEmailVerified) {
               setShowEmailConfirmPopup(true);
               return;
@@ -78,12 +79,14 @@ const SiteMembers = ({ prop1 }) => {
           <StyledEditButton
             type="primary"
             onClick={() => handleOpenEditModal(record.id)}
+            disabled={record.companyUser}
           >
             Edit
           </StyledEditButton>
           <StyledEditButton
             danger
             onClick={() => handleOpenDeleteModal(record.id)}
+            disabled={record.companyUser}
           >
             Delete
           </StyledEditButton>

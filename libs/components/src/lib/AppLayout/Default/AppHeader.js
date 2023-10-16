@@ -25,7 +25,7 @@ const AppHeader = ({ isCollapsed, onToggleSidebar }) => {
 
   return (
     <StyledAppHeader>
-      <Space align="center">
+      <Space direction="vertical" style={{rowGap: "0 !important"}}>
         <Button
           style={{ padding: "5px" }}
           type="ghost"
@@ -36,7 +36,7 @@ const AppHeader = ({ isCollapsed, onToggleSidebar }) => {
           <MenuOutlined />
         </Button>
         <Typography.Title style={{ marginBottom: 0 }} level={4}>
-          Fancy AI
+          FancyAI
         </Typography.Title>
       </Space>
       <StyledAppHeaderSectionDesk>
