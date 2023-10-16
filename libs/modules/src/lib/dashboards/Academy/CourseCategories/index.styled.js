@@ -1,4 +1,5 @@
 import AppCard from "@crema/components/AppCard";
+import { Button } from "antd";
 import Slider from "react-slick";
 import styled from "styled-components";
 
@@ -75,6 +76,15 @@ export const StyledCourseCategoryTitle = styled.h5`
   font-weight: ${({ theme }) => theme.font.weight.bold};
 `;
 
+export const StyledCourseCategoryLink = styled.a`
+  
+`;
+
+export const StyledCourseCategoryDescription = styled.p`
+  margin-top: 4px;
+  color: #626D80;
+`;
+
 export const StyledCourseCategoryFooter = styled.div`
   display: flex;
   align-items: center;
@@ -104,4 +114,8 @@ export const StyledCourseCategoryBadge = styled.span`
       margin-left: 5px;
     }
   }
+`;
+
+export const StyledOpenButton = styled(Button)`
+  min-width: 100px;
 `;

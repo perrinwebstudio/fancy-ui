@@ -7,8 +7,11 @@ import {
   StyledCourseCategoryBadge,
   StyledCourseCategoryCard,
   StyledCourseCategoryContent,
+  StyledCourseCategoryDescription,
   StyledCourseCategoryFooter,
+  StyledCourseCategoryLink,
   StyledCourseCategoryTitle,
+  StyledOpenButton,
 } from "./index.styled";
 
 import { Button } from "antd";
@@ -24,13 +27,15 @@ const settings = {
 };
 
 const CourseCategories = ({ course, goToSitePage }) => {
-  const { images, title, desc, notifications, id } = course;
+  const { images, title, desc, notifications, id, url } = course;
 
   const navigate = useNavigate();
 
   const goToReviewCenter = () => {
     navigate(`/pages/sites/${id}/review_center/`);
   };
+
+  console.log(images, "images");
 
   return (
     <StyledCourseCategoryCard heightFull className="no-card-space">
@@ -43,24 +48,25 @@ const CourseCategories = ({ course, goToSitePage }) => {
       </StyledCourceCategorySlider>
       <StyledCourseCategoryContent>
         <StyledCourseCategoryTitle>{title}</StyledCourseCategoryTitle>
-        <p>{desc}</p>
+        <StyledCourseCategoryLink href={url} target="_blank">{url}</StyledCourseCategoryLink>
+        <StyledCourseCategoryDescription>{desc}</StyledCourseCategoryDescription>
         <StyledCourseCategoryFooter>
           <StyledCourseCategoryBadge
             style={{
               backgroundColor: "#E9FFEB",
               color: "#078514",
-              fontWeight: 800,
+              fontWeight: 500,
               padding: "4px 12px",
               cursor: "pointer",
             }}
             onClick={goToReviewCenter}
           >
             <IoMdNotifications style={{ marginRight: 4 }} />
-            {notifications} Items for review
+            {notifications} Review Items
           </StyledCourseCategoryBadge>
-          <Button type="primary" onClick={() => goToSitePage(id)}>
+          <StyledOpenButton type="primary" onClick={() => goToSitePage(id)}>
             Open
-          </Button>
+          </StyledOpenButton>
         </StyledCourseCategoryFooter>
       </StyledCourseCategoryContent>
     </StyledCourseCategoryCard>
