@@ -37,7 +37,8 @@ export const StyledListItem = styled.div`
 
 export const StyledListItemIcon = styled.span`
   font-size: 18px;
-  margin-right: 16px;
+  margin-right: 14px !important;
+  max-width: 18px;
 
   [dir='rtl'] & {
     margin-right: 0;
