@@ -3,22 +3,27 @@ import PropTypes from 'prop-types';
 import { Table, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { formatCurrency } from '@crema/helpers';
+import dayjs from 'dayjs';
 
 const statusName = {
-  'authorized': 'Authorized',
-  'completed': 'Completed',
-  'declined': 'Declined',
+  'Authorized': 'Authorized',
+  'Completed': 'Completed',
+  'Declined': 'Declined',
+  'Pending': 'Pending',
 };
 const getPaymentStatusColor = (status) => {
   switch (status) {
-    case 'authorized': {
+    case 'Authorized': {
       return '#2997ff';
     }
-    case 'completed': {
+    case 'Completed': {
       return '#43C888';
     }
-    case 'declined': {
+    case 'Declined': {
       return '#F84E4E';
+    }
+    case 'Pending': {
+      return '#2997ff';
     }
   }
 };
@@ -26,23 +31,31 @@ const getPaymentStatusColor = (status) => {
 const getColumns = (navigate, onChangeStatus) => [
   {
     title: 'Transaction number',
-    dataIndex: 'id',
+    dataIndex: '_id',
     key: 'id',
     render: (id, record) => (
-      <Typography.Link
-        onClick={() => navigate(`/invoice/pdf/${id}`)}
+      <Typography.Text
         style={{
           cursor: 'pointer',
         }}
       >
         {id}
-      </Typography.Link>
+      </Typography.Text>
     ),
   },
   {
     title: 'Description',
     dataIndex: 'description',
     key: 'description',
+    render: (id, { plan, count }) => (
+      <Typography.Text
+        style={{
+          cursor: 'pointer',
+        }}
+      >
+        {count} sites SEO {plan}
+      </Typography.Text>
+    ),
   },
   {
     title: 'Status',
@@ -59,7 +72,7 @@ const getColumns = (navigate, onChangeStatus) => [
           display: 'inline-block',
         }}
       >
-        {statusName[status]}
+        {statusName[status] || status}
       </div>
     ),
   },
@@ -67,12 +80,15 @@ const getColumns = (navigate, onChangeStatus) => [
     title: 'Date',
     dataIndex: 'date',
     key: 'date',
+    render: (_, record) => {
+      return dayjs(record.createdAt).format('DD MMM YYYY')
+    }
   },
   {
     title: 'Amount',
     dataIndex: 'amount',
     key: 'amount',
-    render: (amount) => <span>{formatCurrency(amount, {
+    render: (_, record) => <span>{formatCurrency(record.toalAmount || record.totalAmount, {
       language: 'en-US',
       currency: 'USD',
     }, 2)}</span>,

@@ -18,6 +18,7 @@ import {
   useAddStripePaymentMethodMutation,
   useGetCompanyBillingDetailQuery,
   useGetCompanyNextBillingAmountMutation,
+  useGetCompanyPaymentHistoryQuery,
   useGetPaypalLinkMutation,
 } from "apps/fancyai-web-client/src/core/api/apiBilling";
 import AppLoader from "@crema/components/AppLoader";
@@ -35,6 +36,10 @@ const Billing = () => {
     useGetCompanyBillingDetailQuery({
       companyId: selectedCompanyId,
     });
+
+  const { data: transactionData, isLoading: isLoadingTransactions } = useGetCompanyPaymentHistoryQuery({
+    companyId: selectedCompanyId
+  })
 
   const [getBillingAmount, { isLoading: isLoadingAmount }] = useGetCompanyNextBillingAmountMutation()
 
@@ -100,7 +105,7 @@ const Billing = () => {
         <AppRowContainer>
           <Col xs={24} sm={24} lg={24}>
             <Card>
-              <BillingTable transactionsData={transactions} />
+              <BillingTable loading={isLoadingTransactions} transactionsData={transactionData?.data || []} />
             </Card>
           </Col>
         </AppRowContainer>

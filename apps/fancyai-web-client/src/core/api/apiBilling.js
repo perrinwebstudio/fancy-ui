@@ -47,7 +47,14 @@ export const apiBilling = api.injectEndpoints({
         url: `billing/billing-plan/`,
         method: "GET",
       }),
-    })
+    }),
+    getCompanyPaymentHistory: build.query({
+      query: ({ companyId }) => ({
+        url: `company/${companyId}/payment/history`,
+        method: "GET",
+      }),
+      providesTags: ['CompanyPaymentHistory']
+    }),
   }),
 });
 
@@ -57,5 +64,6 @@ export const {
   useGetPaypalLinkMutation,
   useSubmitPaypalTokenMutation,
   useGetCompanyNextBillingAmountMutation,
-  useGetSiteSubscriptionPlansQuery
+  useGetSiteSubscriptionPlansQuery,
+  useGetCompanyPaymentHistoryQuery
 } = apiBilling;
