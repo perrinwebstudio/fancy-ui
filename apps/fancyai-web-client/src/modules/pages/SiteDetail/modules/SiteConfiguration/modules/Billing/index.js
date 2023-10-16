@@ -61,7 +61,7 @@ const SiteBilling = () => {
               form.submit();
             }}
           >
-            Confirm Changes
+            Save Changes
           </Button>
         </div>
       </Card>
